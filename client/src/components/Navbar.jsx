@@ -202,34 +202,17 @@
 //   );
 // }
 
-import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {  useNavigate, useSearchParams } from "react-router-dom";
 import { debounce } from "time-loom";
 
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/actions/userActions";
-import ExIphoneLogo from "./ExIphoneLogo";
-import {
-  AiOutlineShoppingCart,
-  AiOutlineHeart,
-  AiOutlineUser,
-  AiOutlineHistory,
-  AiOutlineLogout,
-  AiOutlineHome,
-  AiOutlineWallet,
-} from "react-icons/ai";
-import { RiDashboardLine } from "react-icons/ri";
-import { GiHamburgerMenu, GiMailbox } from "react-icons/gi";
-import { BiHistory, BiUser } from "react-icons/bi";
-import { FiLogOut } from "react-icons/fi";
-import { MdTrackChanges } from "react-icons/md";
-import { TiTicket } from "react-icons/ti";
-import OutsideTouchCloseComponent from "./OutsideTouchCloseComponent";
+
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import logo from "../assets/TrendKart.png";
-import { Heart, Search, ShoppingCart, User } from "lucide-react";
-import { Input } from "./ui/input";
+import { Heart, ShoppingCart, User } from "lucide-react";
+import SageLogo from "../assets/sage-logo.png"
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.user);
@@ -361,7 +344,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           <a href="/" className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-red-600">Trend Kart</h1>
+            <img src={SageLogo} width={100} height={100} />
           </a>
           <div className="relative hidden flex-1 max-w-xl lg:block">
             <SearchBar
@@ -390,12 +373,12 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <nav className="mt-4 hidden lg:block">
-          <ul className="flex gap-8">
+        <nav className="mt-4 hidden lg:block py-3 rounded-md  bg-[#166272]">
+          <ul className="flex gap-8 px-4">
             {categories.map((category) => (
               <li key={category}>
                 <Link
-                  className="text-sm font-medium text-gray-600 hover:text-gray-900"
+                  className="text-sm font-medium text-white hover:text-gray-900"
                   href={`/category/${category.toLowerCase()}`}
                 >
                   {category}

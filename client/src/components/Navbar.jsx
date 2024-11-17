@@ -203,7 +203,7 @@
 // }
 
 import { useEffect, useState } from "react";
-import {  useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { debounce } from "time-loom";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -211,8 +211,9 @@ import { logout } from "../redux/actions/userActions";
 
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import { Heart, ShoppingCart, User } from "lucide-react";
-import SageLogo from "../assets/sage-logo.png"
+import { Heart, Menu, ShoppingCart, User } from "lucide-react";
+import SageLogo from "../assets/sage-logo.png";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.user);
@@ -351,7 +352,6 @@ const Navbar = () => {
               handleClick={handleClick}
               search={search}
               setSearch={setSearch}
-          
             />
             {/* <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
 
@@ -371,8 +371,28 @@ const Navbar = () => {
             <Link to="/cart" variant="ghost" size="icon">
               <ShoppingCart className="h-5 w-5" />
             </Link>
+            <Menu
+              className="h-5 w-5 hidden max-lg:block cursor-pointer"
+              onClick={toggleSideNavbar}
+            />
           </div>
         </div>
+        {showSideNavbar && (
+          <nav className="mt-4 py-3 rounded-md bg-[#166272] lg:hidden animate-slide-down">
+            <ul className="flex flex-col gap-4 px-4">
+              {categories.map((category) => (
+                <li key={category}>
+                  <Link
+                    className="text-sm font-medium text-white hover:text-gray-900"
+                    href={`/category/${category.toLowerCase()}`}
+                  >
+                    {category}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
         <nav className="mt-4 hidden lg:block py-3 rounded-md  bg-[#166272]">
           <ul className="flex gap-8 px-4">
             {categories.map((category) => (

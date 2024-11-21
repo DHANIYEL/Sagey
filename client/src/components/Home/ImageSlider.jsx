@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 import HomeImg from "../../assets/home.png";
-import Image2 from "../../assets/home2.jpg";
+import Image2 from "../../assets/home.png";
 import Image3 from "../../assets/home.png";
 
 const images = [HomeImg, Image2, Image3];
@@ -12,7 +12,6 @@ function ImageSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalImages = images.length;
 
-  // Automatically change slide every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
@@ -30,22 +29,13 @@ function ImageSlider() {
     );
   };
 
-  const scrollToNewArrivals = () => {
-    // Using the ID to scroll
-    const newArrivalsSection = document.getElementById("newArrival");
-    if (newArrivalsSection) {
-      newArrivalsSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center py-20">
       <main>
-        <section className="relative bg-[#C84332] h-[80vh] w-full overflow-hidden">
-          <div className="relative h-full w-full">
-            {/* Navigation Buttons */}
+        <section className="relative  h-[400px] w-[1000px] overflow-hidden">
+          <div className="relative h-full w-full flex items-center justify-center">
             <Button
-              className="absolute left-10 top-1/2 -translate-y-1/2 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70"
+              className="absolute left-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10"
               size="icon"
               variant="ghost"
               onClick={handlePrev}
@@ -53,7 +43,7 @@ function ImageSlider() {
               <ChevronLeft className="h-8 w-8 text-black" />
             </Button>
             <Button
-              className="absolute right-10 top-1/2 -translate-y-1/2 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70"
+              className="absolute right-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10"
               size="icon"
               variant="ghost"
               onClick={handleNext}
@@ -61,49 +51,44 @@ function ImageSlider() {
               <ChevronRight className="h-8 w-8 text-black" />
             </Button>
 
-            {/* Sliding Image Container */}
+            {/* Slider Container */}
             <div
-              className="flex h-full w-full transition-transform duration-500 ease-in-out"
+              className="flex h-full transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
+                transform: `translateX(-${currentIndex * 100}%)`, // Slide to the current image
               }}
             >
               {images.map((image, index) => (
-                <img
+                <div
                   key={index}
-                  alt={`Slide ${index}`}
-                  className="h-full w-full object-cover flex-shrink-0"
-                  src={image}
-                />
+                  className="h-full w-full flex items-center justify-center flex-shrink-0"
+                  style={{ flex: "0 0 100%" }} // Each image takes 100% of the container width
+                >
+                  <img
+                    src={image}
+                    alt={`Slide ${index + 1}`}
+                    className="h-auto max-h-full w-auto rounded-lg"
+                  />
+                </div>
               ))}
             </div>
 
-            {/* Overlay Content */}
-            <div className="absolute bottom-12 w-full flex flex-col items-center">
-              <Button
-                className="rounded-full bg-white px-12 py-3 text-lg font-medium text-black hover:bg-gray-100 shadow-lg"
-                onClick={scrollToNewArrivals}
-              >
-                Shop Now
-              </Button>
-              <div className="mt-6 flex justify-center gap-2">
-                {images.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`h-3 w-3 rounded-full ${
-                      index === currentIndex
-                        ? "bg-white"
-                        : "bg-white opacity-50"
-                    }`}
-                  />
-                ))}
-              </div>
+            {/* Dots Indicator */}
+            <div className="absolute bottom-4 w-full flex justify-center gap-2">
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-3 w-3 rounded-full ${
+                    index === currentIndex
+                      ? "bg-white"
+                      : "bg-white opacity-50"
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </section>
       </main>
-
-  
     </div>
   );
 }

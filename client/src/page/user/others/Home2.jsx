@@ -30,8 +30,8 @@ export default function Home2() {
     </div>
     <ImageSlider images={offImages} hideArrows={true} hideThreeDot={true} slideInterval={3000} />
 
-      <LogoSlider />
       <NewArrivals />
+      <LogoSlider />
       <OurProducts />
       {/* <BestSellers /> */}
       <CategoriesGroup />

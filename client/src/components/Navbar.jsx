@@ -368,7 +368,7 @@ const Navbar = () => {
         </div>
         {showSideNavbar && (
           <div
-          className={`fixed top-0 right-0 w-1/2 h-screen bg-[#166272] z-50 animate__animated ${
+          className={`fixed top-0 right-0 w-1/2 h-screen bg-primary z-50 animate__animated ${
             showSideNavbar ? 'animate__fadeInRight' : 'animate__fadeOutRight'
           }`}
           >
@@ -406,7 +406,7 @@ const Navbar = () => {
         {/* Conditional rendering for the nav only on "/" route */}
         {window.location.pathname === "/" && (
           <div className="w-full flex justify-center items-center relative">
-            <nav className="mt-4 hidden lg:block py-3 rounded-md w-[100vw]  bg-[#166272]">
+            <nav className="mt-4 hidden lg:block py-3 rounded-md w-[100vw]  bg-primary">
               <ul className="flex gap-8 px-4 justify-center items-center">
                 {categories.map((category) => (
                   <li key={category}>

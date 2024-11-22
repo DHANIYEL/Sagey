@@ -10,6 +10,8 @@ import BannerSection from "../../../components/Home/InstaBanner"
 export default function Home2() {
   return (
     <>
+    <div className="py-10 px-20">
+
       <ImageSlider />
       <LogoSlider />
       <NewArrivals />
@@ -18,6 +20,7 @@ export default function Home2() {
       <CategoriesGroup />
       <BannerSection/>
       <ReviewSlider />
+    </div>
     </>
   );
 }

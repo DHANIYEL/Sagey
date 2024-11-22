@@ -30,9 +30,9 @@ function ImageSlider() {
   };
 
   return (
-    <div className="flex flex-col items-center py-20">
+    <div className="flex flex-col items-center py-10">
       <main>
-        <section className="relative  h-[400px] w-[1000px] overflow-hidden">
+        <section className="relative h-[400px] max-w-full overflow-hidden">
           <div className="relative h-full w-full flex items-center justify-center">
             <Button
               className="absolute left-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10"
@@ -53,7 +53,7 @@ function ImageSlider() {
 
             {/* Slider Container */}
             <div
-              className="flex h-full transition-transform duration-500 ease-in-out"
+              className="flex h-full w-full transition-transform duration-500 ease-in-out"
               style={{
                 transform: `translateX(-${currentIndex * 100}%)`, // Slide to the current image
               }}
@@ -67,7 +67,7 @@ function ImageSlider() {
                   <img
                     src={image}
                     alt={`Slide ${index + 1}`}
-                    className="h-auto max-h-full w-auto rounded-lg"
+                    className="h-full w-5/6 object-cover rounded-lg"
                   />
                 </div>
               ))}

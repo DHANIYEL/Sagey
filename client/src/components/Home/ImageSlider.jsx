@@ -32,7 +32,7 @@ function ImageSlider({ images, hideArrows = false, hideThreeDot = false,   slide
             {!hideArrows && (
               <>
                 <Button
-                  className="absolute left-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10"
+                  className="absolute left-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10 max-md:hidden"
                   size="icon"
                   variant="ghost"
                   onClick={handlePrev}
@@ -40,7 +40,7 @@ function ImageSlider({ images, hideArrows = false, hideThreeDot = false,   slide
                   <ChevronLeft className="h-8 w-8 text-black" />
                 </Button>
                 <Button
-                  className="absolute right-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10"
+                  className="absolute right-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10 max-md:hidden"
                   size="icon"
                   variant="ghost"
                   onClick={handleNext}

@@ -16,18 +16,18 @@ import offImg2 from "../../../assets/trendskart/home/offer-img-2.jpg"
 
 
 const images = [HomeImg, Image2, Image3];
-const offImages = [offImg1, offImg2, offImg1];
+const offImages = [offImg1, offImg2];
 
 
 export default function Home2() {
   return (
     <>
-    <div className="py-10 px-20">
+    <div className="py-10 px-20 max-md:px-10">
     <ImageSlider images={images} hideArrows={false}  />
     <h1>THRILLER DEALS</h1>
     <ImageSlider images={offImages} hideArrows={true} hideThreeDot={true} slideInterval={3000} />
 
-    <LogoSlider />
+      <LogoSlider />
       <NewArrivals />
       <OurProducts />
       {/* <BestSellers /> */}

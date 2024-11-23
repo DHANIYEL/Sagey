@@ -418,7 +418,7 @@ const SingleProduct = () => {
                 onClick={() => handleClick("div3")}
               >
                 <h1 className="font-sans text-[16px] font-light lg:text-[22px] ">
-                  Shipping & Returns
+                  About the Brand
                 </h1>
                 <RiArrowDropDownLine
                   className={`text-4xl font-[100] transition-transform duration-300 ${

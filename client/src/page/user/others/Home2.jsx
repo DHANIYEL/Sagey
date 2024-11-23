@@ -26,9 +26,9 @@ export default function Home2() {
     <>
     <div className="py-10 px-20 max-md:px-10">
     <ImageSlider images={images} hideArrows={false}  />
-    <div className="ml-10">
+    <div className="ml-4">
     <h1 className="font-bold text-xl">THRILLER DEALS</h1>
-    <div className="h-1 w-16 hover:w-20 bg-primary"></div>
+    <div className="h-1 w-20 bg-primary"></div>
     </div>
     <ImageSlider images={offImages} hideArrows={true} hideThreeDot={true} slideInterval={3000} />
 
@@ -36,12 +36,12 @@ export default function Home2() {
       <MakeUrStyle />
 
       <FlashSale />
-      <LogoSlider />
       <OurProducts />
+      <ReviewSlider />
+      <LogoSlider />
       {/* <BestSellers /> */}
       <CategoriesGroup />
       <BannerSection/>
-      <ReviewSlider />
     </div>
     </>
   );

@@ -1,39 +1,110 @@
-import React from 'react';
+'use client'
 
+import React, { useCallback } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent } from "@/components/ui/card"
+
+const reviews = [
+  {
+    name: 'Sarah M.',
+    message: "I'm blown away by the quality and style of the clothes I received from ShopZoo. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
+    rating: 5
+  },
+  {
+    name: 'Alex K.',
+    message: "Finding clothes that align with my personal style used to be a challenge until I discovered ShopZoo. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
+    rating: 5
+  },
+  {
+    name: 'James L.',
+    message: "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon ShopZoo. The selection of clothes is not only diverse but also on-point with the latest trends.",
+    rating: 5
+  },
+  {
+    name: 'Emily R.',
+    message: "ShopZoo has completely transformed my wardrobe. The attention to detail in their designs and the quality of their materials is second to none. Highly recommend!",
+    rating: 5
+  },
+  {
+    name: 'Michael B.',
+    message: "I've tried several online stores, but none compare to ShopZoo. Their delivery is quick, and the clothes fit perfectly every time. A loyal customer for life!",
+    rating: 5
+  },
+  {
+    name: 'Sophia H.',
+    message: "The customer service at ShopZoo is incredible! They helped me find the right size and style, and the clothes look amazing. Great experience overall!",
+    rating: 5
+  },
+  {
+    name: 'David T.',
+    message: "ShopZoo is my go-to for trendy and affordable clothing. Every time I shop here, I'm impressed by how stylish and comfortable the clothes are.",
+    rating: 4
+  },
+  {
+    name: 'Olivia W.',
+    message: "I love how ShopZoo keeps their collection fresh and exciting. It feels like they always have something new for me to try. Fantastic variety!",
+    rating: 5
+  },
+  {
+    name: 'Chris P.',
+    message: "ShopZoo offers unbeatable value for money. The quality of their clothing rivals high-end brands, but the prices are super reasonable.",
+    rating: 5
+  }
+]
 
 function ReviewSlider() {
-  const reviews = [
-    {
-      name: 'Sarah M.',
-      message: "I'm blown away by the quality and style of the clothes I received from ShopZoo. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
-      rating: 5
-    },
-    {
-      name: 'Alex K.',
-      message: "Finding clothes that align with my personal style used to be a challenge until I discovered ShopZoo. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
-      rating: 5
-    },
-    {
-      name: 'James L.',
-      message: "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon ShopZoo. The selection of clothes is not only diverse but also on-point with the latest trends.",
-      rating: 5
-    }
-  ];
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
+    slidesToScroll: 1,
+  })
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
 
   return (
     <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
       <Header />
-      <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {reviews.map((review, index) => (
-          <Review key={index} review={review} />
-        ))}
+      <div className="relative mt-10 max-w-7xl mx-auto">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex">
+            {reviews.map((review, index) => (
+              <div key={index} className="flex-[0_0_100%] min-w-0 pl-4 sm:pl-6 md:flex-[0_0_50%] lg:flex-[0_0_33.33%]">
+                <Review review={review} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <Button
+          variant="outline"
+          size="icon"
+          className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+          onClick={scrollPrev}
+        >
+          <ChevronLeft className="h-4 w-4" />
+          <span className="sr-only">Previous review</span>
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+          onClick={scrollNext}
+        >
+          <ChevronRight className="h-4 w-4" />
+          <span className="sr-only">Next review</span>
+        </Button>
       </div>
     </div>
-  );
+  )
 }
-
-export default ReviewSlider;
-
 
 function Header() {
   return (
@@ -42,44 +113,34 @@ function Header() {
         Our Happy Customers
       </h2>
     </div>
-  );
+  )
 }
-
 
 function Review({ review }) {
   return (
-    <div className="bg-gray-50 overflow-hidden shadow rounded-lg">
-      <div className="px-6 py-5 sm:px-8">
+    <Card className="h-full">
+      <CardContent className="p-6">
         <div className="flex items-start space-x-4">
-          <div className="flex-shrink-0">
-            <img
-              className="inline-block h-10 w-10 rounded-full"
-              src={`https://ui-avatars.com/api/?name=${review.name}&background=0D8ABC&color=fff`}
-              alt={review.name}
-            />
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-gray-900">{review.name}</p>
-            <p className="text-sm text-gray-500">{review.message}</p>
-          </div>
-        </div>
-        <div className="mt-4">
-          <div className="flex items-center">
-            {[...Array(review.rating)].map((_, i) => (
-              <svg
-                key={i}
-                className="text-yellow-400 h-5 w-5 flex-shrink-0"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            ))}
+          {/* <Avatar>
+            <AvatarImage src={`https://ui-avatars.com/api/?name=${review.name}&background=0D8ABC&color=fff`} alt={review.name} />
+            <AvatarFallback>{review.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          </Avatar> */}
+          <div className="space-y-1">
+            <h3 className="text-sm font-medium text-gray-900">{review.name}</h3>
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`h-4 w-4 ${i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
+        <p className="mt-4 text-sm text-gray-500">{review.message}</p>
+      </CardContent>
+    </Card>
+  )
 }
+
+export default ReviewSlider

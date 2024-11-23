@@ -187,19 +187,20 @@ const SingleProduct = () => {
   const handleSelectAttribute = (attributeName, value) => {
     setSelectedAttributes((prev) => ({
       ...prev,
-      [attributeName]: value === prev[attributeName] ? null : value, // Toggle selection
+      // [attributeName]: value === prev[attributeName] ? null : value, // Toggle selection
+      [attributeName]: selectedAttribute[attributeName] === value ? null : value,
     }));
 
     const selectedAttribute = product.attributes.find(
       (attr) => attr.name === attributeName && attr.value === value
     );
 
-    if (selectedAttribute) {
-      const imageIndex = selectedAttribute.imageIndex; // Get imageIndex
-      if (imageIndex !== undefined) {
-        setSelectedImageIndex(imageIndex); // Set selected image index
-      }
-    }
+    // if (selectedAttribute) {
+    //   const imageIndex = selectedAttribute.imageIndex; // Get imageIndex
+    //   if (imageIndex !== undefined) {
+    //     setSelectedImageIndex(imageIndex); // Set selected image index
+    //   }
+    // }
   };
 
   // Combine the base image and more images
@@ -209,8 +210,8 @@ const SingleProduct = () => {
 
   return (
     <div className="w-full flex flex-col justify-start items-center">
-      <div className="w-full flex my-6">
-        <h1 className="flex justify-center items-center font-Inter px-5 lg:px-32">
+      <div className="w-full flex my-6 items-left">
+        <h1 className="flex justify-center items-center font-Inter px-5 lg:px-20">
           <span>
             <HomeIcon color="#2C2C2C" />
           </span>
@@ -223,34 +224,60 @@ const SingleProduct = () => {
       </div>
       <div className="w-full lg:px-20 justify-center">
         <div className="w-full my-2 flex flex-col lg:flex-row">
-          <div className="w-full lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col">
-            <ProductSlider
-              images={imageArray}
-              selectedImageIndex={selectedImageIndex}
-            />
-          </div>
+        <div className="w-full lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col">
+  <ProductSlider
+    images={imageArray}
+    selectedImageIndex={selectedImageIndex}
+  />
+  <div className="flex justify-start space-x-2 w-full pt-10">
+    <div className="w-1/2">
+      <Button
+        disabled={cartLoading}
+        onClick={addToCart}
+        className="bg-[#166272] mt-3 w-full h-12 rounded-[5px] font-Inter text-[16px] text-white px-10"
+      >
+        {cartLoading ? "Loading" : "Add to Bag"}
+      </Button>
+    </div>
+    <div className="w-1/2">
+      {isProductInWishlist ? (
+        <Button className="bg-black mt-3 w-full h-12 rounded-[5px] font-Inter text-[16px] text-[#166272] px-10 border-[1px] border-[#166272] ">
+          Wishlist ♥
+        </Button>
+      ) : (
+        <Button
+          onClick={dispatchAddWishlist}
+          className="bg-white mt-3 w-full hover:text-white h-12 rounded-[5px] font-Inter text-[16px] text-[#166272] px-10 border-[2px] border-[#166272] "
+        >
+          Wishlist
+        </Button>
+      )}
+    </div>
+  </div>
+</div>
+
           <div className="mt-8 lg:mt-0 lg:w-1/2 px-8">
             <h1 className="text-[16px] lg:text-[30px] xl:text-[40px] font-light font-sans">
               {product.name}
             </h1>
             <div className="flex w-full mt-1 lg:border-t-[1px] border-t-[#9F9F9F] lg:mt-6 pt-3">
               <h1 className="text-[16px] lg:text-[20px] xl:text-[30px] font-semibold font-Inter text-[#2C2C2C] ">
-                {product.price} ₹
+              ₹ {product.price} 
               </h1>
               {product.offer && (
                 <>
                   <h1 className="text-[16px] lg:text-[20px] xl:text-[30px] font-light font-Inter text-[#949494] ml-3 line-through">
-                    {parseInt(product.price / (1 - product.offer / 100))}₹
+                  ₹{parseInt(product.price / (1 - product.offer / 100))}
                   </h1>
-                  <div className="ml-3 px-2 w-auto h-auto md:ml-4 bg-[#C84253] rounded-[2px] text-white text-[12px] lg:text-[13px] flex justify-center items-center">
+                  <div className="ml-3 px-2 w-auto h-auto md:ml-4  rounded-[2px] text-[#C84253] text-[12px] lg:text-[13px] flex justify-center items-center">
                     {product.offer}% Off
                   </div>
                 </>
               )}
             </div>
             <div className="mt-1">
-              <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-[#C84253] ">
-                Incl. of all taxes
+              <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-black ">
+                Inclusive of all taxes
               </h1>
             </div>
             <div className="w-full lg:hidden h-4 mt-2 bg-[#F7F7F7]"></div>
@@ -293,12 +320,12 @@ const SingleProduct = () => {
                           {values.map(({ value, imageIndex }, valueIndex) => (
                             <p
                               key={valueIndex}
-                              className={`py-2 my-2 px-4 rounded-full cursor-pointer 
+                              className={`py-2 my-2 px-4 rounded-none cursor-pointer 
               transition-colors duration-300 
               ${
                 selectedAttributes[name] === value
-                  ? "bg-blue-600 text-white" // Selected state
-                  : "bg-gray-200 text-black hover:bg-blue-100"
+                  ? "bg-[#166272] text-white" // Selected state
+                  : "bg-gray-200 text-black hover:bg-green-100"
               } // Default and hover states
             `}
                               onClick={() => handleSelectAttribute(name, value)}
@@ -320,7 +347,7 @@ const SingleProduct = () => {
                     increment={increment}
                   />
                 </div>
-                <div className="w-full flex justify-start pt-8">
+                {/* <div className="w-full flex justify-start pt-8">
                   <div className="flex items-center flex-col text-center">
                     <div className="flex items-center justify-center h-12 w-12 mb-2">
                       <ReplacementPolicy className="h-full w-full" />
@@ -337,29 +364,8 @@ const SingleProduct = () => {
                       Fast Delivery
                     </h1>
                   </div>
-                </div>
-                <div className="flex justify-start space-x-2 w-full pt-10">
-                  <Button
-                    disabled={cartLoading}
-                    onClick={addToCart}
-                    className="bg-[#CC4254] mt-3 w-1/2 md:w-auto h-12 rounded-[10px] font-Inter text-[16px] text-white px-10"
-                  >
-                    {cartLoading ? "Loading" : "Add to Bag"}
-                  </Button>
-
-                  {isProductInWishlist ? (
-                    <Button className="bg-black mt-3 w-1/2 md:w-auto h-12 rounded-[10px] font-Inter text-[16px] text-white px-10 border-[1px] border-[#777777] ">
-                      Wishlist ♥
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={dispatchAddWishlist}
-                      className="bg-white mt-3 w-1/2 hover:text-white md:w-auto h-12 rounded-[10px] font-Inter text-[16px] text-black px-10 border-[1px] border-[#777777] "
-                    >
-                      Wishlist
-                    </Button>
-                  )}
-                </div>
+                </div> */}
+                
               </div>
             </div>
             <div className="w-full h-4 mt-2 lg:hidden bg-[#F7F7F7]"></div>

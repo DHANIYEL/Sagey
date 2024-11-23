@@ -1,25 +1,11 @@
 import { URL } from "@/Common/api";
 import React, { useState } from "react";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { RxDotFilled } from "react-icons/rx";
 
 const ProductSlider = ({ images, selectedImageIndex }) => {
-  const [currentIndex, setCurrentIndex] = useState(selectedImageIndex); // Initialize with the selected index
+  const [currentIndex, setCurrentIndex] = useState(selectedImageIndex);
 
-  const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const nextSlide = () => {
-    const isLastSlide = currentIndex === images.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const goToSlide = (slideIndex) => {
-    setCurrentIndex(slideIndex);
+  const handleThumbnailClick = (index) => {
+    setCurrentIndex(index);
   };
 
   // Update the current index when selectedImageIndex changes
@@ -28,31 +14,33 @@ const ProductSlider = ({ images, selectedImageIndex }) => {
   }, [selectedImageIndex]);
 
   return (
-    <div className="w-full h-full m-auto relative group">
-      <div
-        style={{
-          backgroundImage: `url('${URL}/img/${images[currentIndex]}')`,
-        }}
-        className="w-full h-full bg-center bg-cover duration-500 lg:rounded-xl"
-      ></div>
-      {/* Left Arrow */}
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-        <BsChevronCompactLeft onClick={prevSlide} size={30} />
-      </div>
-      {/* Right Arrow */}
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-        <BsChevronCompactRight onClick={nextSlide} size={30} />
-      </div>
-      <div className="flex top-4 justify-center py-2">
-        {images.map((_, slideIndex) => (
+    <div className="flex h-[500px] w-full">
+      {/* Thumbnails on the left */}
+      <div className="flex flex-col justify-start items-left gap-2 overflow-y-scroll scrollbar-hide h-full w-1/5">
+        {images.map((image, index) => (
           <div
-            key={slideIndex}
-            onClick={() => goToSlide(slideIndex)}
-            className="text-2xl cursor-pointer"
+            key={index}
+            onClick={() => handleThumbnailClick(index)}
+            className={`w-24 h-44 cursor-pointer ${
+              index === currentIndex ? "border-2 border-[#CC4254]" : ""
+            }`}
           >
-            <RxDotFilled className="text-[#CC4254]" />
+            <img
+              src={`${URL}/img/${image}`}
+              alt={`Thumbnail ${index + 1}`}
+              className="w-full h-full object-cover rounded"
+            />
           </div>
         ))}
+      </div>
+
+      {/* Main Image on the right */}
+      <div className="flex-1 h-full pl-4">
+        <img
+          src={`${URL}/img/${images[currentIndex]}`}
+          alt={`Main Image`}
+          className="w-full h-full object-cover rounded"
+        />
       </div>
     </div>
   );

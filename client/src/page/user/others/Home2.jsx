@@ -1,11 +1,7 @@
-import CategoriesGroup from "@/components/Home/CategoriesGroup";
 import ImageSlider from "@/components/Home/ImageSlider";
-import LogoSlider from "@/components/Home/LogoSlider";
 import NewArrivals from "@/components/Home/NewArrivals";
 import OurProducts from "@/components/Home/OurProducts";
 import ReviewSlider from "@/components/Home/ReviewSlider";
-import BestSellers from "@/components/Others/BestSellers";
-import BannerSection from "../../../components/Home/InstaBanner"
 
 import HomeImg from "../../../assets/home.png";
 import Image2 from "../../../assets/home2.jpg";
@@ -20,7 +16,17 @@ import FlashSale from "@/components/Home/FlashSale";
 const images = [HomeImg, Image2, Image3];
 const offImages = [offImg1, offImg2];
 
+const handleClickFunctionWhats = ()=> {
+  const phoneNumber = '9072374704'; // Replace with the WhatsApp number
+  const message = encodeURIComponent('Hi, I’m excited to create my own custom-designed dress! Can you help me bring my vision to life?');
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
+  window.open(whatsappUrl, '_blank');
+  
+}
+const handleClickFunctionInsta = ()=> {
+  window.open('https://www.instagram.com/sagey.in/', '_blank');
+}
 export default function Home2() {
   return (
     <>
@@ -33,15 +39,23 @@ export default function Home2() {
     <ImageSlider images={offImages} hideArrows={true} hideThreeDot={true} slideInterval={3000} />
 
       <NewArrivals />
-      <MakeUrStyle />
-
+      <MakeUrStyle
+      heading="CREATE YOUR OWN STYLE"
+      description="Unlock endless possibilities and showcase your unique flair with customizable designs tailored just for you. Whether expressing personal style or creating a one-of-a-kind gift, our platform offers a seamless design experience with a variety of options and high-quality materials. Your style, your rules – the possibilities are endless!"
+      btnName="Start Now"
+      handleClick={handleClickFunctionWhats}
+    />
       <FlashSale />
       <OurProducts />
       <ReviewSlider />
-      <LogoSlider />
+
       {/* <BestSellers /> */}
-      <CategoriesGroup />
-      <BannerSection/>
+      <MakeUrStyle
+      heading="@sagey.in follow us on instagram"
+      description="#Wear The Change"
+      btnName="Follow Us"
+      handleClick={handleClickFunctionInsta}
+    />
     </div>
     </>
   );

@@ -1,14 +1,13 @@
-'use client'
+"use client";
 
-import React, { useCallback } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import pant from '../../assets/Sagey/Product1.png';
-import Shirt from '../../assets/Sagey/model1.png';
-import OrangeTShirt from '../../assets/Sagey/product1.png';
-import tShirt from '../../assets/Sagey/model1.png';
-
+import React, { useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import pant from "../../assets/Sagey/Product1.png";
+import Shirt from "../../assets/Sagey/model1.png";
+import OrangeTShirt from "../../assets/Sagey/product1.png";
+import tShirt from "../../assets/Sagey/model1.png";
 
 const categories = [
   {
@@ -31,51 +30,55 @@ const categories = [
     image: tShirt,
     bgColor: "bg-stone-200",
   },
-]
+];
 
 const FlashSale = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    align: 'start',
-  })
+    align: "start",
+  });
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev()
-  }, [emblaApi])
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext()
-  }, [emblaApi])
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   return (
     <div className="relative max-w-[90rem] mx-auto overflow-hidden py-10">
+      <div className=" mb-4 font-bold text-2xl">
+        <h1 className="">FLASH SALES</h1>
+        <div className="h-1 w-16 hover:w-20 bg-primary"></div>
+      </div>
       {/* Carousel Container */}
       <div className="overflow-hidden" ref={emblaRef}>
-  <div className="flex">
-    {categories.map((category, index) => (
-      <div
-        key={index}
-        className="relative flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] md:flex-[0_0_25%]"
-      >
-        <div className={`relative aspect-[3/4] ${category.bgColor}`}>
-          <img
-            src={category.image}
-            alt={category.title}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading={index === 0 ? 'eager' : 'lazy'}
-          />
-          <div className="absolute inset-0 bg-black/20" />
-          <div className="absolute bottom-6 left-6">
-            <h3 className="text-white text-2xl font-bold tracking-wider">
-              {category.title}
-            </h3>
-          </div>
+        <div className="flex">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className="relative flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] md:flex-[0_0_25%]"
+            >
+              <div className={`relative aspect-[3/4] ${category.bgColor} transition-transform duration-500 hover:scale-110`}>
+                <img
+                  src={category.image}
+                  alt={category.title}
+                  className="absolute inset-0 w-full h-full object-cover "
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+
+                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute bottom-6 left-6">
+                  <h3 className="text-white text-2xl font-bold tracking-wider">
+                    {category.title}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    ))}
-  </div>
-</div>
-
 
       {/* Navigation Buttons */}
       <Button
@@ -96,7 +99,7 @@ const FlashSale = () => {
         <ChevronRight className="h-6 w-6" />
       </Button>
     </div>
-  )
-}
+  );
+};
 
-export default FlashSale
+export default FlashSale;

@@ -13,6 +13,7 @@ import Image3 from "../../../assets/home.png";
 
 import offImg1 from "../../../assets/trendskart/home/offer-img.png"
 import offImg2 from "../../../assets/trendskart/home/offer-img-2.jpg"
+import MakeUrStyle from "@/components/Home/MakeUrStyle";
 
 
 const images = [HomeImg, Image2, Image3];
@@ -31,6 +32,7 @@ export default function Home2() {
     <ImageSlider images={offImages} hideArrows={true} hideThreeDot={true} slideInterval={3000} />
 
       <NewArrivals />
+      <MakeUrStyle />
       <LogoSlider />
       <OurProducts />
       {/* <BestSellers /> */}

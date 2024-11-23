@@ -14,6 +14,7 @@ import Image3 from "../../../assets/home.png";
 import offImg1 from "../../../assets/trendskart/home/offer-img.png"
 import offImg2 from "../../../assets/trendskart/home/offer-img-2.jpg"
 import MakeUrStyle from "@/components/Home/MakeUrStyle";
+import FlashSale from "@/components/Home/FlashSale";
 
 
 const images = [HomeImg, Image2, Image3];
@@ -33,6 +34,7 @@ export default function Home2() {
 
       <NewArrivals />
       <MakeUrStyle />
+      <FlashSale />
       <LogoSlider />
       <OurProducts />
       {/* <BestSellers /> */}

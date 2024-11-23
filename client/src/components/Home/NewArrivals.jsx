@@ -17,16 +17,23 @@ const NewArrivals = () => {
   useEffect(() => {
     AOS.init({
       duration: 800, // Animation duration in milliseconds
-      once: true,    // Animation occurs only once
+      once: true, // Animation occurs only once
     });
 
     dispatch(getUserProducts(searchParams));
   }, [searchParams, dispatch]);
 
   return (
-    <div className="container mx-auto px-4 py-8" id="newArrival" data-aos="fade-up">
+    <div
+      className="container mx-auto px-4 py-8"
+      id="newArrival"
+      data-aos="fade-up"
+    >
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold">New Arrivals</h1>
+        <div>
+          <h1 className="text-3xl font-bold">New Arrivals</h1>
+          <div className="h-1 w-20 mt-1 bg-primary"></div>
+        </div>
         <div
           onClick={() => navigate(`/collections`)}
           className="flex items-center text-gray-600 hover:text-gray-900 cursor-pointer"
@@ -43,9 +50,11 @@ const NewArrivals = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {userProducts && userProducts.length > 0 ? (
-            userProducts.slice(0, 4).map((product, index) => (
-              <ProductCard2 product={product} key={index} />
-            ))
+            userProducts
+              .slice(0, 4)
+              .map((product, index) => (
+                <ProductCard2 product={product} key={index} />
+              ))
           ) : (
             <div className="h-96 flex items-center justify-center">
               <p>Nothing to show</p>

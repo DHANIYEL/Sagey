@@ -45,6 +45,12 @@ const SingleProduct = () => {
   });
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
+  // const { userProducts, loadingproducts } = useSelector((state) => state.userProducts);
+  // const { id } = useParams(); // Get current product ID from URL params
+  
+  // Filter out the current product from recommendations
+  const filteredProducts = userProducts?.filter((product) => product._id !== id);
+
   const dispatchAddWishlist = () => {
     if (!user) {
       window.scrollTo({
@@ -450,32 +456,32 @@ const SingleProduct = () => {
         <div></div>
       </div>
       <div className="flex flex-col w-full mt-2 px-5 lg:mt-20 lg:px-20">
-        <h1 className="text-[16px] lg:text-[25px] lg:text-center xl:text-[30px] text-[#2C2C2C]">
-          You may also like
-        </h1>
-        {loadingproducts ? (
-          <div className="flex justify-center items-center h-96">
-            <JustLoading size={10} />
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 py-5">
-            {userProducts && userProducts.length > 0 ? (
-              userProducts.map((pro, index) => (
-                <ProductCard2
-                  star={true}
-                  className="{w-[15%]}"
-                  product={pro}
-                  key={index}
-                />
-              ))
-            ) : (
-              <div className="h-96">
-                <p>Nothing to show</p>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+      <h1 className="text-[16px] lg:text-[25px] lg:text-center xl:text-[30px] text-[#2C2C2C]">
+        You may also like
+      </h1>
+      {loadingproducts ? (
+        <div className="flex justify-center items-center h-96">
+          <JustLoading size={10} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 py-5">
+          {filteredProducts && filteredProducts.length > 0 ? (
+            filteredProducts.map((pro, index) => (
+              <ProductCard2
+                star={true}
+                className="w-[15%]"
+                product={pro}
+                key={pro._id || index}
+              />
+            ))
+          ) : (
+            <div className="h-96">
+              <p>Nothing to show</p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
     </div>
   );
 };

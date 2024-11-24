@@ -235,17 +235,16 @@ const Navbar = () => {
   const [sort, setSort] = useState("");
 
   const categories = [
-    "Sneakers",
-    "Chappals",
-    "Perfume",
-    "Specs",
-    "Watch",
-    "Airpod",
-    "Airbuds",
-    "Headset",
-    "Earphones",
-    "Gadgets",
+    "Home",
+    "MAXI DRESS",
+    "CO-ORD SET",
+    "JUMPSUIT",
+    "TOPS",
+    "SALE",
+    "BLOGS",
+    "ABOUT"
   ];
+  
 
   useEffect(() => {
     const categoryParam = searchParams.get("category");

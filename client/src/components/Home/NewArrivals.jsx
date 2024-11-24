@@ -31,7 +31,7 @@ const NewArrivals = () => {
     >
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">New Arrivals</h1>
+          <h1 className="text-2xl font-bold">New Arrivals</h1>
           <div className="h-1 w-20 mt-1 bg-primary"></div>
         </div>
         <div

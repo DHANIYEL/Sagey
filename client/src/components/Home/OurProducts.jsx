@@ -1,36 +1,26 @@
-// NewArrivals.jsx
 import React, { useEffect } from "react";
-import { ChevronRight } from "lucide-react"; // Assuming you're using lucide-react for icons
-
-import pant from "../../assets/trendskart/products/pant.png";
-import shirt from "../../assets/trendskart/products/shirt.png";
-import tshirt from "../../assets/trendskart/products/t-shirt.png";
-import tshirtorange from "../../assets/trendskart/products/t-shirt-orange.png";
-
-import ProductCard2 from "../Cards/ProductCard2";
+import { ChevronRight } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProducts } from "@/redux/actions/user/userProductActions";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import JustLoading from "../JustLoading";
+import ProductCard2 from "../Cards/ProductCard2";
 
-
+const shuffleArray = (array) => {
+  return array
+    .map((item) => ({ item, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ item }) => item);
+};
 
 const OurProducts = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-
-  const { userProducts, loading, error, totalAvailableProducts } = useSelector(
-    (state) => state.userProducts
-  );
+  const { userProducts, loading } = useSelector((state) => state.userProducts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getWishlist());
     dispatch(getUserProducts(searchParams));
-
-    // const params = new URLSearchParams(window.location.search);
-    // const pageNumber = params.get("page");
-    // setPage(parseInt(pageNumber || 1));
   }, [searchParams]);
 
   return (
@@ -38,13 +28,11 @@ const OurProducts = () => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold">Our Products</h1>
-          <div className="h-1 w-20  bg-primary"></div>
+          <div className="h-1 w-20 bg-primary"></div>
         </div>
         <div
-          onClick={() => {
-            navigate(`/collections`);
-          }}
-          className="flex items-center text-gray-600 hover:text-gray-900"
+          onClick={() => navigate(`/collections`)}
+          className="flex items-center text-gray-600 hover:text-gray-900 cursor-pointer"
         >
           View all
           <ChevronRight className="h-5 w-5 ml-1" />
@@ -58,7 +46,7 @@ const OurProducts = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {userProducts && userProducts.length > 0 ? (
-            userProducts
+            shuffleArray(userProducts)
               .slice(0, 4)
               .map((product, index) => (
                 <ProductCard2 product={product} key={index} />
@@ -70,31 +58,6 @@ const OurProducts = () => {
           )}
         </div>
       )}
-
-      {/* {products.map((product) => (
-          <div key={product.id} className="bg-gray-100 rounded-lg p-4">
-            <div className="aspect-w-1 aspect-h-1 w-full mb-4">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="object-cover rounded-lg"
-              />
-            </div>
-            <h3 className="font-semibold mb-2">{product.name}</h3>
-            <StarRating rating={product.rating} />
-            <div className="mt-2 flex items-center">
-              <span className="text-lg font-bold">${product.price}</span>
-              {product.discountedPrice && (
-                <>
-                  <span className="ml-2 text-gray-500 line-through">
-                    ${product.discountedPrice}
-                  </span>
-                  <span className="ml-2 text-red-500">-{product.discount}%</span>
-                </>
-              )}
-            </div>
-          </div>
-        ))} */}
     </div>
   );
 };

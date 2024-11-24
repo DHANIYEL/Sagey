@@ -30,7 +30,28 @@ const categories = [
     image: tShirt,
     bgColor: "bg-stone-200",
   },
+  {
+    title: "JACKETS",
+    image: pant,
+    bgColor: "bg-blue-100",
+  },
+  {
+    title: "FORMALS",
+    image: Shirt,
+    bgColor: "bg-green-200",
+  },
+  {
+    title: "SUMMER WEAR",
+    image: OrangeTShirt,
+    bgColor: "bg-yellow-100",
+  },
+  {
+    title: "TRADITIONAL",
+    image: tShirt,
+    bgColor: "bg-red-100",
+  },
 ];
+
 
 const FlashSale = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -64,7 +85,7 @@ const FlashSale = () => {
                 <img
                   src={category.image}
                   alt={category.title}
-                  className="absolute inset-0 w-full h-full object-cover "
+                  className="absolute inset-0 w-full h-full object-cover  "
                   loading={index === 0 ? "eager" : "lazy"}
                 />
 

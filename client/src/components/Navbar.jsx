@@ -235,7 +235,7 @@ const Navbar = () => {
   const [sort, setSort] = useState("");
 
   const categories = [
-    "Home",
+    "HOME",
     "MAXI DRESS",
     "CO-ORD SET",
     "JUMPSUIT",

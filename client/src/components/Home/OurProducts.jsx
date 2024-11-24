@@ -13,44 +13,7 @@ import { getUserProducts } from "@/redux/actions/user/userProductActions";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import JustLoading from "../JustLoading";
 
-const products = [
-  {
-    id: 1,
-    name: "T-shirt with Tape Details",
-    image: pant,
-    rating: 4.5,
-    price: 120,
-    discountedPrice: null,
-    discount: null,
-  },
-  {
-    id: 2,
-    name: "Skinny Fit Jeans",
-    image: tshirt,
-    rating: 3.5,
-    price: 240,
-    discountedPrice: 260,
-    discount: 20,
-  },
-  {
-    id: 3,
-    name: "Checkered Shirt",
-    image: tshirtorange,
-    rating: 4.5,
-    price: 180,
-    discountedPrice: null,
-    discount: null,
-  },
-  {
-    id: 4,
-    name: "Sleeve Striped T-shirt",
-    image: shirt,
-    rating: 4.5,
-    price: 130,
-    discountedPrice: 160,
-    discount: 30,
-  },
-];
+
 
 const OurProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();

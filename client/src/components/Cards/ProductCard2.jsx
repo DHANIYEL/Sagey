@@ -6,6 +6,7 @@ const ProductCard2 = ({ product }) => {
   const originalPrice = product.offer
     ? Math.round(product.price / (1 - product.offer / 100))
     : product.price
+    console.log(product);  // Check the structure of the product object
 
   return (
     <div

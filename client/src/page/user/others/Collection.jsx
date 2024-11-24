@@ -240,11 +240,11 @@ const Collections = () => {
             <main className="flex-1 overflow-y-auto">
               <div className="md:p-5">
                 <div className="flex flex-col lg:flex-row gap-5 items-center justify-between">
-                  <SearchBar
+                  {/* <SearchBar
                     handleClick={handleClick}
                     search={search}
                     setSearch={setSearch}
-                  />
+                  /> */}
                   <div className="flex items-center justify-between">
                     <SortButton handleClick={handleClick} sort={sort} />
                     <div

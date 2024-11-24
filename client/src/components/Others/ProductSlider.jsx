@@ -36,12 +36,12 @@ const ProductSlider = ({ images, selectedImageIndex }) => {
 
       {/* Main Image on the right */}
       <div className="flex-1 h-full pl-4">
-        <img
-          src={`${URL}/img/${images[currentIndex]}`}
-          alt={`Main Image`}
-          className="w-full h-full object-cover rounded"
-        />
-      </div>
+  <img
+    src={`${URL}/img/${images[currentIndex]}`}
+    alt="Main Image"
+    className="w-full h-full object-cover object-top rounded"
+  />
+</div>
     </div>
   );
 };

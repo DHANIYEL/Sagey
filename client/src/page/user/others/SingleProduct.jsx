@@ -45,6 +45,13 @@ const SingleProduct = () => {
   });
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
+
+
+  const handleHome =()=>{
+    navigate('/')
+  }
+  
+
   // const { userProducts, loadingproducts } = useSelector((state) => state.userProducts);
   // const { id } = useParams(); // Get current product ID from URL params
   
@@ -219,7 +226,7 @@ const SingleProduct = () => {
       <div className="w-full flex my-6 items-left">
         <h1 className="flex justify-center items-center font-Inter px-5 lg:px-20">
           <span>
-            <HomeIcon color="#2C2C2C" />
+            <HomeIcon color="#2C2C2C" onClick={handleHome} />
           </span>
           <span className="hover:text-[#CC4254] ml-2">
             {product.category && product.category.name + " -"}

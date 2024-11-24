@@ -2,8 +2,8 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-white py-8">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-start">
+    <footer className="bg-primary py-8">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-start text-white">
         <div className="ml-12 mb-6 md:mb-0">
           <h4 className="text-lg font-medium mb-4">TrendsKart</h4>
           <p className="text-sm">
@@ -64,14 +64,14 @@ function Footer() {
                 placeholder="Enter Your Email Address"
                 className="bg-white border-none rounded-l-md py-2 px-4 text-sm flex-1"
               />
-              <button className="bg-white border-none rounded-r-md py-2 px-4 text-sm hover:bg-gray-700 transition-colors">
+              <button className="bg-white text-black border-none rounded-r-md py-2 px-4 text-sm hover:bg-gray-700 transition-colors">
                 SUBSCRIBE
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-8 text-center text-sm">
+      <div className="mt-8 text-center text-sm text-white">
         <p>&copy; 2024 TrendsKart. All rights revered</p>
       </div>
     </footer>

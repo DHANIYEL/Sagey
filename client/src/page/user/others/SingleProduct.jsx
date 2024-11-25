@@ -15,6 +15,7 @@ import { addToWishlist } from "@/redux/actions/user/wishlistActions";
 import { config } from "@/Common/configurations";
 import { addToBuyNowStore } from "@/redux/reducers/user/buyNowSlice";
 import { getUserProducts } from "@/redux/actions/user/userProductActions";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -319,7 +320,7 @@ const SingleProduct = () => {
             <JustLoading size={10} />
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
             {filteredProducts && filteredProducts.length > 0 ? (
               filteredProducts.map((pro, index) => (
                 <ProductCard2
@@ -336,6 +337,7 @@ const SingleProduct = () => {
           </div>
         )}
       </div>
+      <WhatsAppFloatingButton/>
     </div>
   );
 };

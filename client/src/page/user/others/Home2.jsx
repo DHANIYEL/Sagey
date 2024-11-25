@@ -12,6 +12,7 @@ import offImg2 from "../../../assets/trendskart/home/offer-img-2.jpg"
 import MakeUrStyle from "@/components/Home/MakeUrStyle";
 import FlashSale from "@/components/Home/FlashSale";
 import LookBook from "@/components/Home/LookBook";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 // import ShopCategories from "@/components/Others/ShopCatogories";
 
 
@@ -33,6 +34,7 @@ export default function Home2() {
   return (
     <>
     {/* <ShopCategories/> */}
+    <WhatsAppFloatingButton/>
     <div className="py-10 px-20 max-md:px-10">
     <ImageSlider images={images} hideArrows={false}  />
     <div className="ml-4">

@@ -12,6 +12,7 @@ import axios from "axios";
 import SearchBar from "@/components/SearchBar";
 import SortButton from "@/components/SortButton";
 import DropDownCheckbox from "@/components/Others/DropDownCheckbox";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const Collections = () => {
   const { userProducts, loading, error, totalAvailableProducts } = useSelector(
@@ -163,8 +164,10 @@ const Collections = () => {
     if (!isOpen) return null;
 
     return (
+      
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="bg-white w-full max-w-md p-4 rounded-lg">
+        
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl  font-semibold">Filter & Sort</h2>
             <button onClick={onClose} className="text-gray-700">
@@ -324,6 +327,7 @@ const Collections = () => {
         category={category}
         categories={categories}
       />
+      <WhatsAppFloatingButton/>
     </div>
   );
 };

@@ -19,13 +19,13 @@ const SideNavbar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
+    dispatch(logout()); // Ensure your logout action clears the state
+    navigate("/"); // Redirect to the root of the application
   };
 
   return (
     <>
-      <div className="w-7 flex items-center cursor-pointer opacity-70 hover:opacity-100">
+      <div className=" flex items-center cursor-pointer opacity-70 hover:opacity-100">
         <ExIphoneLogo />
       </div>
       <div className="text-gray-600 font-semibold mt-5">
@@ -70,14 +70,14 @@ const SideNavbar = () => {
           Customers
         </NavLink>
         <p className="side-nav-sub-title">Other</p>
-        <NavLink className="side-nav-link-sp" to="settings">
+        {/* <NavLink className="side-nav-link-sp" to="settings">
           <FiSettings />
           Settings
-        </NavLink>
-        <NavLink className="side-nav-link-sp" to="help">
+        </NavLink> */}
+        {/* <NavLink className="side-nav-link-sp" to="help">
           <FiHelpCircle />
           Help
-        </NavLink>
+        </NavLink> */}
         <button
           className="side-nav-link-sp cursor-pointer w-full"
           onClick={handleLogout}

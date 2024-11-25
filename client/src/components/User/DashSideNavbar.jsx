@@ -1,25 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/actions/userActions";
 import { RiDashboardLine } from "react-icons/ri";
-import {
-  AiOutlineHeart,
-  AiOutlineWallet,
-  AiOutlineLogout,
-} from "react-icons/ai";
-import { TiTicket } from "react-icons/ti";
-import { MdTrackChanges } from "react-icons/md";
+import { AiOutlineHeart, AiOutlineLogout } from "react-icons/ai";
 import { BiUser, BiHistory } from "react-icons/bi";
 import { GiMailbox } from "react-icons/gi";
 import { useDispatch } from "react-redux";
-import { FiSettings } from "react-icons/fi";
+import LogoutConfirmation from "../../components/LogoutConfimationModal"; // Import the modal
 
 const DashSideNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
+    setIsModalOpen(false); // Close the modal after logout
   };
 
   return (
@@ -36,10 +33,6 @@ const DashSideNavbar = () => {
         <BiHistory />
         Order History
       </NavLink>
-      {/* <NavLink className="side-nav-link-sp" to="track-order">
-        <MdTrackChanges />
-        Track Order
-      </NavLink> */}
       <NavLink className="side-nav-link-sp" to="wishlist">
         <AiOutlineHeart />
         Wishlist
@@ -48,22 +41,17 @@ const DashSideNavbar = () => {
         <GiMailbox />
         Addresses
       </NavLink>
-      {/* <NavLink className="side-nav-link-sp" to="wallet">
-        <AiOutlineWallet />
-        Wallet
-      </NavLink> */}
-      {/* <NavLink className="side-nav-link-sp" to="find-coupons">
-        <TiTicket />
-        Find Coupons
-      </NavLink> */}
-      {/* <NavLink className="side-nav-link-sp" to="settings">
-        <FiSettings />
-        Settings
-      </NavLink> */}
-      <button className="side-nav-link-sp w-full" onClick={handleLogout}>
+      <button className="side-nav-link-sp w-full" onClick={() => setIsModalOpen(true)}>
         <AiOutlineLogout />
         Logout
       </button>
+
+      {/* Logout confirmation modal */}
+      <LogoutConfirmation
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onLogout={handleLogout}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ExIphoneLogo from "../../../components/ExIphoneLogo";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import { AiOutlineTags } from "react-icons/ai";
 import { FaUsersCog, FaUsers } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/actions/userActions";
+import LogoutConfirmation from "@/components/LogoutConfimationModal";
+
 
 const SideNavbar = () => {
   const { user } = useSelector((state) => state.user);
@@ -18,9 +20,12 @@ const SideNavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
   const handleLogout = () => {
     dispatch(logout()); // Ensure your logout action clears the state
     navigate("/"); // Redirect to the root of the application
+    setShowLogoutModal(false); 
   };
 
   return (
@@ -80,12 +85,17 @@ const SideNavbar = () => {
         </NavLink> */}
         <button
           className="side-nav-link-sp cursor-pointer w-full"
-          onClick={handleLogout}
+          onClick={()=> setShowLogoutModal(true)}
         >
           <FiLogOut />
           Logout
         </button>
       </div>
+          <LogoutConfirmation
+            isOpen={showLogoutModal}
+            onClose={() => setShowLogoutModal(false)}
+            onLogout={handleLogout}
+          />
     </>
   );
 };

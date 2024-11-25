@@ -185,10 +185,8 @@ function App() {
           (user && user.role === "superAdmin") ? (
             <Route path="/admin/*" element={<AdminRoutes />} />
           ) : (
-            -(<Route path="/admin" element={<Navigate to="/" />} />)
+            <Route path="/admin" element={<Navigate to="/" replace />} />
           )}
-
-          {/* <Route path="*" element={<Error404 />} /> */}
         </Routes>
         {user ? user.role === "user" && <Footer /> : <Footer />}
       </BrowserRouter>

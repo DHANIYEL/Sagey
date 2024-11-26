@@ -25,6 +25,7 @@ const applyCoupon = async (req, res) => {
 
     const coupon = await Coupon.findOne({
       code,
+      isActive: true,
       expirationDate: { $gt: currentDate },
     });
 
@@ -32,16 +33,21 @@ const applyCoupon = async (req, res) => {
       throw Error("Coupon not found!!");
     }
 
-    if (coupon.used === coupon.maximumUses) {
-      throw Error("Coupon Usage Limit Reached");
-    }
-
     const token = req.cookies.user_token;
-
     const { _id } = jwt.verify(token, process.env.SECRET);
 
     if (!mongoose.Types.ObjectId.isValid(_id)) {
       throw Error("Invalid ID!!!");
+    }
+
+    // Check if user has already used this coupon
+    if (coupon.usedByUsers.some(userId => userId.equals(_id))) {
+      throw Error("You have already used this coupon");
+    }
+
+    // Check coupon usage limit
+    if (coupon.maximumUses !== null && coupon.used >= coupon.maximumUses) {
+      throw Error("Coupon Usage Limit Reached");
     }
 
     const cart = await Cart.findOne({ user: _id }).populate("items.product", {
@@ -61,6 +67,11 @@ const applyCoupon = async (req, res) => {
     if (sum < coupon.minimumPurchaseAmount) {
       throw Error("Coupon Minimum Purchase Amount is not reached");
     }
+
+    // Update coupon usage
+    coupon.usedByUsers.push(_id);
+    coupon.used += 1;
+    await coupon.save();
 
     const updatedCart = await Cart.findOneAndUpdate(
       { _id: cart._id },

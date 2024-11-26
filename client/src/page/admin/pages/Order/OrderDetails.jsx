@@ -264,7 +264,7 @@ const OrderDetails = () => {
                 <div className="cart-total-li">
                   <p className="cart-total-li-first">Discount</p>
                   <p className="cart-total-li-second">
-                    {orderData.discount || 0}₹
+                    {orderData.discount || 0}%
                   </p>
                 </div>
                 <div className="cart-total-li">

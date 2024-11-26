@@ -96,7 +96,7 @@ const ExportModal = ({ toggleExportModal }) => {
           />
           <p>Excel</p>
         </div>
-        <div
+        {/* <div
           className={`border-2 py-1 px-3 my-2 rounded flex gap-2 items-center cursor-pointer ${
             selectedType === "pdf" ? "border-blue-400" : ""
           }`}
@@ -110,7 +110,7 @@ const ExportModal = ({ toggleExportModal }) => {
             onChange={() => {}}
           />
           <p>PDF</p>
-        </div>
+        </div> */}
         <div
           className={`border-2 py-1 px-3 my-2 rounded flex gap-2 items-center cursor-pointer ${
             selectedType === "csv" ? "border-blue-400" : ""

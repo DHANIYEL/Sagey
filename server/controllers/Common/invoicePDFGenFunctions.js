@@ -45,10 +45,10 @@ const generateInvoicePDF = async (order) => {
 
       // Header for the PDF
       doc
-        .image("public/official/logo.png", 50, 45, { width: 50 })
+        .image("public/official/sage-logo.png", 50, 45, { width: 70 })
         .fillColor("#444444")
         .fontSize(20)
-        .text("Helah Inc.", 110, 65)
+        .text("Sagey Inc.", 95, 85)
         .fontSize(10)
         .text("7th Avenue, Sector 801", 200, 65, { align: "right" })
         .text("Calicut, Kerala, IN", 200, 80, { align: "right" })

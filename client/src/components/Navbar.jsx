@@ -203,30 +203,21 @@
 // }
 
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { debounce } from "time-loom";
-
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/actions/userActions";
+import { useSearchParams } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { Heart, Menu, ShoppingCart, User, X } from "lucide-react";
-import 'animate.css'; // Import Animate.css for animations
+import "animate.css"; // Import Animate.css for animations
 import SageLogo from "../assets/sage-logo.png";
+import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
-  const { user } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { userProducts, loading, error, totalAvailableProducts } = useSelector(
-    (state) => state.userProducts
-  );
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [dropDown, setDropDown] = useState(false);
+  const navigate = useNavigate();
+
 
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -235,17 +226,22 @@ const Navbar = () => {
   const [sort, setSort] = useState("");
 
   const categories = [
-    "HOME",
-    "MAXI DRESS",
-    "CO-ORD SET",
-    "JUMPSUIT",
-    "TOPS",
-    "SALE",
-    "BLOGS",
-    "ABOUT"
+    "TOP",
+    "GOWN",
+    "MAXI GOWN",
+    "PARTYWEARS",
+    "KNEE LENGTH TOP",
+    "CROP TOPS",
+    "JUMBSUITS",
+    "CORD SET",
+    "BOTTOMS",
+    "HIJABS",
   ];
-  
 
+  const handleNavigation = (category) => {
+    const formattedCategory = category.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/collections?search=${formattedCategory}`);
+  };
   useEffect(() => {
     const categoryParam = searchParams.get("category");
     const priceParam = searchParams.get("price");
@@ -259,16 +255,6 @@ const Navbar = () => {
     setPage(page || 1);
     setSearch(searchParam || "");
   }, []);
-
-  const toggleDropDown = debounce(() => {
-    setDropDown(!dropDown);
-  }, 100);
-
-  const handleLogout = () => {
-    toggleDropDown();
-    dispatch(logout());
-    navigate("/");
-  };
 
   const handleClick = (param, value) => {
     // let updatedFilters;
@@ -361,15 +347,15 @@ const Navbar = () => {
             </Link>
             <Menu
               className="h-5 w-5 hidden max-lg:block cursor-pointer"
-              onClick={()=> setShowSideNavbar(true)}
+              onClick={() => setShowSideNavbar(true)}
             />
           </div>
         </div>
         {showSideNavbar && (
           <div
-          className={`fixed top-0 right-0 w-1/2 h-screen bg-primary z-50 animate__animated ${
-            showSideNavbar ? 'animate__fadeInRight' : 'animate__fadeOutRight'
-          }`}
+            className={`fixed top-0 right-0 w-1/2 h-screen bg-primary z-50 animate__animated ${
+              showSideNavbar ? "animate__fadeInRight" : "animate__fadeOutRight"
+            }`}
           >
             {/* Close button */}
             <X
@@ -390,8 +376,10 @@ const Navbar = () => {
                 {categories.map((category) => (
                   <li key={category} className="border-b pb-3 border-white">
                     <Link
+                      to={`/collections?search=${category
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
                       className="text-sm font-medium text-white hover:text-gray-900"
-                      href={`/category/${category.toLowerCase()}`}
                     >
                       {category}
                     </Link>
@@ -408,13 +396,11 @@ const Navbar = () => {
             <nav className="mt-4 hidden lg:block py-3 rounded-md w-[100vw]  bg-primary">
               <ul className="flex gap-8 px-4 justify-center items-center">
                 {categories.map((category) => (
-                  <li key={category}>
-                    <Link
-                      className="text-sm font-medium text-white hover:text-gray-900"
-                      href={`/category/${category.toLowerCase()}`}
-                    >
+                  <li key={category}
+                    className="text-sm font-medium text-white hover:text-gray-900 cursor-pointer  "
+                    onClick={()=> handleNavigation(category)}
+                  >
                       {category}
-                    </Link>
                   </li>
                 ))}
               </ul>

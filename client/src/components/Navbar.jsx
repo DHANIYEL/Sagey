@@ -211,22 +211,19 @@ import { Heart, Menu, ShoppingCart, User, X } from "lucide-react";
 import "animate.css"; // Import Animate.css for animations
 import SageLogo from "../assets/sage-logo.png";
 import { useNavigate } from "react-router-dom";
-import { cn } from '@/lib/utils'
-
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
-
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [sort, setSort] = useState("");
-  const [activeDropdown, setActiveDropdown] = useState(null)
-
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   const categories = [
     {
@@ -245,10 +242,10 @@ const Navbar = () => {
       title: "CORD SETS",
       subcategories: [],
     },
-  ]
+  ];
 
   const handleNavigation = (category) => {
-    const formattedCategory = category.toLowerCase().replace(/\s+/g, '-');
+    const formattedCategory = category.toLowerCase().replace(/\s+/g, "-");
     navigate(`/collections?search=${formattedCategory}`);
   };
   useEffect(() => {
@@ -382,85 +379,85 @@ const Navbar = () => {
 
             <nav className="mt-4 py-3 rounded-md ">
               <ul className="flex flex-col gap-4 px-4">
-              {categories.map((category, index) => (
-       <li
-         key={category.title}
-         className="relative text-sm font-medium text-white hover:text-gray-300 cursor-pointer"
-         onMouseEnter={() => setActiveDropdown(index)}
-       >
-         <span onClick={() => handleNavigation(category.title)}>
-           {category.title}
-         </span>
-         {category.subcategories.length > 0 && (
-           <div
-             className={cn(
-               'absolute top-full left-0 bg-white text-gray-900 rounded-md mt-2 shadow-lg w-56 z-50',
-               activeDropdown === index ? 'block' : 'hidden'
-             )}
-             onMouseLeave={() => setActiveDropdown(null)}
-           >
-             <div className="py-2">
-               {category.subcategories.map((sub, subIndex) => (
-                 <button
-                   key={`${index}-${subIndex}`}
-                   onClick={() => handleNavigation(sub)}
-                   className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                 >
-                   {sub}
-                 </button>
-               ))}
-             </div>
-           </div>
-         )}
-       </li>
-     ))}
+                {categories.map((category, index) => (
+                  <li
+                    key={category.title}
+                    className="relative text-sm font-medium text-white hover:text-gray-300 cursor-pointer"
+                    onMouseEnter={() => setActiveDropdown(index)}
+                  >
+                    <span onClick={() => handleNavigation(category.title)}>
+                      {category.title}
+                    </span>
+                    {category.subcategories.length > 0 && (
+                      <div
+                        className={cn(
+                          "absolute top-full left-0 bg-white text-gray-900 rounded-md mt-2 shadow-lg w-56 z-50",
+                          activeDropdown === index ? "block" : "hidden"
+                        )}
+                        onMouseLeave={() => setActiveDropdown(null)}
+                      >
+                        <div className="py-2">
+                          {category.subcategories.map((sub, subIndex) => (
+                            <button
+                              key={`${index}-${subIndex}`}
+                              onClick={() => handleNavigation(sub)}
+                              className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                            >
+                              {sub}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
         )}
 
         {/* Conditional rendering for the nav only on "/" route */}
-        {window.location.pathname === "/" && (
- <div className="w-full flex justify-center items-center relative">
- <nav className="mt-4 hidden lg:block py-3 rounded-md w-[100vw] bg-primary">
-   <ul className="flex gap-8 px-4 justify-center items-center">
-     {categories.map((category, index) => (
-       <li
-         key={category.title}
-         className="relative text-sm font-medium text-white hover:text-gray-300 cursor-pointer"
-         onMouseEnter={() => setActiveDropdown(index)}
-       >
-         <span onClick={() => handleNavigation(category.title)}>
-           {category.title}
-         </span>
-         {category.subcategories.length > 0 && (
-           <div
-             className={cn(
-               'absolute top-full left-0 bg-white text-gray-900 rounded-md mt-2 shadow-lg w-56 z-50',
-               activeDropdown === index ? 'block' : 'hidden'
-             )}
-             onMouseLeave={() => setActiveDropdown(null)}
-           >
-             <div className="py-2">
-               {category.subcategories.map((sub, subIndex) => (
-                 <button
-                   key={`${index}-${subIndex}`}
-                   onClick={() => handleNavigation(sub)}
-                   className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                 >
-                   {sub}
-                 </button>
-               ))}
-             </div>
-           </div>
-         )}
-       </li>
-     ))}
-   </ul>
- </nav>
-</div>
-        )}
       </div>
+      {window.location.pathname === "/" && (
+        <div className="w-full flex justify-center items-center relative">
+          <nav className="mt-4 hidden lg:block py-3  w-[100vw] bg-primary">
+            <ul className="flex gap-8 px-4 justify-center items-center">
+              {categories.map((category, index) => (
+                <li
+                  key={category.title}
+                  className="relative text-sm font-medium text-white hover:text-gray-300 cursor-pointer"
+                  onMouseEnter={() => setActiveDropdown(index)}
+                >
+                  <span onClick={() => handleNavigation(category.title)}>
+                    {category.title}
+                  </span>
+                  {category.subcategories.length > 0 && (
+                    <div
+                      className={cn(
+                        "absolute top-full left-0 bg-white text-gray-900 rounded-md mt-2 shadow-lg w-56 z-50",
+                        activeDropdown === index ? "block" : "hidden"
+                      )}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <div className="py-2">
+                        {category.subcategories.map((sub, subIndex) => (
+                          <button
+                            key={`${index}-${subIndex}`}
+                            onClick={() => handleNavigation(sub)}
+                            className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                          >
+                            {sub}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

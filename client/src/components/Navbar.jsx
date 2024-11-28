@@ -207,7 +207,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import { Heart, Menu, ShoppingCart, User, X } from "lucide-react";
+import { ChevronDown, Heart, Menu, ShoppingCart, User, X } from "lucide-react";
 import "animate.css"; // Import Animate.css for animations
 import SageLogo from "../assets/sage-logo.png";
 import { useNavigate } from "react-router-dom";
@@ -377,42 +377,60 @@ const Navbar = () => {
               />
             </div>
 
-            <nav className="mt-4 py-3 rounded-md ">
-              <ul className="flex flex-col gap-4 px-4">
-                {categories.map((category, index) => (
-                  <li
-                    key={category.title}
-                    className="relative text-sm font-medium text-white hover:text-gray-300 cursor-pointer"
-                    onMouseEnter={() => setActiveDropdown(index)}
-                  >
-                    <span onClick={() => handleNavigation(category.title)}>
-                      {category.title}
-                    </span>
-                    {category.subcategories.length > 0 && (
-                      <div
-                        className={cn(
-                          "absolute top-full left-0 bg-white text-gray-900 rounded-md mt-2 shadow-lg w-56 z-50",
-                          activeDropdown === index ? "block" : "hidden"
-                        )}
-                        onMouseLeave={() => setActiveDropdown(null)}
-                      >
-                        <div className="py-2">
-                          {category.subcategories.map((sub, subIndex) => (
-                            <button
-                              key={`${index}-${subIndex}`}
-                              onClick={() => handleNavigation(sub)}
-                              className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                            >
-                              {sub}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
+            <nav className="mt-4 py-3 rounded-md">
+      <ul className="flex flex-col px-4">
+        {categories.map((category, index) => (
+          <li
+            key={category.title}
+            className="border-b border-gray-200 last:border-0"
+          >
+            <div className="flex items-center justify-between py-4">
+              <span 
+                className="text-sm font-medium text-white cursor-pointer"
+                onClick={() => handleNavigation(category.title)}
+              >
+                {category.title}
+              </span>
+              {category.subcategories.length > 0 && (
+                <button
+                  onClick={() => setActiveDropdown(activeDropdown === index ? null : index)}
+                  className="p-1"
+                >
+                  <ChevronDown 
+                    className={cn(
+                      "h-4 w-4 transition-transform duration-200 text-white",
+                      activeDropdown === index ? "rotate-180" : ""
                     )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
+                  />
+                </button>
+              )}
+            </div>
+            {category.subcategories.length > 0 && (
+              <div
+                className={cn(
+                  "overflow-hidden transition-all duration-200",
+                  activeDropdown === index 
+                    ? "max-h-[500px] opacity-100 mb-4" 
+                    : "max-h-0 opacity-0"
+                )}
+              >
+                <div className="flex flex-col gap-2 pl-4">
+                  {category.subcategories.map((sub, subIndex) => (
+                    <button
+                      key={`${index}-${subIndex}`}
+                      onClick={() => handleNavigation(sub)}
+                      className="text-left text-sm text-white hover:text-gray-900 py-1"
+                    >
+                      {sub}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
           </div>
         )}
 

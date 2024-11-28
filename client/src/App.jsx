@@ -20,7 +20,7 @@ import Footer from "./components/Footer";
 // Auth
 import Login from "./page/auth/Login";
 import Register from "./page/auth/Register";
-import ValidateOTP from "./page/auth/ValidateOTP";
+// import ValidateOTP from "./page/auth/ValidateOTP";
 import ForgetPassword from "./page/auth/ForgetPassword";
 
 // User
@@ -70,18 +70,20 @@ import FindCoupons from "./page/user/profileDashboard/pages/findCoupons";
 import OrderConfirmation from "./page/user/components/OrderConfirmation";
 import SettingsPage from "./page/user/profileDashboard/pages/settings";
 import About from "./page/user/others/About";
-import Home from "./page/user/others/Home";
 import Collectionsold from "./page/user/others/Collectionsold";
 import Collections from "./page/user/others/Collection";
 import Contact from "./page/user/others/Contact";
 import SingleProduct from "./page/user/others/SingleProduct";
-import SingleProduct2 from "./page/user/others/SingleProduct2";
 import LoginDemo from "./page/user/others/LoginDemo";
 import Home2 from "./page/user/others/Home2";
+import SignUp from "./components/Auth/SignUp";
+import ProtectedRouteReg from "@/components/ProtectedRoute";
 
 function App() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const isVerified = useSelector((state) => state.user.isVerified); // Get the verification status from Redux
+
 
   useEffect(() => {
     if (!user) {
@@ -135,8 +137,27 @@ function App() {
           {/* Auth Pages */}
 
           <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="otp" element={<ValidateOTP />} />
+          <Route
+        path="/sign-up"
+        element={isVerified ? <Navigate to="/register" /> : <SignUp />}
+      />
+
+
+
+<Route
+        path="/register"
+        element={
+          isVerified ? (
+            <ProtectedRouteReg>
+              <Register /> 
+            </ProtectedRouteReg>
+          ) : (
+            <Navigate to="/sign-up" /> 
+          )
+        }
+      />
+          {/* <Route path="register" element={<Register />} /> */}
+          {/* <Route path="otp" element={<ValidateOTP />} /> */}
           <Route path="forgot-password" element={<ForgetPassword />} />
 
           {/* General Pages */}

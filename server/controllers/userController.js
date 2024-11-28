@@ -154,13 +154,13 @@ async function signUpSuperAdmin() {
 
   // const role = "superAdmin"; // Specify the role as superAdmin
   const role = "admin"; // Specify the role as superAdmin
-  const isEmailVerified = true; // Set this based on your application's logic
+  const isVerified = true; // Set this based on your application's logic
 
   try {
     const newSuperAdmin = await User.signup(
       userCredentials,
       role,
-      isEmailVerified
+      isVerified
     );
     console.log("Super Admin created successfully:", newSuperAdmin);
   } catch (error) {

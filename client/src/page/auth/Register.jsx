@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SignUpBG from "../../assets/SignUpBG.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -9,6 +9,8 @@ import { signUpUser } from "../../redux/actions/userActions";
 import { updateError } from "../../redux/reducers/userSlice";
 
 const Register = () => {
+  const { state } = useLocation(); // Access state passed from SignUp
+
   const { user, error } = useSelector((state) => state.user);
   const [otpLoading, setOTPLoading] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +31,7 @@ const Register = () => {
     email: "",
     password: "",
     passwordAgain: "",
-    phoneNumber: "",
+    phoneNumber: state?.phoneNumber || "",
   };
 
   const validationSchema = Yup.object().shape({

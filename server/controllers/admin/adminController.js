@@ -53,7 +53,7 @@ const getAdmins = async (req, res) => {
         dateOfBirth: 0,
         role: 0,
         walletBalance: 0,
-        isEmailVerified: 0,
+        isVerified: 0,
       }
     )
       .skip(skip)

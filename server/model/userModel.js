@@ -42,7 +42,7 @@ const UserSchema = new Schema(
     profileImageURL: {
       type: String,
     },
-    isEmailVerified: {
+    isVerified: {
       type: Boolean,
       required: true,
     },
@@ -53,7 +53,7 @@ const UserSchema = new Schema(
 UserSchema.statics.signup = async function (
   userCredentials,
   role,
-  isEmailVerified
+  isVerified
 ) {
   const { email, password, passwordAgain, firstName, lastName } =
     userCredentials;
@@ -102,7 +102,7 @@ UserSchema.statics.signup = async function (
     ...userCredentials,
     isActive: true,
     role,
-    isEmailVerified,
+    isVerified,
   });
 
   user.password = "";

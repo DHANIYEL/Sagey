@@ -31,7 +31,7 @@ const loginUsingGoogle = async (req, res) => {
       firstName: name,
       isActive: true,
       role: "user",
-      isEmailVerified: true,
+      isVerified: true,
     });
   }
 

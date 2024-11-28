@@ -2,7 +2,6 @@ const express = require("express");
 const upload = require("../middleware/upload");
 const {
   sendOTP,
-  validateOTP,
   forgotPassword,
   validateForgotOTP,
   newPassword,
@@ -25,7 +24,7 @@ router.post("/forget-password-validate-otp", validateForgotOTP);
 router.post("/set-new-password", newPassword);
 // OTP
 router.post("/send-otp", sendOTP);
-router.post("/validate-otp", validateOTP);
+// router.post("/validate-otp", validateOTP);
 router.post("/resend-otp", resentOTP);
 
 module.exports = router;

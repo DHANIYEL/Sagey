@@ -70,14 +70,14 @@ const ProfilePage = () => {
               />
               <InputWithIcon
                 icon={
-                  user?.isEmailVerified ? (
+                  user?.isVerified ? (
                     <TiTick className="text-green-500" />
                   ) : (
                     <AiOutlineClose className="text-red-500" />
                   )
                 }
                 title="Email Verified?"
-                name={user?.isEmailVerified ? "Yes" : "No"}
+                name={user?.isVerified ? "Yes" : "No"}
               />
             </div>
             <button

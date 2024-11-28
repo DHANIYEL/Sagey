@@ -76,7 +76,7 @@ const ValidateOTP = () => {
     };
 
     if (user) {
-      if (user.isEmailVerified) {
+      if (user.isVerified) {
         navigate("/");
       } else {
         generateOTP();

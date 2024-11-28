@@ -41,28 +41,28 @@ const sendOTP = async (req, res) => {
 };
 
 // Validating above OTP
-const validateOTP = async (req, res) => {
-  const { email, otp } = req.body;
+// const validateOTP = async (req, res) => {
+//   const { email, otp } = req.body;
 
-  try {
-    // const data = await OTP.findOne({ email });
+//   try {
+//     // const data = await OTP.findOne({ email });
 
-    // if (!data) {
-    //   throw Error("OTP expired");
-    // }
+//     // if (!data) {
+//     //   throw Error("OTP expired");
+//     // }
 
-    // if (otp !== data.otp) {
-    //   throw Error("OTP is not matched");
-    // }
+//     // if (otp !== data.otp) {
+//     //   throw Error("OTP is not matched");
+//     // }
 
-    res.status(200).json({
-      success: true,
-      message: "OTP validation Success",
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+//     res.status(200).json({
+//       success: true,
+//       message: "OTP validation Success",
+//     });
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 // Incase the user forget the password can reset after verifying otp
 const forgotPassword = async (req, res) => {
@@ -221,7 +221,6 @@ const resentOTP = async (req, res) => {
 
 module.exports = {
   sendOTP,
-  validateOTP,
   forgotPassword,
   validateForgotOTP,
   newPassword,

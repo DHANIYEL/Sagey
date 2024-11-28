@@ -20,6 +20,12 @@ const userSlice = createSlice({
     updateUserOnOTPValidation: (state, { payload }) => {
       state.user = payload;
     },
+    setVerified: (state) => {
+      state.isVerified = true;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
     updateError: (state, { payload }) => {
       state.error = payload;
     },
@@ -117,5 +123,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { updateUserOnOTPValidation, updateError } = userSlice.actions;
+export const { updateUserOnOTPValidation, updateError, setVerified, setUser } = userSlice.actions;
 export default userSlice.reducer;

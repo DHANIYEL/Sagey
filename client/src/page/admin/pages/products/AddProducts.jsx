@@ -12,7 +12,6 @@ import { getCategories } from "../../../../redux/actions/admin/categoriesAction"
 
 const AddProducts = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const { categories, loading, error } = useSelector(
@@ -33,7 +32,6 @@ const AddProducts = () => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [stockQuantity, setStockQuantity] = useState("");
   const [category, setCategory] = useState();
   const [imageURL, setImageURL] = useState("");
   const [status, setStatus] = useState("Published");
@@ -42,6 +40,27 @@ const AddProducts = () => {
   const [markup, setMarkup] = useState("");
   const [moreImageURL, setMoreImageURL] = useState("");
   const [offer, setOffer] = useState("");
+
+const [size, setSize] = useState("");
+const [color, setColor] = useState("");
+const [quantity, setQuantity] = useState("");
+
+const attributeHandler = (e) => {
+  e.preventDefault();
+
+  if (size.trim() === "" || color.trim() === "" || quantity <= 0) {
+    toast.error("All fields are required and quantity must be greater than 0");
+    return;
+  }
+
+  const attribute = { size, color, quantity };
+  setAttributes([...attributes, attribute]);
+
+  // Reset fields
+  setSize("");
+  setColor("");
+  setQuantity("");
+};
 
   const handleSingleImageInput = (img) => {
     setImageURL(img);
@@ -52,32 +71,20 @@ const AddProducts = () => {
   };
 
   const handleSave = () => {
-    var newStockQuantity = stockQuantity;
-    if (stockQuantity <= 0) {
-      newStockQuantity = 100;
-      // toast.error("Quantity Should be greater than 0");
-      // return;
-    }
     if (price <= 0) {
-      toast.error("Price Should be greater than 0");
+      toast.error("Price should be greater than 0");
       return;
     }
-    // if (markup <= 0) {
-    //   toast.error("Markup Should be greater than 0");
-    //   return;
-    // }
 
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
-    formData.append("stockQuantity", newStockQuantity);
     formData.append("attributes", JSON.stringify(attributes));
     formData.append("price", price);
     formData.append("markup", markup);
     formData.append("category", category);
     formData.append("offer", offer);
     formData.append("status", status.toLowerCase());
-
     formData.append("imageURL", imageURL);
 
     for (const file of moreImageURL) {
@@ -88,28 +95,6 @@ const AddProducts = () => {
     navigate(-1);
   };
 
-  const [attributeName, setAttributeName] = useState("");
-  const [attributeValue, setAttributeValue] = useState("");
-  const [attributeImageIndex, setAttributeImageIndex] = useState("");
-  const [attributeHighlight, setAttributeHighlight] = useState(false);
-
-  const attributeHandler = (e) => {
-    e.preventDefault();
-    if (attributeName.trim() === "" || attributeValue.trim() === "") {
-      return;
-    }
-    const attribute = {
-      name: attributeName,
-      value: attributeValue,
-      isHighlight: attributeHighlight,
-      imageIndex: attributeImageIndex,
-    };
-    setAttributes([...attributes, attribute]);
-    setAttributeHighlight(false);
-    setAttributeName("");
-    setAttributeValue("");
-    setAttributeImageIndex("");
-  };
 
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -133,7 +118,6 @@ const AddProducts = () => {
         <div className="flex justify-between items-center font-semibold">
           <div>
             <h1 className="font-bold text-2xl">Add Products</h1>
-            {/* Bread Crumbs */}
             <BreadCrumbs
               list={["Dashboard", "Products List", "Add Products"]}
             />
@@ -178,19 +162,11 @@ const AddProducts = () => {
                 <textarea
                   name="description"
                   id="description"
-                  className="admin-input h-36"
+                  className="admin-input h-52"
                   placeholder="Type product description here..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
-                <p className="admin-label">Quantity</p>
-                <input
-                  type="number"
-                  placeholder="Type product quantity here"
-                  className="admin-input"
-                  value={stockQuantity}
-                  onChange={(e) => setStockQuantity(e.target.value)}
-                />
               </div>
             </div>
             {/* Image Uploading */}
@@ -201,66 +177,55 @@ const AddProducts = () => {
             </div>
             {/* Attributes */}
             <div className="admin-div">
-              <h1 className="font-bold mb-2">Product Attributes</h1>
-              <form
-                className="flex flex-col lg:flex-row items-center gap-3"
-                onSubmit={attributeHandler}
-              >
-                <input
-                  type="text"
-                  className="admin-input-no-m w-full"
-                  placeholder="Name"
-                  value={attributeName}
-                  onChange={(e) => setAttributeName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="admin-input-no-m w-full"
-                  placeholder="Value"
-                  value={attributeValue}
-                  onChange={(e) => setAttributeValue(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="admin-input-no-m w-full"
-                  placeholder="Image Index"
-                  value={attributeImageIndex}
-                  onChange={(e) => setAttributeImageIndex(e.target.value)}
-                />
-                <div className="admin-input-no-m w-full lg:w-auto shrink-0">
-                  <input
-                    type="checkbox"
-                    checked={attributeHighlight}
-                    onChange={() => setAttributeHighlight(!attributeHighlight)}
-                  />{" "}
-                  Highlight
-                </div>
-                <input
-                  type="submit"
-                  className="admin-button-fl w-full lg:w-auto bg-blue-700 text-white cursor-pointer"
-                  value="Add"
-                />
-              </form>
-              <div className="border mt-5 rounded-lg">
-                {attributes.map((at, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={`flex px-2 py-1 ${
-                        index % 2 === 0 && "bg-gray-200"
-                      }`}
-                    >
-                      <p className="w-2/6">{at.name}</p>
-                      <p className="w-3/6">{at.value}</p>
-                      <p className="w-3/6">{at.imageIndex}</p>
-                      <p className="w-1/6">
-                        {at.isHighlight ? "Highlighted" : ""}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+    <h1 className="font-bold mb-2">Product Attributes</h1>
+    <form
+      className="flex flex-col lg:flex-row items-center gap-3"
+      onSubmit={attributeHandler}
+    >
+      <input
+        type="text"
+        className="admin-input-no-m w-full"
+        placeholder="Size (e.g., S, M, L, XL)"
+        value={size}
+        onChange={(e) => setSize(e.target.value)}
+      />
+      <input
+        type="text"
+        className="admin-input-no-m w-full"
+        placeholder="Color (e.g., Red, Blue)"
+        value={color}
+        onChange={(e) => setColor(e.target.value)}
+      />
+      <input
+        type="number"
+        className="admin-input-no-m w-full"
+        placeholder="Quantity"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+        min="1"
+      />
+      <button
+        type="submit"
+        className="admin-button-fl w-full lg:w-auto bg-blue-700 text-white"
+      >
+        Add Attribute
+      </button>
+    </form>
+
+    {/* Display Added Attributes */}
+    <div className="border mt-5 rounded-lg">
+      {attributes.map((attr, index) => (
+        <div
+          key={index}
+          className={`flex px-2 py-1 ${index % 2 === 0 ? "bg-gray-200" : ""}`}
+        >
+          <p className="w-1/3">{attr.size}</p>
+          <p className="w-1/3">{attr.color}</p>
+          <p className="w-1/3">{attr.quantity}</p>
+        </div>
+      ))}
+    </div>
+  </div>
           </div>
           {/* Pricing */}
           <div className="lg:w-2/6">
@@ -269,7 +234,7 @@ const AddProducts = () => {
               <p className="admin-label">Amount</p>
               <input
                 type="number"
-                placeholder="Type product name here"
+                placeholder="Type product price here"
                 className="admin-input"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -294,36 +259,30 @@ const AddProducts = () => {
               />
             </div>
             <div className="admin-div">
-              <h1 className="font-bold">Category</h1>
-              <p className="admin-label">Product Category</p>
+              <h1 className="font-bold">Other Details</h1>
+              <p className="admin-label">Category</p>
               <select
-                name="categories"
-                id="categories"
                 className="admin-input"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="">Choose a category</option>
-                {categories.map((cat, index) => (
-                  <option key={index} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
+                <option value="">-- Select Category --</option>
+                {!loading &&
+                  categories?.map((c) => (
+                    <option value={c._id} key={c._id}>
+                      {c.name}
+                    </option>
+                  ))}
               </select>
-            </div>
-            <div className="admin-div">
-              <h1 className="font-bold">Product Status</h1>
               <p className="admin-label">Status</p>
               <select
-                name="status"
-                id="status"
                 className="admin-input"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >
-                {statusList.map((st, index) => (
-                  <option key={index} value={st}>
-                    {st}
+                {statusList.map((stat, index) => (
+                  <option value={stat} key={index}>
+                    {stat}
                   </option>
                 ))}
               </select>

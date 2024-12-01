@@ -104,6 +104,20 @@ const SingleProduct = () => {
       navigate("/login");
       return;
     }
+  
+    // Validate that all attributes are selected
+    const requiredAttributes = product.attributes?.map(attr => attr.name) || [];
+    const missingAttributes = requiredAttributes.filter(
+      attr => !selectedAttributes[attr]
+    );
+  
+    if (missingAttributes.length > 0) {
+      const limitedMissingAttributes = missingAttributes.slice(0, 1);
+      toast.error(`Please select: ${limitedMissingAttributes.join("")}${missingAttributes.length > 2 ? "" : ""}`);
+      return;
+    }
+    
+  
     setCartLoading(true);
     try {
       await axios.post(
@@ -122,6 +136,7 @@ const SingleProduct = () => {
     }
     setCartLoading(false);
   };
+  
 
   const isProductInWishlist = wishlist.some((item) => item.product._id === id);
 

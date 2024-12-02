@@ -7,6 +7,9 @@ const productsSchema = new Schema(
     name: {
       type: String,
     },
+    managerId: {
+      type: String,
+    },
     description: {
       type: String,
     },
@@ -47,8 +50,8 @@ const productsSchema = new Schema(
         isHighlight: {
           type: Boolean,
         },
-        isHighlight: {
-          type: Boolean,
+        quantity: {
+          type: Number,
         },
         imageIndex: {
           type: Number,

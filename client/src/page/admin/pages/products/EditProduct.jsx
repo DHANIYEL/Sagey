@@ -11,13 +11,14 @@ import BreadCrumbs from "../../Components/BreadCrumbs";
 import { getCategories } from "../../../../redux/actions/admin/categoriesAction";
 import { URL } from "@common/api";
 import toast from "react-hot-toast";
-import LogoutConfirmation from "@/components/LogoutConfimationModal";
 
 const EditProduct = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { categories, error } = useSelector((state) => state.categories);
+  const { categories, error } = useSelector(
+    (state) => state.categories
+  );
 
   useEffect(() => {
     dispatch(getCategories());
@@ -30,8 +31,6 @@ const EditProduct = () => {
     "out of stock",
     "low quantity",
   ]);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [duplicateFetchData, setDuplicateFetchData] = useState({});
   const [fetchedData, setFetchedData] = useState({
@@ -143,6 +142,7 @@ const EditProduct = () => {
   const [attributeName, setAttributeName] = useState("");
   const [attributeValue, setAttributeValue] = useState("");
   const [attributeImageIndex, setAttributeImageIndex] = useState("");
+  const [attributeQuantity, setAttributeQuantity] = useState("");
   const [attributeHighlight, setAttributeHighlight] = useState(false);
 
   const attributeHandler = (e) => {
@@ -154,6 +154,7 @@ const EditProduct = () => {
       name: attributeName,
       value: attributeValue,
       imageIndex: attributeImageIndex,
+      quantity: attributeQuantity,
       isHighlight: attributeHighlight,
     };
     setFetchedData((prevData) => ({
@@ -163,10 +164,9 @@ const EditProduct = () => {
     setAttributeHighlight(false);
     setAttributeName("");
     setAttributeValue("");
+    setAttributeQuantity("");
     setAttributeImageIndex(""); // Reset the index
   };
-
-  const [loading, setLoading] = useState(false);
 
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -191,29 +191,6 @@ const EditProduct = () => {
     }));
   };
 
-  const deleteProduct = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.delete(`${URL}/admin/product/${id}`, {
-        withCredentials: true,
-      });
-
-      if (response.status === 200) {
-        toast.success("Product deleted successfully");
-        // Optionally, you can redirect or update the UI after the product is deleted
-        // e.g., navigate to another page or update the state
-      }
-      setTimeout(() => {
-        navigate(-1);
-      }, 500);
-    } catch (error) {
-      toast.error("Failed to delete product");
-    } finally {
-      setLoading(false);
-      setShowConfirm(false); // Hide the confirmation dialog after deletion attempt
-    }
-  };
-
   return (
     <>
       {/* Modal */}
@@ -236,22 +213,6 @@ const EditProduct = () => {
             />
           </div>
           <div className="flex gap-3">
-            <button
-              className="admin-button-fl bg-red-500 text-white"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <AiOutlineDelete />
-              Delete
-            </button>
-            <LogoutConfirmation
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              onConfirm={deleteProduct}
-              headerText="Confirm Deletion"
-              descriptionText="Are you sure you want to delete this product? This action cannot be undone."
-              confirmButtonText="Delete"
-              cancelButtonText="Cancel"
-            />
             <button
               className="admin-button-fl bg-gray-200 text-blue-700"
               onClick={() => navigate(-1)}
@@ -412,6 +373,13 @@ const EditProduct = () => {
                   value={attributeImageIndex}
                   onChange={(e) => setAttributeImageIndex(e.target.value)}
                 />
+                <input
+                  type="text"
+                  className="admin-input-no-m w-full"
+                  placeholder="Quantity"
+                  value={attributeQuantity}
+                  onChange={(e) => setAttributeQuantity(e.target.value)}
+                />
                 <div className="admin-input-no-m w-full lg:w-auto shrink-0">
                   <input
                     type="checkbox"
@@ -432,6 +400,7 @@ const EditProduct = () => {
                     <th className="px-2 py-1 w-2/6">Name</th>
                     <th className="px-2 py-1 w-2/6">Value</th>
                     <th className="px-2 py-1 w-1/6">Image Index</th>
+                    <th className="px-2 py-1 w-1/6">Quantity</th>
                     <th className="px-2 py-1 w-1/6">Highlighted</th>
                     <th className="px-2 py-1 w-1/6">Action</th>
                   </tr>
@@ -472,6 +441,20 @@ const EditProduct = () => {
                             handleAttributeChange(
                               index,
                               "imageIndex",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </td>
+                      <td className="px-2 py-1">
+                        <input
+                          className="admin-input-no-m w-full"
+                          type="text"
+                          value={at.quantity || ""}
+                          onChange={(e) =>
+                            handleAttributeChange(
+                              index,
+                              "quantity",
                               e.target.value
                             )
                           }

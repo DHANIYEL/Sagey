@@ -73,32 +73,47 @@ const getProduct = async (req, res) => {
 // Creating new Product
 const addProduct = async (req, res) => {
   try {
+    // Extracting formData from the request body
     let formData = { ...req.body, isActive: true };
     const files = req?.files;
 
-    const attributes = JSON.parse(formData.attributes);
+    // Handling the attributes as variations (color, size, and quantity)
+    const variations = JSON.parse(formData.attributes); // Assuming attributes now represent variations
 
-    formData.attributes = attributes;
+    formData.variations = variations.map((variation) => ({
+      color: variation.color, // Assuming color is part of the variations
+      size: variation.size,   // Assuming size is part of the variations
+      quantity: variation.quantity, // Assuming quantity is part of the variations
+    }));
 
+    // Resetting attributes as we're using variations now
+    formData.attributes = undefined;
+
+    // If files are uploaded, set the image URLs
     if (files && files.length > 0) {
       formData.moreImageURL = [];
       formData.imageURL = "";
+
       files.map((file) => {
         if (file.fieldname === "imageURL") {
-          formData.imageURL = file.filename;
+          formData.imageURL = file.filename; // Main image URL
         } else {
-          formData.moreImageURL.push(file.filename);
+          formData.moreImageURL.push(file.filename); // Additional images
         }
       });
     }
 
+    // Creating the product with the provided data
     const product = await Product.create(formData);
 
+    // Return the created product in the response
     res.status(200).json({ product });
   } catch (error) {
+    // Handle any errors and return an appropriate response
     res.status(400).json({ error: error.message });
   }
 };
+
 // Update a Product
 const updateProduct = async (req, res) => {
   try {

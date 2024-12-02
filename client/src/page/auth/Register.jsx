@@ -48,6 +48,7 @@ const Register = () => {
       .required("Confirm Password is required")
       .oneOf([Yup.ref("password"), null], "Passwords must match"),
     phoneNumber: Yup.number()
+      .required("Phone Number is required")
       .typeError("Phone number should be digits")
       .moreThan(999999999, "Not a valid phone number"),
   });

@@ -94,7 +94,11 @@ const SideNavbar = () => {
           <LogoutConfirmation
             isOpen={showLogoutModal}
             onClose={() => setShowLogoutModal(false)}
-            onLogout={handleLogout}
+            onConfirm={handleLogout}
+            headerText="Confirm Logout"
+            descriptionText="Are you sure you want to logout? You'll need to login again to access your account."
+            confirmButtonText="Logout"
+            cancelButtonText="Cancel"
           />
     </>
   );

@@ -73,47 +73,32 @@ const getProduct = async (req, res) => {
 // Creating new Product
 const addProduct = async (req, res) => {
   try {
-    // Extracting formData from the request body
     let formData = { ...req.body, isActive: true };
     const files = req?.files;
 
-    // Handling the attributes as variations (color, size, and quantity)
-    const variations = JSON.parse(formData.attributes); // Assuming attributes now represent variations
+    const attributes = JSON.parse(formData.attributes);
 
-    formData.variations = variations.map((variation) => ({
-      color: variation.color, // Assuming color is part of the variations
-      size: variation.size,   // Assuming size is part of the variations
-      quantity: variation.quantity, // Assuming quantity is part of the variations
-    }));
+    formData.attributes = attributes;
 
-    // Resetting attributes as we're using variations now
-    formData.attributes = undefined;
-
-    // If files are uploaded, set the image URLs
     if (files && files.length > 0) {
       formData.moreImageURL = [];
       formData.imageURL = "";
-
       files.map((file) => {
         if (file.fieldname === "imageURL") {
-          formData.imageURL = file.filename; // Main image URL
+          formData.imageURL = file.filename;
         } else {
-          formData.moreImageURL.push(file.filename); // Additional images
+          formData.moreImageURL.push(file.filename);
         }
       });
     }
 
-    // Creating the product with the provided data
     const product = await Product.create(formData);
 
-    // Return the created product in the response
     res.status(200).json({ product });
   } catch (error) {
-    // Handle any errors and return an appropriate response
     res.status(400).json({ error: error.message });
   }
 };
-
 // Update a Product
 const updateProduct = async (req, res) => {
   try {
@@ -172,6 +157,7 @@ const updateProduct = async (req, res) => {
       { $set: { ...formData } },
       { new: true }
     );
+    console.log(product);
 
     if (!product) {
       throw Error("No Such Product");
@@ -179,6 +165,8 @@ const updateProduct = async (req, res) => {
 
     res.status(200).json({ product });
   } catch (error) {
+    console.log(error);
+    
     res.status(400).json({ error: error.message });
   }
 };

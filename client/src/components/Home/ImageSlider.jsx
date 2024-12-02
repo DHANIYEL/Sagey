@@ -24,72 +24,71 @@ function ImageSlider({ images, hideArrows = false, hideThreeDot = false,   slide
   };
 
   return (
-    <div className="flex flex-col items-center py-10">
-      <main>
-        <section className="relative h-[400px] max-w-full overflow-hidden">
-          <div className="relative h-full w-full flex items-center justify-center">
-            {/* Conditional rendering for arrow buttons */}
-            {!hideArrows && (
-              <>
-                <Button
-                  className="absolute left-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10 max-md:hidden"
-                  size="icon"
-                  variant="ghost"
-                  onClick={handlePrev}
-                >
-                  <ChevronLeft className="h-8 w-8 text-black" />
-                </Button>
-                <Button
-                  className="absolute right-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10 max-md:hidden"
-                  size="icon"
-                  variant="ghost"
-                  onClick={handleNext}
-                >
-                  <ChevronRight className="h-8 w-8 text-black" />
-                </Button>
-              </>
-            )}
+    <div className="flex flex-col items-center py-10 ">
+<main>
+  <section className="relative h-[400px] max-w-full overflow-hidden">
+    <div className="relative h-full w-full flex items-center justify-center">
+      {/* Conditional rendering for arrow buttons */}
+      {!hideArrows && (
+        <>
+          <Button
+            className="absolute left-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10 max-md:hidden"
+            size="icon"
+            variant="ghost"
+            onClick={handlePrev}
+          >
+            <ChevronLeft className="h-8 w-8 text-black" />
+          </Button>
+          <Button
+            className="absolute right-9 top-1/2 -translate-y-1/2 rounded-full bg-gray-200 shadow-lg hover:bg-gray-100 transition-transform scale-110 opacity-70 z-10 max-md:hidden"
+            size="icon"
+            variant="ghost"
+            onClick={handleNext}
+          >
+            <ChevronRight className="h-8 w-8 text-black" />
+          </Button>
+        </>
+      )}
 
-            {/* Slider Container */}
-            <div
-              className="flex h-full w-full transition-transform duration-500 ease-in-out"
-              style={{
-                transform: `translateX(-${currentIndex * 100}%)`, // Slide to the current image
-              }}
-            >
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className="h-full w-full flex items-center justify-center flex-shrink-0"
-                  style={{ flex: "0 0 100%" }} // Each image takes 100% of the container width
-                >
-                  <img
-                    src={image}
-                    alt={`Slide ${index + 1}`}
-                    className="h-full w-5/6 object-cover rounded-lg"
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Dots Indicator */}
-            {!hideThreeDot && (
-              <div className="absolute bottom-4 w-full flex justify-center gap-2">
-                {images.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`h-3 w-3 rounded-full ${
-                      index === currentIndex
-                        ? "bg-white"
-                        : "bg-white opacity-50"
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
+      {/* Slider Container */}
+      <div
+        className="flex h-full w-full transition-transform duration-500 ease-in-out"
+        style={{
+          transform: `translateX(-${currentIndex * 100}%)`, // Slide to the current image
+        }}
+      >
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className="h-full w-full flex items-center justify-center flex-shrink-0"
+            style={{ flex: "0 0 100%" }} // Each image takes 100% of the container width
+          >
+            <img
+              src={image}
+              alt={`Slide ${index + 1}`}
+              className="h-full w-full md:w-5/6 object-cover rounded-lg max-md:rounded-none"
+            />
           </div>
-        </section>
-      </main>
+        ))}
+      </div>
+
+      {/* Dots Indicator */}
+      {!hideThreeDot && (
+        <div className="absolute bottom-4 w-full flex justify-center gap-2">
+          {images.map((_, index) => (
+            <div
+              key={index}
+              className={`h-3 w-3 rounded-full ${
+                index === currentIndex ? "bg-white" : "bg-white opacity-50"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</main>
+
     </div>
   );
 }

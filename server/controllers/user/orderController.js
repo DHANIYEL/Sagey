@@ -10,17 +10,74 @@ const Wallet = require("../../model/walletModel");
 const Coupon = require("../../model/couponModel");
 const { generateInvoicePDF } = require("../Common/invoicePDFGenFunctions");
 const Counter = require("../../model/counterModel");
+// const managerOrderModel = require("../../model/managerOrderModel");
 
-// Just the function increment or decrement product count
-const updateProductList = async (id, count) => {
-  const product = await Products.findOne({ _id: id });
+// // Just the function increment or decrement product count
+// const updateProductList = async (id, count) => {
+//   const product = await Products.findOne({ _id: id });
 
+//   if (count < 0) {
+//     if (product.stockQuantity - count * -1 < 0) {
+//       throw Error(`${product.name} doesn\'t have ${count} stock`);
+//     }
+//   }
+
+//   const updateProduct = await Products.findByIdAndUpdate(
+//     id,
+//     {
+//       $inc: { stockQuantity: count },
+//     },
+//     { new: true }
+//   );
+
+//   if (
+//     parseInt(updateProduct.stockQuantity) < 5 &&
+//     parseInt(updateProduct.stockQuantity) > 0
+//   ) {
+//     await Products.findByIdAndUpdate(id, {
+//       $set: { status: "low quantity" },
+//     });
+//   }
+
+//   if (parseInt(updateProduct.stockQuantity) === 0) {
+//     await Products.findByIdAndUpdate(id, {
+//       $set: { status: "out of stock" },
+//     });
+//   }
+
+//   if (parseInt(updateProduct.stockQuantity) > 5) {
+//     await Products.findByIdAndUpdate(id, {
+//       $set: { status: "published" },
+//     });
+//   }
+// };
+const updateProductList = async (id, count, attributes) => {
+  const product = await Products.findById(id);
+
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  // If decrementing, check for attribute quantities
   if (count < 0) {
-    if (product.stockQuantity - count * -1 < 0) {
-      throw Error(`${product.name} doesn\'t have ${count} stock`);
+    // Check that attributes is a Map
+    if (attributes instanceof Map) {
+      for (let [key, value] of attributes) { // Destructure the Map
+        const attribute = product.attributes.find(a => a.name === key && a.value === value);
+        if (attribute) {
+          if (attribute.quantity < Math.abs(count)) {
+            throw new Error(`${product.name} doesn't have enough stock for ${key}: ${value}`);
+          }
+        } else {
+          throw new Error(`Attribute ${key}: ${value} not found for ${product.name}`);
+        }
+      }
+    } else {
+      throw new Error("Attributes must be provided when decrementing the quantity");
     }
   }
 
+  // Update product stock quantity
   const updateProduct = await Products.findByIdAndUpdate(
     id,
     {
@@ -29,10 +86,8 @@ const updateProductList = async (id, count) => {
     { new: true }
   );
 
-  if (
-    parseInt(updateProduct.stockQuantity) < 5 &&
-    parseInt(updateProduct.stockQuantity) > 0
-  ) {
+  // Handle status updates based on stock quantity
+  if (parseInt(updateProduct.stockQuantity) < 5 && parseInt(updateProduct.stockQuantity) > 0) {
     await Products.findByIdAndUpdate(id, {
       $set: { status: "low quantity" },
     });
@@ -49,7 +104,23 @@ const updateProductList = async (id, count) => {
       $set: { status: "published" },
     });
   }
+
+  // If decrementing, also update the attribute quantities
+  if (count < 0) {
+    for (let [key, value] of attributes) { // Destructure the Map
+      await Products.findOneAndUpdate(
+        { _id: id, "attributes.name": key, "attributes.value": value },
+        {
+          $inc: { "attributes.$.quantity": count }, // count is negative here
+        }
+      );
+    }
+  }
+
+  return updateProduct; // Return the updated product
 };
+
+
 
 // Creating an order
 const createOrder = async (req, res) => {
@@ -71,11 +142,12 @@ const createOrder = async (req, res) => {
       price: 1,
       markup: 1,
     });
-
+    console.log("cart");
+    console.log(cart);
     let sum = 0;
     let totalQuantity = 0;
 
-    cart.items.map((item) => {
+    cart.items.map(async (item) => {
       sum = sum + (item.product.price + item.product.markup) * item.quantity;
       totalQuantity = totalQuantity + item.quantity;
     });
@@ -120,11 +192,45 @@ const createOrder = async (req, res) => {
       ...(cart.type ? { couponType: cart.type } : {}),
     };
 
+    cart.items.map(async (item) => {
+      console.log("item");
+      console.log(item);
+      const product = await Products.findOne({
+        _id: item.product._id.toString(),
+      });
+      console.log(product);
+
+      if (product && product.managerId) {
+        // Create an order for the product
+
+        const newOrder = {
+          managerId: product.managerId,
+          productId: product._id,
+          productName: product.name,
+          quantity: item.quantity,
+          price: item.product.price,
+          totalPrice: item.product.price * item.quantity,
+          orderDate: new Date(),
+          status: "pending", // Initial status for the order
+        };
+
+        // Save the order to the database
+        // const order = await managerOrderModel.create(newOrder);
+        // console.log("manager order");
+        // console.log(order);
+      }
+
+      sum = sum + (item.product.price + item.product.markup) * item.quantity;
+      totalQuantity = totalQuantity + item.quantity;
+    });
+
     const updateProductPromises = products.map((item) => {
-      return updateProductList(item.productId, -item.quantity);
+      return updateProductList(item.productId, -item.quantity, item.attributes);
     });
 
     await Promise.all(updateProductPromises);
+    console.log("orderData");
+    console.log(orderData);
 
     const order = await Order.create(orderData);
 
@@ -288,7 +394,7 @@ const cancelOrder = async (req, res) => {
     }));
 
     const updateProductPromises = products.map((item) => {
-      return updateProductList(item.productId, item.quantity);
+      return updateProductList(item.productId, item.quantity,item.attributes);
     });
 
     await Promise.all(updateProductPromises);

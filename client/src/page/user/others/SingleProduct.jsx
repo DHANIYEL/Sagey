@@ -173,11 +173,12 @@ const SingleProduct = () => {
   const validateAttributesSelection = () => {
     for (const attribute in selectedAttributes) {
       if (!selectedAttributes[attribute]) {
-        return false; // If any attribute is not selected, return false
+        return attribute; // Return the name of the first unselected attribute
       }
     }
-    return true; // All attributes are selected
+    return null; // Return null if all attributes are selected
   };
+  
 
   const addToCart = async () => {
     if (!user) {
@@ -189,10 +190,13 @@ const SingleProduct = () => {
       return;
     }
     // Validate attribute selections
-    if (!validateAttributesSelection()) {
-      toast.error("Please select a value for each attribute.");
+    const missingAttribute = validateAttributesSelection();
+
+    if (missingAttribute) {
+      toast.error(`${missingAttribute} is Required`);
       return; // Prevent adding to cart if validation fails
     }
+    
     setCartLoading(true);
     try {
       await axios.post(
@@ -396,13 +400,13 @@ const SingleProduct = () => {
                             <p
                               key={valueIndex}
                               className={`py-2 my-2 px-4 rounded-full cursor-pointer 
-                                  transition-colors duration-300 
-                                  ${
-                                    selectedAttributes[name] === value
-                                      ? "bg-primary text-white" // Selected state
-                                      : "bg-gray-200 text-black hover:bg-blue-100"
-                                  } // Default and hover states
-                                `}
+                                    transition-colors duration-300 
+                                    ${
+                                      selectedAttributes[name] === value
+                                        ? "bg-primary text-white" // Selected state
+                                        : "bg-gray-200 text-black hover:bg-blue-100"
+                                    } // Default and hover states
+                                  `}
                               onClick={() => handleSelectAttribute(name, value)}
                             >
                               {value}{" "}

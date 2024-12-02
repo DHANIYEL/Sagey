@@ -113,6 +113,29 @@ const addToCart = async (req, res) => {
       throw new Error("Insufficient stock Quantity");
     }
 
+    console.log("attributes");
+    console.log(attributes);
+
+    // Check for sufficient attribute quantity
+    for (let i = 0; i < productData.attributes.length; i++) {
+      const attributeKey = Object.keys(attributes)[i]; // Assuming a single attribute for now
+      // Destructure the Map
+      const attributeValue = attributes[attributeKey];
+
+      const attribute = productData.attributes.find(
+        (attr) => attr.name === attributeKey && attr.value === attributeValue
+      );
+
+      if (attribute) {
+        if (attribute.quantity < quantity) {
+          throw new Error(`Insufficient quantity for the ${attribute.value}`);
+        }
+      }
+      // else {
+      //   throw new Error(`Chose Type`);
+      // }
+    }
+
     let cart = await Cart.findOne({ user: _id });
     if (cart) {
       const existingProductIndex = cart.items.findIndex(
@@ -194,6 +217,12 @@ const deleteOneProduct = async (req, res) => {
 const incrementQuantity = async (req, res) => {
   try {
     const { cartId, productId } = req.params;
+    const { attributes, productdata, quantity } = req.body;
+
+    console.log(attributes);
+    console.log(productdata);
+
+    const productData = await Products.findById(productdata);
 
     let cart = await Cart.findOne({ _id: cartId });
 
@@ -207,6 +236,26 @@ const incrementQuantity = async (req, res) => {
 
     if (product.quantity + 1 > productOriginalData.stockQuantity) {
       throw Error("Insufficient Products");
+    }
+
+    for (let i = 0; i < productData.attributes.length; i++) {
+      // Check for sufficient attribute quantity
+      const attributeKey = Object.keys(attributes)[i]; // Assuming a single attribute for now
+      const attributeValue = attributes[attributeKey];
+
+      const attribute = productData.attributes.find(
+        (attr) => attr.name === attributeKey && attr.value === attributeValue
+      );
+
+      if (attribute) {
+        if (attribute.quantity < quantity + 1) {
+          throw new Error(
+            `Insufficient quantity for the ${attribute.name} ${attribute.value}`
+          );
+        }
+      } else {
+        throw new Error("Chose any type ");
+      }
     }
 
     cart = await Cart.findOneAndUpdate(

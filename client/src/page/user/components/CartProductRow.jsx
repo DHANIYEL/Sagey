@@ -16,9 +16,17 @@ const CartProductRow = ({ item, isLast, toggleProductConfirm }) => {
   const { cartId, countLoading } = useSelector((state) => state.cart);
 
   const dispatchIncrement = (item) => {
-    dispatch(incrementCount({ cartId, productId: item.product._id }));
+    dispatch(
+      incrementCount({
+        cartId,
+        productId: item.product._id,
+        attributes: item.attributes,
+        productdata: item.product,
+        quantity: item.quantity,
+      })
+    );
   };
-  
+
   const dispatchDecrement = (item) => {
     dispatch(decrementCount({ cartId, productId: item.product._id }));
   };

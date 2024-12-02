@@ -47,11 +47,18 @@ export const deleteOneProduct = createAsyncThunk(
 // Incrementing the count of one product
 export const incrementCount = createAsyncThunk(
   "cart/incrementCount",
-  async ({ cartId, productId }, { rejectWithValue }) => {
+  async (
+    { cartId, productId, attributes, productdata, quantity },
+    { rejectWithValue }
+  ) => {
     return commonReduxRequest(
       "patch",
       `/user/cart-increment-quantity/${cartId}/item/${productId}`,
-      {},
+      {
+        attributes,
+        productdata,
+        quantity,
+      },
       appJson,
       rejectWithValue
     );

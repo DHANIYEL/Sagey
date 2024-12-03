@@ -23,7 +23,6 @@ router.post("/forget-password-validate-otp", validateForgotOTP);
 // Set new password
 router.post("/set-new-password", newPassword);
 // OTP
-router.post("/send-otp", sendOTP);
 // router.post("/validate-otp", validateOTP);
 router.post("/resend-otp", resentOTP);
 

@@ -42,16 +42,15 @@ app.use(logger("dev"));
 //   credentials: true,
 //   optionSuccessStatus: 200,
 // };
-
 const corsOptions = {
-  // origin: ["https://trends-kart.vercel.app", "https://trends-kart.vercel.app"],
-  // origin: process.env.CLIENT_URL,
-  origin: ["https://sagey.in", "https://www.sagey.in"],
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+  origin: ["https://sagey.in", "https://www.sagey.in"], // Allow both the apex domain and subdomain
+  credentials: true, // Allow credentials (cookies, authorization headers)
+  optionSuccessStatus: 200, // For compatibility with older browsers
 };
-//
-app.use(cors(corsOptions));
+
+app.use(cors(corsOptions)); // Ensure this middleware is applied
+
+
 
 // Handling preflight requests manually
 app.use((req, res, next) => {

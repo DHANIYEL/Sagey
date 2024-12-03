@@ -10,7 +10,7 @@ export default {
     },
   },
   plugins: [
-    require('tailwind-scrollbar'),
-    require('@tailwindcss/aspect-ratio'),
+    // require('tailwind-scrollbar'),
+    // require('@tailwindcss/aspect-ratio'),
   ],
 };

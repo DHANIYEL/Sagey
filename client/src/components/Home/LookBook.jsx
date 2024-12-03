@@ -101,7 +101,7 @@ const LookBook = () => {
   return (
     <div className="container mx-auto px-4 py-8">
         <div className='mb-5'>
-            <h1 className='font-bold text-2xl'>Sagey look-book</h1>
+        <h1 className="text-lg sm:text-xl md:text-2xl font-normal sm:font-semibold md:font-bold">Sagey look-book</h1>
             <div className='h-1 mt-1 w-20 bg-primary'></div>
         </div>
       {/* Grid layout with 3 columns */}

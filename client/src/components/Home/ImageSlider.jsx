@@ -26,7 +26,7 @@ function ImageSlider({ images, hideArrows = false, hideThreeDot = false,   slide
   return (
     <div className="flex flex-col items-center py-10 ">
 <main>
-  <section className="relative h-[400px] max-w-full overflow-hidden">
+  <section className="relative h-[400px] max-w-full overflow-hidden max-md:h-[250px] max-sm:h-[200px]">
     <div className="relative h-full w-full flex items-center justify-center">
       {/* Conditional rendering for arrow buttons */}
       {!hideArrows && (
@@ -88,6 +88,7 @@ function ImageSlider({ images, hideArrows = false, hideThreeDot = false,   slide
     </div>
   </section>
 </main>
+
 
     </div>
   );

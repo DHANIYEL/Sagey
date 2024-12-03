@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import pant from "../../assets/Sagey/Product1.png";
+import pant from "../../assets/Sagey/product1.png";
 import Shirt from "../../assets/Sagey/model1.png";
 import OrangeTShirt from "../../assets/Sagey/product1.png";
 import tShirt from "../../assets/Sagey/model1.png";

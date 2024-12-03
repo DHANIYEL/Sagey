@@ -11,6 +11,8 @@ import BreadCrumbs from "../../Components/BreadCrumbs";
 import { getCategories } from "../../../../redux/actions/admin/categoriesAction";
 import { URL } from "@common/api";
 import toast from "react-hot-toast";
+import LogoutConfirmation from "@/components/LogoutConfimationModal";
+
 
 const EditProduct = () => {
   const dispatch = useDispatch();
@@ -31,6 +33,11 @@ const EditProduct = () => {
     "out of stock",
     "low quantity",
   ]);
+
+  const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
 
   const [duplicateFetchData, setDuplicateFetchData] = useState({});
   const [fetchedData, setFetchedData] = useState({
@@ -104,6 +111,29 @@ const EditProduct = () => {
   const [newMoreImage, setNewMoreImage] = useState([]);
   const handleMultipleImageInput = (files) => {
     setNewMoreImage(files);
+  };
+
+
+  const handleDeleteProduct = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.delete(`${URL}/admin/product/${id}`, {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        toast.success("Product deleted successfully");
+        // Optionally, you can redirect or update the UI after the product is deleted
+        // e.g., navigate to another page or update the state
+      }
+      setTimeout(() => {
+        navigate(-1);
+      }, 500);
+    } catch (error) {
+      toast.error("Failed to delete product");
+    } finally {
+      setLoading(false);
+      setShowConfirm(false); // Hide the confirmation dialog after deletion attempt
+    }
   };
 
   const handleSave = () => {
@@ -213,6 +243,22 @@ const EditProduct = () => {
             />
           </div>
           <div className="flex gap-3">
+          <button
+              className="admin-button-fl bg-red-500 text-white"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <AiOutlineDelete />
+              Delete
+            </button>
+            <LogoutConfirmation
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onConfirm={handleDeleteProduct}
+              headerText="Confirm Deletion"
+              descriptionText="Are you sure you want to delete this product? This action cannot be undone."
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
+            />
             <button
               className="admin-button-fl bg-gray-200 text-blue-700"
               onClick={() => navigate(-1)}

@@ -61,12 +61,12 @@ const ForgetPassword = () => {
             />
           )}
           {finalMessage && (
-            <div>
+            <div className="flex justify-center items-center flex-col">
               <h1 className="my-4 text-center">
                 Your password has been reset, please login again
               </h1>
               <Link
-                className="w-full bg-black text-white py-2 rounded-full text-center"
+                className="w-fit bg-black text-white py-2 px-4 rounded-md text-center"
                 to="/login"
               >
                 Go to Login

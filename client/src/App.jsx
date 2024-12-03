@@ -74,7 +74,6 @@ import Collectionsold from "./page/user/others/Collectionsold";
 import Collections from "./page/user/others/Collection";
 import Contact from "./page/user/others/Contact";
 import SingleProduct from "./page/user/others/SingleProduct";
-import LoginDemo from "./page/user/others/LoginDemo";
 import Home2 from "./page/user/others/Home2";
 import SignUp from "./components/Auth/SignUp";
 import ProtectedRouteReg from "@/components/ProtectedRoute";
@@ -125,7 +124,6 @@ function App() {
             }
           />
 
-          <Route path="/login-demo" element={<LoginDemo />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/collection" element={<Collectionsold />} />

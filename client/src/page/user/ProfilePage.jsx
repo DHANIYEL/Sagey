@@ -82,7 +82,7 @@ const ProfilePage = () => {
             </div>
             <button
               type="submit"
-              className="btn-blue text-white w-full my-3"
+              className="btn-primary text-white w-full my-3"
               onClick={toggleEditProfile}
             >
               Edit Profile

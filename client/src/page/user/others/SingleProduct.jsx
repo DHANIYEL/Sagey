@@ -267,7 +267,7 @@ const SingleProduct = () => {
   return (
     <div className="w-full flex flex-col justify-start items-center">
       <div className=" container w-full flex  my-6">
-        <h1 className="flex justify-center items-center font-Inter px-5 lg:pr-32 pl-0">
+        <h1 className="flex justify-center items-center font-Inter px-5 lg:pr-32 pl-0 ">
           <span>
             <HomeIcon color="#2C2C2C" onClick={onHomeClick} />
           </span>
@@ -351,7 +351,8 @@ const SingleProduct = () => {
                     )
                   )}
 
-                <div className="flex items-center justify-center ml-6 w-24 lg:w-[150px] lg:h-[50px] mt-5 border-gray-300 rounded-md lg:mt-8">
+<div className="flex items-center justify-center w-24 lg:w-[150px] lg:h-[50px] mt-5 border-gray-300 rounded-md lg:mt-8 ml-6 lg:ml-0">
+
                   <Quantity
                     count={count}
                     decrement={decrement}

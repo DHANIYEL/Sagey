@@ -92,7 +92,7 @@ const AddressProfile = () => {
           <h1>No Saved address found</h1>
         )}
         <div className="my-5 text-white">
-          <button className="btn-blue" onClick={toggleAddress}>
+          <button className="btn-primary" onClick={toggleAddress}>
             Add a new Address
           </button>
         </div>

@@ -48,6 +48,9 @@ check indexcss tst file 🤣😢🎶😎
     );
   }
   
+  .btn-primary {
+    @apply bg-[#166272] px-3 lg:px-12 py-3 rounded-lg hover:bg-blue-700;
+  }
   .btn-blue {
     @apply bg-blue-600 px-3 lg:px-12 py-3 rounded-lg hover:bg-blue-700;
   }

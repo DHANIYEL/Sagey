@@ -46,7 +46,7 @@ app.use(logger("dev"));
 const corsOptions = {
   // origin: ["https://trends-kart.vercel.app", "https://trends-kart.vercel.app"],
   // origin: process.env.CLIENT_URL,
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://sagey.in", "https://www.sagey.in"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

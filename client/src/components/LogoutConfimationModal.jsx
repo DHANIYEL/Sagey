@@ -18,7 +18,7 @@ export default function ConfirmationModal({
         <Button variant="outline" onClick={onClose}>
           {cancelButtonText}
         </Button>
-        <Button onClick={onConfirm} className="hover:bg-red-600 bg-red-500">
+        <Button onClick={onConfirm} className="hover:bg-[#166272] bg-[#166272]">
           {confirmButtonText}
         </Button>
       </div>

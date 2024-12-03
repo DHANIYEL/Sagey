@@ -27,7 +27,7 @@ const OurProducts = () => {
     <div className="container mx-auto px-4 py-8" data-aos="fade-up">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold">Our Products</h1>
+        <h1 className="text-lg sm:text-xl md:text-2xl font-normal sm:font-semibold md:font-bold">Our Products</h1>
           <div className="h-1 w-20 bg-primary"></div>
         </div>
         <div

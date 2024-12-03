@@ -109,9 +109,9 @@ function ReviewSlider() {
 function Header() {
   return (
     <div className="text-start ">
-      <h2 className="text-2xl font-bold text-gray-900 ">
+     <h1 className="text-lg sm:text-xl md:text-2xl font-normal sm:font-semibold md:font-bold">
       Customer Reviews
-      </h2>
+      </h1>
       <div className='h-1 w-24 bg-primary mt-1'></div>
     </div>
   )

@@ -266,8 +266,8 @@ const SingleProduct = () => {
 
   return (
     <div className="w-full flex flex-col justify-start items-center">
-      <div className=" container w-full flex my-6">
-        <h1 className="flex justify-center items-center font-Inter px-5 lg:pr-32 pl-0">
+      <div className=" container w-full flex  my-6">
+        <h1 className="flex justify-center items-center font-Inter px-5 lg:pr-32 pl-0 ">
           <span>
             <HomeIcon color="#2C2C2C" onClick={onHomeClick} />
           </span>
@@ -280,8 +280,8 @@ const SingleProduct = () => {
           </span>
         </h1>
       </div>
-      <div className="w-full lg:px-20 justify-center">
-        <div className="w-full my-2 flex flex-col lg:flex-row">
+      <div className="w-full  lg:px-20 justify-center">
+        <div className="w-full my-2 flex flex-col gap-20 lg:flex-row">
           <div className="w-full lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col">
             <ProductSlider
               images={imageArray}
@@ -290,50 +290,6 @@ const SingleProduct = () => {
             />
             <br />
 
-            {/* Product Images */}
-            <div className="lg:w-1/2 bg-white p-5 rounded flex flex-col items-center h-fit">
-              {/* <div className="w-80 h-80 lg:w-96 lg:h-96 hidden lg:block">
-                {currentImage && (
-                  <ImageZoom
-                    imageUrl={`${URL}/img/${currentImage}`}
-                    width={400}
-                    zoomedValue={820}
-                    zoomedWidth={500}
-                  />
-                )}
-              </div> */}
-              {/* <div className="w-80 lg:w-96 lg:h-96 lg:hidden mx-auto">
-                {currentImage && (
-                  <img
-                    src={`${URL}/img/${currentImage}`}
-                    alt="Product"
-                    className="w-60 h-60 object-cover"
-                  />
-                )}
-              </div> */}
-
-              <div className="flex gap-1 lg:gap-5 mt-5">
-                {product.moreImageURL &&
-                  product.moreImageURL.map((image, i) => (
-                    <div
-                      key={i}
-                      className={`flex justify-center items-center w-12 h-12 lg:w-20 lg:h-20 overflow-clip border ${
-                        currentImage === image
-                          ? "border-gray-500"
-                          : "border-gray-300"
-                      } hover:border-gray-500 p-2 cursor-pointer `}
-                      onClick={() => setSelectedImageIndex(i + 1)}
-                    >
-                      <img
-                        className="w-full h-full object-contain"
-                        key={i}
-                        src={`${URL}/img/${image}`}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-            {/* Product Details */}
           </div>
           <div className="mt-8 lg:mt-0 lg:w-1/2 px-8">
             <h1 className="text-[16px] lg:text-[30px] xl:text-[40px] font-light font-sans">
@@ -362,31 +318,7 @@ const SingleProduct = () => {
             <div className="w-full lg:hidden h-4 mt-2 bg-[#F7F7F7]"></div>
             <div className="w-full px-">
               <div className="w-full pt-3 font-Inter">
-                {/* <div className="w-full pt-3 font-Inter">
-                  <h1 className="text-[14px] lg:text-[18px] xl:text-[22px] font-light font-Inter">
-                    Select Size
-                  </h1>
-                  <div className="flex space-x-4 pt-1">
-                    {["S", "M", "L", "XL"].map((size) => (
-                      <div
-                        key={size}
-                        className={`cursor-pointer flex items-center justify-center w-12 h-12 rounded-full border-[1px] text-[14px] font-light transition duration-200 ${
-                          product.selectedSize === size
-                            ? "border-[#166272] bg-[#FEE4E4] text-[#166272]"
-                            : "border-[#777777] text-black hover:bg-[#F7F7F7]"
-                        }`}
-                        onClick={() =>
-                          setProduct((prev) => ({
-                            ...prev,
-                            selectedSize: size,
-                          }))
-                        }
-                      >
-                        {size}
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
+                
 
                 {product.attributes &&
                   Object.entries(groupAttributes(product.attributes)).map(
@@ -419,7 +351,8 @@ const SingleProduct = () => {
                     )
                   )}
 
-                <div className="flex items-center justify-center w-24 lg:w-[150px] lg:h-[50px] mt-5 border-gray-300 rounded-md lg:mt-8">
+<div className="flex items-center justify-center w-24 lg:w-[150px] lg:h-[50px] mt-5 border-gray-300 rounded-md lg:mt-8 ml-6 lg:ml-0">
+
                   <Quantity
                     count={count}
                     decrement={decrement}

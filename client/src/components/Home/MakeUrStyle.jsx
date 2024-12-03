@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 const MakeUrStyle = ({ heading, description, btnName, handleClick }) => {
   return (
-    <div className="relative my-10 w-full h-fit bg-gradient-to-r rounded-xl from-cyan-600 to-cyan-700 flex flex-col items-center justify-center p-8 bg-opacity-90 ">
+    <div className="relative my-10 w-full h-fit bg-gradient-to-r from-cyan-600 to-cyan-700 flex flex-col items-center justify-center p-8 bg-opacity-90 rounded-none sm:rounded-xl">
       {/* Noise texture overlay */}
       <div
         className="absolute inset-0 opacity-50"

@@ -3,57 +3,57 @@ const OTP = require("../model/otpModel");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
-const { sendOTPMail, passwordChangedMail } = require("../util/mailFunction");
-
+const { passwordChangedMail } = require("../util/mailFunction");
+const mailSender = require("../util/mailSender")
 // Sending OTP to email for validation
-const sendOTP = async (req, res) => {
-  // console.log("Sending OTP  to email for validation", req.body);
-  try {
-  //   const { email } = req.body;
-  //   if (!email) {
-  //     throw Error("Provide an Email");
-  //   }
+// const sendOTP = async (req, res) => {
+//   // console.log("Sending OTP  to email for validation", req.body);
+//   try {
+//     const { email } = req.body;
+//     if (!email) {
+//       throw Error("Provide an Email");
+//     }
 
-  //   if (!validator.isEmail(email)) {
-  //     throw Error("Invalid Email");
-  //   }
+//     if (!validator.isEmail(email)) {
+//       throw Error("Invalid Email");
+//     }
 
-  //   const user = await User.findOne({ email });
+//     const user = await User.findOne({ email });
 
-  //   if (user) {
-  //     throw Error("Email is already registered");
-  //   }
+//     if (user) {
+//       throw Error("Email is already registered");
+//     }
 
-  //   let otp = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+//     let otp = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
 
-  //   const exists = await OTP.findOne({ email });
+//     const exists = await OTP.findOne({ email });
 
-  //   if (exists) {
-  //     throw Error("OTP already send");
-  //   }
+//     if (exists) {
+//       throw Error("OTP already send");
+//     }
 
-  //   await OTP.create({ email, otp });
+//     await OTP.create({ email, otp });
 
-    res.status(200).json({ success: true, message: "OTP sent Successfully" });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+//     res.status(200).json({ success: true, message: "OTP sent Successfully" });
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
-// Validating above OTP
+// // Validating above OTP
 // const validateOTP = async (req, res) => {
 //   const { email, otp } = req.body;
 
 //   try {
-//     // const data = await OTP.findOne({ email });
+//     const data = await OTP.findOne({ email });
 
-//     // if (!data) {
-//     //   throw Error("OTP expired");
-//     // }
+//     if (!data) {
+//       throw Error("OTP expired");
+//     }
 
-//     // if (otp !== data.otp) {
-//     //   throw Error("OTP is not matched");
-//     // }
+//     if (otp !== data.otp) {
+//       throw Error("OTP is not matched");
+//     }
 
 //     res.status(200).json({
 //       success: true,
@@ -64,42 +64,42 @@ const sendOTP = async (req, res) => {
 //   }
 // };
 
-// Incase the user forget the password can reset after verifying otp
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
 
-    if (!email) {
-      throw Error("Provide an Email");
-    }
-
-    if (!validator.isEmail(email)) {
-      throw Error("Invalid Email");
-    }
+    if (!email) throw Error("Provide an Email");
+    if (!validator.isEmail(email)) throw Error("Invalid Email");
 
     const user = await User.findOne({ email });
+    if (!user) throw Error("Email is not Registered");
 
-    if (!user) {
-      throw Error("Email is not Registered");
-    }
+    // Generate OTP
+    const otp = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+    const expiryTime = Date.now() + 10 * 60 * 1000;
 
     const otpExists = await OTP.findOne({ email });
+    if (otpExists) await OTP.findOneAndDelete({ _id: otpExists._id });
 
-    if (otpExists) {
-      await OTP.findOneAndDelete({ _id: otpExists._id });
+    // Save OTP to the database
+    await OTP.create({ email, otp, expiresAt: expiryTime });
+
+    // Send the OTP to the user
+    const emailResponse = await passwordChangedMail(email, otp);  // Pass OTP to the function
+    console.log("Email sent successfully: ", emailResponse); // Log the response
+
+    if (!emailResponse) {
+      throw Error("Failed to send email. Please try again.");
     }
 
-    let otp = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
-
-    await OTP.create({ email, otp });
-
-    res
-      .status(200)
-      .json({ msg: "OTP is send to your email Address", success: true });
+    res.status(200).json({ msg: "OTP is sent to your email address", success: true });
   } catch (error) {
+    console.error("Error in forgotPassword: ", error.message);
     res.status(400).json({ error: error.message });
   }
 };
+
+
 
 // Validating forgot OTP
 const validateForgotOTP = async (req, res) => {
@@ -208,7 +208,7 @@ const resentOTP = async (req, res) => {
     }
 
     if (otpData.otp) {
-      sendOTPMail(email, otpData.otp);
+      passwordChangedMail(email, otpData.otp);
     } else {
       throw Error("Cannot find OTP");
     }
@@ -220,7 +220,6 @@ const resentOTP = async (req, res) => {
 };
 
 module.exports = {
-  sendOTP,
   forgotPassword,
   validateForgotOTP,
   newPassword,

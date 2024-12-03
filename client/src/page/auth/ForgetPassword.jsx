@@ -33,7 +33,7 @@ const ForgetPassword = () => {
         <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
           <div className="flex items-center justify-center mb-6">
             <img src={Logo} alt="Helah Logo" className="w-12" />
-            <p className="text-3xl font-bold ml-2">Helah.</p>
+            <p className="text-3xl font-bold ml-2">Sagey.</p>
           </div>
           <h1 className="text-2xl font-bold mb-4 text-center">Reset your Password</h1>
 

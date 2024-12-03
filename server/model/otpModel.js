@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { sendOTPMail } = require("../util/mailFunction");
+const { passwordChangedMail } = require("../util/mailFunction");
 
 const otpSchema = new mongoose.Schema({
   email: {
@@ -19,7 +19,7 @@ const otpSchema = new mongoose.Schema({
 
 async function sendVerificationEmail(email, otp) {
   try {
-    sendOTPMail(email, otp);
+    passwordChangedMail(email, otp);
   } catch (error) {
     console.log("Error occurred while sending email: ", error);
     throw error;

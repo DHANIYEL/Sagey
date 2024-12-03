@@ -13,42 +13,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(logger("dev"));
 
-// Setting up cors
-
-// const allowedOrigins = [process.env.CLIENT_URL,'https://hela-ecommerce.vercel.app'];
-// const corsOptions = {
-//   credentials: true,
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-// };
-// app.use(cors(corsOptions));
-
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     console.log("Origin: ", origin); // Debugging line
-//     const allowedOrigins = ["https://helah.in", "https://www.helah.in"];
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-//   optionSuccessStatus: 200,
-// };
 const corsOptions = {
-  origin: ["https://sagey.in", "https://www.sagey.in"], // Allow both the apex domain and subdomain
-  credentials: true, // Allow credentials (cookies, authorization headers)
-  optionSuccessStatus: 200, // For compatibility with older browsers
+  origin: ["https://sagey.in", "https://www.sagey.in"],
+  credentials: true, // Allow cookies
+  optionsSuccessStatus: 200, // Response for preflight requests
 };
 
-app.use(cors(corsOptions)); // Ensure this middleware is applied
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Allow preflight requests
+
 
 
 

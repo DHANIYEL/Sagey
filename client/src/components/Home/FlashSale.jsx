@@ -67,57 +67,61 @@ const FlashSale = () => {
 
   return (
     <div className="relative max-w-[90rem] mx-auto overflow-hidden py-10">
-      <div className=" mb-4 font-bold text-2xl">
-        <h1 className="">FLASH SALES</h1>
-        <div className="h-1 w-16 hover:w-20 bg-primary"></div>
-      </div>
-      {/* Carousel Container */}
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
-          {categories.map((category, index) => (
-            <div
-              key={index}
-              className="relative flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] md:flex-[0_0_25%]"
-            >
-              <div className={`relative aspect-[3/4] ${category.bgColor} transition-transform duration-500 hover:scale-110`}>
-                <img
-                  src={category.image}
-                  alt={category.title}
-                  className="absolute inset-0 w-full h-full object-cover  "
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
+  {/* Title */}
+  <div className="mb-4 font-bold text-2xl flex flex-col items-center">
+    <h1 className="text-center">FLASH SALES</h1>
+    <div className="h-1 w-16 hover:w-20 bg-primary"></div>
+  </div>
 
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="text-white text-2xl font-bold tracking-wider">
-                    {category.title}
-                  </h3>
-                </div>
-              </div>
+  {/* Carousel Container */}
+  <div className="overflow-hidden" ref={emblaRef}>
+    <div className="flex">
+      {categories.map((category, index) => (
+        <div
+          key={index}
+          className="relative flex-[0_0_70%] sm:flex-[0_0_45%] md:flex-[0_0_30%] ml-4 first:ml-0"
+        >
+          <div
+            className={`relative aspect-[3/4] ${category.bgColor} transition-transform duration-500 hover:scale-110`}
+          >
+            <img
+              src={category.image}
+              alt={category.title}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute bottom-6 left-6">
+              <h3 className="text-white text-2xl font-bold tracking-wider">
+                {category.title}
+              </h3>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-
-      {/* Navigation Buttons */}
-      <Button
-        variant="secondary"
-        size="icon"
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
-        onClick={scrollPrev}
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </Button>
-
-      <Button
-        variant="secondary"
-        size="icon"
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
-        onClick={scrollNext}
-      >
-        <ChevronRight className="h-6 w-6" />
-      </Button>
+      ))}
     </div>
+  </div>
+
+  {/* Navigation Buttons */}
+  <Button
+    variant="secondary"
+    size="icon"
+    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+    onClick={scrollPrev}
+  >
+    <ChevronLeft className="h-6 w-6" />
+  </Button>
+
+  <Button
+    variant="secondary"
+    size="icon"
+    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+    onClick={scrollNext}
+  >
+    <ChevronRight className="h-6 w-6" />
+  </Button>
+</div>
+
   );
 };
 

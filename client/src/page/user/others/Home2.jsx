@@ -20,7 +20,7 @@ const images = [HomeImg, Image2, Image3];
 const offImages = [offImg1, offImg2];
 
 const handleClickFunctionWhats = ()=> {
-  const phoneNumber = '9072374704'; // Replace with the WhatsApp number
+  const phoneNumber = '9400740061'; // Replace with the WhatsApp number
   const message = encodeURIComponent('Hi, I’m excited to create my own custom-designed dress! Can you help me bring my vision to life?');
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 

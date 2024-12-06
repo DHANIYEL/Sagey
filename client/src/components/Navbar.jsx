@@ -7,10 +7,13 @@ import "animate.css"; // Import Animate.css for animations
 import SageLogo from "../assets/sage-logo.png";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.user);
 
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -29,7 +32,7 @@ const Navbar = () => {
       subcategories: ["Cotton wears", "Partywears", "Regular wears"],
     },
     {
-      title: "HIJABS",
+      title: "HIJAB",
       subcategories: [],
     },
     {
@@ -119,6 +122,11 @@ const Navbar = () => {
     setSearchParams(params.toString() ? "?" + params.toString() : "");
   };
 
+    // If the user is logged in, return null to hide the link
+    // if (user) {
+    //   return null;
+    // }
+  
   const [showSideNavbar, setShowSideNavbar] = useState(false);
 
   return (
@@ -142,12 +150,14 @@ const Navbar = () => {
           {/* Right-side Buttons */}
           <div className="flex items-center gap-4 sm:gap-8 md:gap-10">
             {/* Hidden on smaller screens */}
-            <Link
-              to="/register"
-              className="px-4 py-2 bg-primary rounded-none text-sm font-medium text-white hover:bg-white hover:text-primary hover:border transition hidden sm:block"
-            >
-              SIGN IN / SIGN UP
-            </Link>
+            {!user && (
+  <Link
+    to="/login"
+    className="px-4 py-2 bg-primary rounded-none text-sm font-medium text-white hover:bg-white hover:text-primary hover:border transition hidden sm:block"
+  >
+    SIGN IN / SIGN UP
+  </Link>
+)}
             <Link to="/dashboard/wishlist" variant="ghost" size="icon">
               <Heart className="h-5 w-5" />
             </Link>
@@ -185,15 +195,17 @@ const Navbar = () => {
             <nav className="mt-4 py-3 rounded-md">
               <ul className="flex flex-col px-4">
                 {/* Add "SIGN IN / SIGN UP" button in mobile menu */}
-                <li className="py-2">
-                  <Link
-                    to="/register"
-                    className="block text-sm font-medium text-white bg-primary px-4 py-2 rounded-md hover:bg-white hover:text-primary"
-                    onClick={() => setShowSideNavbar(false)}
-                  >
-                    SIGN IN / SIGN UP
-                  </Link>
-                </li>
+                {!user && (
+  <li className="py-2">
+    <Link
+      to="/login"
+      className="block text-sm font-medium text-white bg-primary px-4 py-2 rounded-md hover:bg-white hover:text-primary"
+      onClick={() => setShowSideNavbar(false)}
+    >
+      SIGN IN / SIGN UP
+    </Link>
+  </li>
+)}
                 {categories.map((category, index) => (
                   <li
                     key={category.title}

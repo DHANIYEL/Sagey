@@ -275,9 +275,11 @@ const SingleProduct = () => {
             className="hover:text-[#166272] ml-2 text-sm cursor-pointer"
             onClick={() => navigate(`/collections?category=${product.category._id}`)}
           >
-            {product.category && product.category.name + "   "}
+            {product.category  && product.category.name + "    "}
+          </span> 
+          <span>
+          {" -> "}
           </span>
-          {">"}
           <span className="hover:text-[#166272] ml-2 text-sm">
             {product.name}
           </span>
@@ -287,7 +289,7 @@ const SingleProduct = () => {
         <div className="w-full my-2 flex flex-col gap-20 lg:flex-row">
 
           {/*Product Images*/}
-          <div className="w-full lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col ">
+          <div className="w-full  lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col ">
             <ProductSlider
               images={imageArray}
               selectedImageIndex={selectedImageIndex}
@@ -304,11 +306,11 @@ const SingleProduct = () => {
               {product.name}
             </h1>
             {/* Product Description */}
-            <div>
+            {/* <div>
               <p className="text-[16px] lg:text-[16px] xl:text-[18px] font-[300] font-sans">
                 {product.description}
               </p>
-            </div>
+            </div> */}
             {/* Product Price */}
             <div className="flex w-full mt-0 border-t-[#9F9F9F] lg:mt-0 pt-3">
               <h1 className="text-[25px] xl:text-[30px] font-[500] font-Inter text-[#2C2C2C] ">
@@ -372,7 +374,7 @@ const SingleProduct = () => {
                     )
                   )}
                 <h1 className="mt-3 font-[500]">QUANTITY</h1>
-                <div className="flex items-center justify-center w-24 lg:w-[150px] lg:h-[50px] mt-2 border-gray-300 rounded-md lg:mt-4 ml-6 lg:ml-0">
+                <div className="flex items-center justify-left w-24 lg:w-[150px] lg:h-[50px] mt-2 border-gray-300 rounded-md lg:mt-4 ml-0 lg:ml-0">
 
                   <Quantity
                     count={count}
@@ -464,7 +466,7 @@ const SingleProduct = () => {
                 onClick={() => handleClick("div2")}
               >
                 <h1 className="font-sans text-[16px] lg:text-[22px] font-light ">
-                  Size & Material
+                How to Find Your Perfect Size
                 </h1>
                 <RiArrowDropDownLine
                   className={`text-4xl font-[100] transition-transform duration-300 ${toggleStates.div2 ? "rotate-180" : "rotate-0"
@@ -474,11 +476,11 @@ const SingleProduct = () => {
               {toggleStates.div2 && (
                 <div className="p-4">
                   <p className="text-[14px] lg:text-[16px]">
-                    Size: {product.size ? product.size : "N/A"}
+                  Please select your size based on your chest measurement for the best fit For example, if your bust measurement is 34 inches, we recommend selecting the SMALL-34 SIZE, our small size already includes some extra ease for a comfortable fit for Chest size 34.
                   </p>
-                  <p className="text-[14px] lg:text-[16px]">
+                  {/* <p className="text-[14px] lg:text-[16px]">
                     Material: {product.material ? product.material : "N/A"}
-                  </p>
+                  </p> */}
                 </div>
               )}
               <div
@@ -518,7 +520,7 @@ const SingleProduct = () => {
       </div>
       {/* Recommended Products */}
       <div className="w-full px-4 lg:px-20 mt-8 mb-8">
-        <h2 className="text-xl lg:text-2xl text-center mb-4">
+        <h2 className="text-xl lg:text-2xl text-bold text-center py-5">
           You may also like
         </h2>
         {loadingproducts ? (

@@ -85,8 +85,8 @@ const FlashSale = () => {
   return (
     <div className="relative overflow-hidden py-10">
       {/* Title */}
-      <div className="mb-4 font-bold text-2xl flex flex-col items-center">
-        <h1 className="text-center">FLASH SALES</h1>
+      <div className="mb-4 font-bold text-2xl flex flex-col items-left">
+        <h1 className="text-left">FLASH SALES</h1>
         <div className="h-1 w-16 hover:w-20 bg-primary"></div>
       </div>
 

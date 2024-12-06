@@ -25,43 +25,43 @@ const OurProducts = () => {
 
   return (
     <div className="container mx-auto px-4 py-8" data-aos="fade-up">
-    <div className="flex items-center justify-between mb-8">
       <div>
         <h1 className="text-lg sm:text-xl md:text-2xl font-normal sm:font-semibold md:font-bold">
           Our Products
         </h1>
-        <div className="h-1 w-20 bg-primary"></div>
+        <div className="h-1 w-20 bg-primary mb-8"></div>
       </div>
-      <div
-        onClick={() => navigate(`/collections`)}
-        className="flex items-center text-gray-600 hover:text-gray-900 cursor-pointer"
-      >
-        View all
-        <ChevronRight className="h-5 w-5 ml-1" />
+
+      {loading ? (
+        <div className="flex justify-center items-center h-96">
+          <JustLoading size={10} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {userProducts && userProducts.length > 0 ? (
+            shuffleArray(userProducts)
+              .slice(0, 16) // Display 16 products
+              .map((product, index) => (
+                <ProductCard2 product={product} key={index} />
+              ))
+          ) : (
+            <div className="h-96 flex items-center justify-center">
+              <p>Nothing to show</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={() => navigate(`/collections`)}
+          className="flex bg-primary items-center text-white px-5 py-3 hover:text-primary hover:bg-white hover:outline cursor-pointer text-lg"
+        >
+          View all
+          <ChevronRight className="h-5 w-5 ml-1" />
+        </button>
       </div>
     </div>
-  
-    {loading ? (
-      <div className="flex justify-center items-center h-96">
-        <JustLoading size={10} />
-      </div>
-    ) : (
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {userProducts && userProducts.length > 0 ? (
-          shuffleArray(userProducts)
-            .slice(0, 4)
-            .map((product, index) => (
-              <ProductCard2 product={product} key={index} />
-            ))
-        ) : (
-          <div className="h-96 flex items-center justify-center">
-            <p>Nothing to show</p>
-          </div>
-        )}
-      </div>
-    )}
-  </div>
-  
   );
 };
 

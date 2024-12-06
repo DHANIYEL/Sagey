@@ -13,10 +13,11 @@ const WhatsAppFloatingButton = () => {
     <div className="fixed bottom-4 right-4 z-50">
       <button
         onClick={openWhatsApp}
-        className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
+        className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center space-x-2"
         aria-label="WhatsApp Chat"
       >
         <FaWhatsapp className="w-6 h-6" />
+        <span className="hidden sm:inline">WhatsApp</span> {/* Hide "WhatsApp" text on small screens */}
       </button>
     </div>
   );

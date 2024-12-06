@@ -128,7 +128,7 @@ const LookBook = () => {
       <div className="flex justify-center mt-8">
         {!isShowMore && (
           <Button 
-            className="bg-primary hover:bg-teal-800 text-white px-8 py-2 rounded-md"
+            className="bg-primary hover:bg-teal-800 text-white px-8 py-2 rounded-sm"
             onClick={handleShowMore}
           >
             See More

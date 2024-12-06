@@ -178,7 +178,7 @@ const SingleProduct = () => {
     }
     return null; // Return null if all attributes are selected
   };
-  
+
 
   const addToCart = async () => {
     if (!user) {
@@ -196,7 +196,7 @@ const SingleProduct = () => {
       toast.error(`${missingAttribute} is Required`);
       return; // Prevent adding to cart if validation fails
     }
-    
+
     setCartLoading(true);
     try {
       await axios.post(
@@ -266,15 +266,18 @@ const SingleProduct = () => {
 
   return (
     <div className="w-full flex flex-col justify-start items-center">
-      <div className=" container w-full flex  my-6">
-        <h1 className="flex justify-center items-center font-Inter px-5 lg:pr-32 pl-0 ">
+      <div className="container w-full flex my-6 mx-auto px-4 lg:px-auto">
+        <h1 className="flex justify-center items-center font-Inter px-5 lg:pr-32 pl-0">
           <span>
             <HomeIcon color="#2C2C2C" onClick={onHomeClick} />
           </span>
-          <span className="hover:text-[#166272] ml-2 text-sm">
-            {product.category && product.category.name + " -"}
+          <span
+            className="hover:text-[#166272] ml-2 text-sm cursor-pointer"
+            onClick={() => navigate(`/collections?category=${product.category._id}`)}
+          >
+            {product.category && product.category.name + "   "}
           </span>
-          {" >"}
+          {">"}
           <span className="hover:text-[#166272] ml-2 text-sm">
             {product.name}
           </span>
@@ -282,7 +285,9 @@ const SingleProduct = () => {
       </div>
       <div className="w-full  lg:px-20 justify-center">
         <div className="w-full my-2 flex flex-col gap-20 lg:flex-row">
-          <div className="w-full lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col">
+
+          {/*Product Images*/}
+          <div className="w-full lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col ">
             <ProductSlider
               images={imageArray}
               selectedImageIndex={selectedImageIndex}
@@ -291,53 +296,69 @@ const SingleProduct = () => {
             <br />
 
           </div>
-          <div className="mt-8 lg:mt-0 lg:w-1/2 px-8">
-            <h1 className="text-[16px] lg:text-[30px] xl:text-[40px] font-light font-sans">
+
+          {/* Product Name */}
+
+          <div className="mt-8 lg:mt-0 lg:w-1/2 px-4">
+            <h1 className="text-[30px] lg:text-[30px] xl:text-[40px] font-[400] font-sans">
               {product.name}
             </h1>
-            <div className="flex w-full mt-1 lg:border-t-[1px] border-t-[#9F9F9F] lg:mt-6 pt-3">
-              <h1 className="text-[16px] lg:text-[20px] xl:text-[30px] font-semibold font-Inter text-[#2C2C2C] ">
-                {product.price} ₹
+            {/* Product Description */}
+            <div>
+              <p className="text-[16px] lg:text-[16px] xl:text-[18px] font-[300] font-sans">
+                {product.description}
+              </p>
+            </div>
+            {/* Product Price */}
+            <div className="flex w-full mt-0 border-t-[#9F9F9F] lg:mt-0 pt-3">
+              <h1 className="text-[25px] xl:text-[30px] font-[500] font-Inter text-[#2C2C2C] ">
+                ₹{product.price}
               </h1>
               {product.offer && (
-                <>
-                  <h1 className="text-[16px] lg:text-[20px] xl:text-[30px] font-light font-Inter text-[#949494] ml-3 line-through">
-                    {parseInt(product.price / (1 - product.offer / 100))}₹
+                <><span className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#949494] ml-3 ">MRP</span>
+                  <h1 className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#949494] ml-3 line-through">
+                    ₹{parseInt(product.price / (1 - product.offer / 100))}
                   </h1>
-                  <div className="ml-3 px-2 w-auto h-auto md:ml-4 bg-[#166272] rounded-[2px] text-white text-[12px] lg:text-[13px] flex justify-center items-center">
-                    {product.offer}% Off
+                  <div className="ml-3 px-2 w-auto h-auto md:ml-4 rounded-[2px] text-[#CC4254] text-[20px] font-[400] flex justify-center items-center">
+                    {product.offer}% OFF
                   </div>
                 </>
               )}
             </div>
-            <div className="mt-1">
-              <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-[#166272] ">
-                Incl. of all taxes
+            {/* Tax Product  */}
+            <div>
+              <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-[400] font-Inter text-[#166272] ">
+                Inclusive Of All Taxes
               </h1>
             </div>
-            <div className="w-full lg:hidden h-4 mt-2 bg-[#F7F7F7]"></div>
+            <div>
+              {/* Rating of Product  */}
+              <div className="mt-3">
+                <h1>5.0 ⭐</h1>
+              </div>
+
+
+            </div>
+
             <div className="w-full px-">
               <div className="w-full pt-3 font-Inter">
-                
-
                 {product.attributes &&
                   Object.entries(groupAttributes(product.attributes)).map(
                     ([name, values], index) => (
-                      <div key={index} className="mt-4">
-                        <p className="font-semibold text-gray-500 text-sm mb-1">
+                      <div key={index} className="mt-1">
+                        <p className="font-semibold text-white-500 text-sm mb-1">
                           {name.toUpperCase()}{" "}
                         </p>
                         <div className="flex space-x-2">
                           {values.map(({ value }, valueIndex) => (
                             <p
                               key={valueIndex}
-                              className={`py-2 my-2 px-4 rounded-full cursor-pointer 
+                              className={`py-2 my-2 px-4  cursor-pointer 
                                     transition-colors duration-300 
-                                    ${
-                                      selectedAttributes[name] === value
-                                        ? "bg-primary text-white" // Selected state
-                                        : "bg-gray-200 text-black hover:bg-blue-100"
-                                    } // Default and hover states
+                                    ${selectedAttributes[name] === value
+                                  ? "bg-[#166272] text-white" // Selected state with primary color
+                                  : "bg-gray-200 text-black hover:bg-[#166272] hover:text-white"
+                                } // Default and hover states
                                   `}
                               onClick={() => handleSelectAttribute(name, value)}
                             >
@@ -350,8 +371,8 @@ const SingleProduct = () => {
                       </div>
                     )
                   )}
-
-<div className="flex items-center justify-center w-24 lg:w-[150px] lg:h-[50px] mt-5 border-gray-300 rounded-md lg:mt-8 ml-6 lg:ml-0">
+                <h1 className="mt-3 font-[500]">QUANTITY</h1>
+                <div className="flex items-center justify-center w-24 lg:w-[150px] lg:h-[50px] mt-2 border-gray-300 rounded-md lg:mt-4 ml-6 lg:ml-0">
 
                   <Quantity
                     count={count}
@@ -359,6 +380,44 @@ const SingleProduct = () => {
                     increment={increment}
                   />
                 </div>
+
+                <div className="flex justify-start space-x-2 w-full pt-3">
+                  {!isOutOfStock && (
+                    <Button
+                      disabled={cartLoading}
+                      onClick={addToCart}
+                      className="bg-[#166272] mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] text-white px-10"
+                    >
+                      {cartLoading ? "Loading" : "Add to Bag"}
+                    </Button>
+                  )}
+                  {isOutOfStock && (
+                    <Button
+                      disabled={cartLoading}
+                      onClick={notifyManager}
+                      className="bg-[#b3cc42] mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] text-white px-10"
+                    >
+                      {cartLoading ? "Loading" : "Notify Me"}
+                    </Button>
+                  )}
+
+                  {isProductInWishlist ? (
+                    <Button className="bg-black mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] text-white px-10 border-[1px] border-[#777777] ">
+                      Wishlist ♥
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={dispatchAddWishlist}
+                      className="bg-white mt-3 w-1/2 md:w-1/2 hover:text-white hover:border-[#777777] h-12 font-Inter text-[16px] text-primary px-10 border-[1px] border-primary "
+                    >
+                      Wishlist
+                    </Button>
+                  )}
+                </div>
+                {/* Chart Size  */}
+                <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-[#fffff] mt-4">
+                  Select Size <span className="text-primary">{"Select Chart"}</span>
+                </h1>
                 <div className="w-full flex justify-start pt-8">
                   <div className="flex items-center flex-col text-center">
                     <div className="flex items-center justify-center h-12 w-12 mb-2">
@@ -377,43 +436,10 @@ const SingleProduct = () => {
                     </h1>
                   </div>
                 </div>
-                <div className="flex justify-start space-x-2 w-full pt-10">
-                  {!isOutOfStock && (
-                    <Button
-                      disabled={cartLoading}
-                      onClick={addToCart}
-                      className="bg-[#166272] mt-3 w-1/2 md:w-auto h-12 rounded-[10px] font-Inter text-[16px] text-white px-10"
-                    >
-                      {cartLoading ? "Loading" : "Add to Bag"}
-                    </Button>
-                  )}
-                  {isOutOfStock && (
-                    <Button
-                      disabled={cartLoading}
-                      onClick={notifyManager}
-                      className="bg-[#b3cc42] mt-3 w-1/2 md:w-auto h-12 rounded-[10px] font-Inter text-[16px] text-white px-10"
-                    >
-                      {cartLoading ? "Loading" : "Notify Me"}
-                    </Button>
-                  )}
-
-                  {isProductInWishlist ? (
-                    <Button className="bg-black mt-3 w-1/2 md:w-auto h-12 rounded-[10px] font-Inter text-[16px] text-white px-10 border-[1px] border-[#777777] ">
-                      Wishlist ♥
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={dispatchAddWishlist}
-                      className="bg-white mt-3 w-1/2 hover:text-white md:w-auto hover:border-[#777777] h-12 rounded-[10px] font-Inter text-[16px] text-primary px-10 border-[1px] border-primary "
-                    >
-                      Wishlist
-                    </Button>
-                  )}
-                </div>
               </div>
             </div>
-            <div className="w-full h-4 mt-2 lg:hidden bg-[#F7F7F7]"></div>
-            <div className="w-full px-">
+            
+            <div className="w-full mt-5">
               <div
                 className="flex items-center w-full h-[60px] pl-4 justify-between border-b-[#5F5F5F] border-b-[0.5px] cursor-pointer lg:mt-4"
                 onClick={() => handleClick("div1")}
@@ -422,9 +448,8 @@ const SingleProduct = () => {
                   Product Description
                 </h1>
                 <RiArrowDropDownLine
-                  className={`text-4xl font-[100] transition-transform duration-300 ${
-                    toggleStates.div1 ? "rotate-180" : "rotate-0"
-                  }`}
+                  className={`text-4xl font-[100] transition-transform duration-300 ${toggleStates.div1 ? "rotate-180" : "rotate-0"
+                    }`}
                 />
               </div>
               {toggleStates.div1 && (
@@ -442,9 +467,8 @@ const SingleProduct = () => {
                   Size & Material
                 </h1>
                 <RiArrowDropDownLine
-                  className={`text-4xl font-[100] transition-transform duration-300 ${
-                    toggleStates.div2 ? "rotate-180" : "rotate-0"
-                  }`}
+                  className={`text-4xl font-[100] transition-transform duration-300 ${toggleStates.div2 ? "rotate-180" : "rotate-0"
+                    }`}
                 />
               </div>
               {toggleStates.div2 && (
@@ -465,9 +489,8 @@ const SingleProduct = () => {
                   Shipping & Returns
                 </h1>
                 <RiArrowDropDownLine
-                  className={`text-4xl font-[100] transition-transform duration-300 ${
-                    toggleStates.div3 ? "rotate-180" : "rotate-0"
-                  }`}
+                  className={`text-4xl font-[100] transition-transform duration-300 ${toggleStates.div3 ? "rotate-180" : "rotate-0"
+                    }`}
                 />
               </div>
               {toggleStates.div3 && (

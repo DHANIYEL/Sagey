@@ -143,7 +143,7 @@ const Navbar = () => {
           <div className="flex items-center gap-4 sm:gap-8 md:gap-10">
             {/* Hidden on smaller screens */}
             <Link
-              to="/register"
+              to="/login"
               className="px-4 py-2 bg-primary rounded-none text-sm font-medium text-white hover:bg-white hover:text-primary hover:border transition hidden sm:block"
             >
               SIGN IN / SIGN UP
@@ -187,7 +187,7 @@ const Navbar = () => {
                 {/* Add "SIGN IN / SIGN UP" button in mobile menu */}
                 <li className="py-2">
                   <Link
-                    to="/register"
+                    to="/login"
                     className="block text-sm font-medium text-white bg-primary px-4 py-2 rounded-md hover:bg-white hover:text-primary"
                     onClick={() => setShowSideNavbar(false)}
                   >

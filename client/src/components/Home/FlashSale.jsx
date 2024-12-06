@@ -1,7 +1,8 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import pant from "../../assets/Sagey/product1.png";
 import Shirt from "../../assets/Sagey/model1.png";
 import OrangeTShirt from "../../assets/Sagey/product1.png";
@@ -27,35 +28,45 @@ const categories = [
     title: "BOTTOMS",
     image: tShirt,
     bgColor: "bg-stone-200",
-  },
-  {
-    title: "JACKETS",
-    image: pant,
-    bgColor: "bg-blue-100",
-  },
-  {
-    title: "FORMALS",
-    image: Shirt,
-    bgColor: "bg-green-200",
-  },
-  {
-    title: "SUMMER WEAR",
-    image: OrangeTShirt,
-    bgColor: "bg-yellow-100",
-  },
-  {
-    title: "TRADITIONAL",
-    image: tShirt,
-    bgColor: "bg-red-100",
-  },
+  }
 ];
 
-
 const FlashSale = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0); // Track the current slide index
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
     align: "start",
+    slidesToScroll: 1,
+    loop: !isMobile,  // Disable infinite scroll on mobile
+    draggable: isMobile,  // Enable dragging only for mobile
   });
+
+  // Handle screen size change
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Consider mobile screens as less than 768px
+    };
+
+    handleResize(); // Check initial screen size
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Update the current index on change
+  useEffect(() => {
+    if (emblaApi) {
+      const onSelect = () => {
+        setCurrentIndex(emblaApi.selectedScrollSnap()); // Get the selected slide index
+      };
+      emblaApi.on("select", onSelect);
+      return () => emblaApi.off("select", onSelect);
+    }
+  }, [emblaApi]);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -65,63 +76,63 @@ const FlashSale = () => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
+  // Navigate to the category route
+  const handleNavigation = (category) => {
+    const formattedCategory = category.toLowerCase().replace(/\s+/g, "-");
+    navigate(`/collections?search=${formattedCategory}`);
+  };
+
   return (
-    <div className="relative max-w-[90rem] mx-auto overflow-hidden py-10">
-  {/* Title */}
-  <div className="mb-4 font-bold text-2xl flex flex-col items-center">
-    <h1 className="text-center">FLASH SALES</h1>
-    <div className="h-1 w-16 hover:w-20 bg-primary"></div>
-  </div>
+    <div className="relative overflow-hidden py-10">
+      {/* Title */}
+      <div className="mb-4 font-bold text-2xl flex flex-col items-center">
+        <h1 className="text-center">FLASH SALES</h1>
+        <div className="h-1 w-16 hover:w-20 bg-primary"></div>
+      </div>
 
-  {/* Carousel Container */}
-  <div className="overflow-hidden" ref={emblaRef}>
-    <div className="flex">
-      {categories.map((category, index) => (
-        <div
-          key={index}
-          className="relative flex-[0_0_70%] sm:flex-[0_0_45%] md:flex-[0_0_30%] ml-4 first:ml-0"
-        >
-          <div
-            className={`relative aspect-[3/4] ${category.bgColor} transition-transform duration-500 hover:scale-110`}
-          >
-            <img
-              src={category.image}
-              alt={category.title}
-              className="absolute inset-0 w-full h-full object-cover"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute bottom-6 left-6">
-              <h3 className="text-white text-2xl font-bold tracking-wider">
-                {category.title}
-              </h3>
+      {/* Carousel Container */}
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className="relative flex-[0_0_50%] sm:flex-[0_0_50%] md:flex-[0_0_25%]"
+            >
+              <div
+                className={`relative aspect-[3/4] ${category.bgColor} transition-transform duration-500 hover:scale-110`}
+                onClick={() => handleNavigation(category.title)} // Add onClick to navigate
+              >
+                <img
+                  src={category.image}
+                  alt={category.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute bottom-6 left-6">
+                  <h3 className="text-white text-xl sm:text-2xl font-bold tracking-wider">
+                    {category.title}
+                  </h3>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      {/* Pagination Dots (only on mobile) */}
+      {isMobile && (
+        <div className="flex justify-center mt-4">
+          {categories.slice(0, 3).map((_, index) => (
+            <div
+              key={index}
+              className={`w-3 h-3 mx-1 rounded-full ${currentIndex === index ? 'bg-primary' : 'bg-gray-300'}`}
+            ></div>
+          ))}
+        </div>
+      )}
+
     </div>
-  </div>
-
-  {/* Navigation Buttons */}
-  <Button
-    variant="secondary"
-    size="icon"
-    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
-    onClick={scrollPrev}
-  >
-    <ChevronLeft className="h-6 w-6" />
-  </Button>
-
-  <Button
-    variant="secondary"
-    size="icon"
-    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
-    onClick={scrollNext}
-  >
-    <ChevronRight className="h-6 w-6" />
-  </Button>
-</div>
-
   );
 };
 

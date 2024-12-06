@@ -45,9 +45,9 @@ export default function Home2() {
 
       <NewArrivals />
       <MakeUrStyle
-      heading="CREATE YOUR OWN STYLE"
+      heading="MAKE YOUR OWN DESIGN"
       description="Unlock endless possibilities and showcase your unique flair with customizable designs tailored just for you. Whether expressing personal style or creating a one-of-a-kind gift, our platform offers a seamless design experience with a variety of options and high-quality materials. Your style, your rules – the possibilities are endless!"
-      btnName="Start Now"
+      btnName="Make Now"
       handleClick={handleClickFunctionWhats}
     />
       <FlashSale />

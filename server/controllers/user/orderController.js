@@ -10,6 +10,8 @@ const Wallet = require("../../model/walletModel");
 const Coupon = require("../../model/couponModel");
 const { generateInvoicePDF } = require("../Common/invoicePDFGenFunctions");
 const Counter = require("../../model/counterModel");
+const { sendOrderNotification } = require("../../util/mailSender");
+const User = require('../../model/userModel');  // Ensure the relative path is correct
 // const managerOrderModel = require("../../model/managerOrderModel");
 
 // // Just the function increment or decrement product count
@@ -126,7 +128,6 @@ const updateProductList = async (id, count, attributes) => {
 const createOrder = async (req, res) => {
   try {
     const token = req.cookies.user_token;
-
     const { _id } = jwt.verify(token, process.env.SECRET);
 
     if (!mongoose.Types.ObjectId.isValid(_id)) {
@@ -136,23 +137,26 @@ const createOrder = async (req, res) => {
     const { address, paymentMode, notes } = req.body;
 
     const addressData = await Address.findOne({ _id: address });
-
     const cart = await Cart.findOne({ user: _id }).populate("items.product", {
       name: 1,
       price: 1,
       markup: 1,
     });
-    console.log("cart");
-    console.log(cart);
+
+    // Check if cart is null or empty
+    if (!cart || !cart.items || cart.items.length === 0) {
+      return res.status(400).json({ error: "Cart is empty or not found" });
+    }
+
     let sum = 0;
     let totalQuantity = 0;
 
-    cart.items.map(async (item) => {
+    // Calculate the total sum and quantity
+    cart.items.forEach((item) => {
       sum = sum + (item.product.price + item.product.markup) * item.quantity;
       totalQuantity = totalQuantity + item.quantity;
     });
 
-    // let sumWithTax = parseInt(sum + sum * 0.08);
     let sumWithTax = sum; // No tax
     if (cart.discount && cart.type === "percentage") {
       const discountAmount = (sum * cart.discount) / 100;
@@ -175,7 +179,6 @@ const createOrder = async (req, res) => {
       address: addressData,
       products: products,
       subTotal: sum,
-      // tax: parseInt(sum * 0.08),
       tax: 0, // No tax
       totalPrice: sumWithTax,
       paymentMode,
@@ -192,60 +195,27 @@ const createOrder = async (req, res) => {
       ...(cart.type ? { couponType: cart.type } : {}),
     };
 
-    cart.items.map(async (item) => {
-      console.log("item");
-      console.log(item);
-      const product = await Products.findOne({
-        _id: item.product._id.toString(),
-      });
-      console.log(product);
-
-      if (product && product.managerId) {
-        // Create an order for the product
-
-        const newOrder = {
-          managerId: product.managerId,
-          productId: product._id,
-          productName: product.name,
-          quantity: item.quantity,
-          price: item.product.price,
-          totalPrice: item.product.price * item.quantity,
-          orderDate: new Date(),
-          status: "pending", // Initial status for the order
-        };
-
-        // Save the order to the database
-        // const order = await managerOrderModel.create(newOrder);
-        // console.log("manager order");
-        // console.log(order);
-      }
-
-      sum = sum + (item.product.price + item.product.markup) * item.quantity;
-      totalQuantity = totalQuantity + item.quantity;
-    });
-
     const updateProductPromises = products.map((item) => {
       return updateProductList(item.productId, -item.quantity, item.attributes);
     });
 
     await Promise.all(updateProductPromises);
-    console.log("orderData");
-    console.log(orderData);
 
+    // Create the order
     const order = await Order.create(orderData);
 
     if (order) {
       await Cart.findByIdAndDelete(cart._id);
     }
 
-    // When payment is done using wallet reducing the wallet and creating payment
+    // When payment is done using wallet, reducing wallet balance and creating payment
     if (paymentMode === "myWallet") {
       let counter = await Counter.findOne({
         model: "Wallet",
         field: "transaction_id",
       });
 
-      // Checking if order counter already exist
+      // Checking if order counter already exists
       if (counter) {
         counter.count += 1;
         await counter.save();
@@ -258,7 +228,7 @@ const createOrder = async (req, res) => {
 
       const exists = await Wallet.findOne({ user: _id });
       if (!exists) {
-        throw Error("No Wallet where found");
+        throw Error("No Wallet found");
       }
 
       await Payment.create({
@@ -269,25 +239,22 @@ const createOrder = async (req, res) => {
         paymentMode: "myWallet",
       });
 
-      let wallet = {};
-      if (exists) {
-        wallet = await Wallet.findByIdAndUpdate(exists._id, {
-          $inc: {
-            balance: -sumWithTax,
+      // Deduct balance from wallet
+      await Wallet.findByIdAndUpdate(exists._id, {
+        $inc: { balance: -sumWithTax },
+        $push: {
+          transactions: {
+            transaction_id: counter.count + 1,
+            amount: sumWithTax,
+            type: "debit",
+            description: "Product Ordered",
+            order: order._id,
           },
-          $push: {
-            transactions: {
-              transaction_id: counter.count + 1,
-              amount: sumWithTax,
-              type: "debit",
-              description: "Product Ordered",
-              order: order._id,
-            },
-          },
-        });
-      }
+        },
+      });
     }
 
+    // Update coupon usage
     if (cart.coupon) {
       await Coupon.findOneAndUpdate(
         { _id: cart.coupon },
@@ -297,11 +264,22 @@ const createOrder = async (req, res) => {
       );
     }
 
+    // Get user email from User model
+    const user = await User.findById(_id).select("email");  // Ensure we only get the email field
+    if (!user || !user.email) {
+      throw Error("User email not found");
+    }
+
+    // Send the order notification to the user's email
+    await sendOrderNotification(user.email, order);
+
     res.status(200).json({ order });
   } catch (error) {
+    console.error("Error creating order:", error);
     res.status(400).json({ error: error.message });
   }
 };
+
 
 // Get all order details
 const getOrders = async (req, res) => {

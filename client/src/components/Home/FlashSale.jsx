@@ -94,28 +94,30 @@ const FlashSale = () => {
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {categories.map((category, index) => (
-            <div
-              key={index}
-              className="relative flex-[0_0_50%] sm:flex-[0_0_50%] md:flex-[0_0_25%]"
-            >
-              <div
-                className={`relative aspect-[3/4] ${category.bgColor} transition-transform duration-500 hover:scale-110`}
-                onClick={() => handleNavigation(category.title)} // Add onClick to navigate
-              >
-                <img
-                  src={category.image}
-                  alt={category.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="text-white text-xl sm:text-2xl font-bold tracking-wider">
-                    {category.title}
-                  </h3>
-                </div>
-              </div>
-            </div>
+           <div
+           key={index}
+           className="relative flex-[0_0_50%] sm:flex-[0_0_50%] md:flex-[0_0_25%]"
+         >
+           <div
+             className={`relative aspect-[3/4] ${category.bgColor} transition-transform 
+                         duration-500 hover:scale-110`}
+             onClick={() => handleNavigation(category.title)} // Add onClick to navigate
+           >
+             <img
+               src={category.image}
+               alt={category.title}
+               className="absolute inset-0 w-full h-full object-cover"
+               loading={index === 0 ? "eager" : "lazy"}
+             />
+             <div className="absolute inset-0 bg-black/20" />
+             <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center">
+               <h3 className="text-white text-xl sm:text-2xl font-bold tracking-wider">
+                 {category.title}
+               </h3>
+             </div>
+           </div>
+         </div>
+         
           ))}
         </div>
       </div>
@@ -126,7 +128,7 @@ const FlashSale = () => {
           {categories.slice(0, 3).map((_, index) => (
             <div
               key={index}
-              className={`w-3 h-3 mx-1 rounded-full ${currentIndex === index ? 'bg-primary' : 'bg-gray-300'}`}
+              className={`w-2 h-2 mx-1 rounded-full ${currentIndex === index ? 'bg-primary' : 'bg-gray-300'}`}
             ></div>
           ))}
         </div>

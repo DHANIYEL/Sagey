@@ -185,10 +185,10 @@ const Collections = () => {
                 text="Price"
                 subItems={[
                   { name: "All Price", _id: "" },
-                  { name: "Under 25000", _id: "Under 25000" },
-                  { name: "25000-50000", _id: "25000-50000" },
-                  { name: "50000-100000", _id: "50000-100000" },
-                  { name: "Above 300000₹", _id: "Above 300000" },
+                  { name: "Under 2500", _id: "Under 2500" },
+                  { name: "25000-5000", _id: "25000-5000" },
+                  { name: "50000-10000", _id: "50000-10000" },
+                  { name: "Above 30000", _id: "Above 30000" },
                 ]}
                 onSubItemClick={handleSubItemClick}
               />
@@ -223,10 +223,10 @@ const Collections = () => {
                   text="Price"
                   subItems={[
                     { name: "All Price", _id: "" },
-                    { name: "Under 25000", _id: "Under 25000" },
-                    { name: "25000-50000", _id: "25000-50000" },
-                    { name: "50000-100000", _id: "50000-100000" },
-                    { name: "Above 300000₹", _id: "Above 300000" },
+                    { name: "Under 2500", _id: "Under 2500" },
+                    { name: "25000-5000", _id: "25000-5000" },
+                    { name: "5000-10000", _id: "5000-10000" },
+                    { name: "Above 30000", _id: "Above 30000" },
                   ]}
                   onSubItemClick={handleSubItemClick}
                 />

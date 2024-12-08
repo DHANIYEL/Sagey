@@ -285,12 +285,12 @@ const Navbar = () => {
                   {category.subcategories.length > 0 && (
                     <div
                       className={cn(
-                        "absolute top-full left-0 bg-white text-gray-900 rounded-md mt-2 shadow-lg w-56 z-50",
+                        "absolute min-w-max bg-white text-gray-900 rounded-md mt-2 shadow-lg z-50",
                         activeDropdown === index ? "block" : "hidden"
                       )}
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
-                      <div className="py-2">
+                      <div className="py-2 ">
                         {category.subcategories.map((sub, subIndex) => (
                           <button
                             key={`${index}-${subIndex}`}

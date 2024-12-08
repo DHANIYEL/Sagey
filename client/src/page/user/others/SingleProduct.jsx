@@ -385,13 +385,15 @@ const SingleProduct = () => {
 
                 <div className="flex justify-start space-x-2 w-full pt-3">
                   {!isOutOfStock && (
-                    <Button
-                      disabled={cartLoading}
-                      onClick={addToCart}
-                      className="bg-[#166272] mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] text-white px-10"
-                    >
-                      {cartLoading ? "Loading" : "Add to Bag"}
-                    </Button>
+                   <Button
+                   disabled={cartLoading}
+                   onClick={addToCart}
+                   className={`bg-[#166272] hover:bg-white hover:outline hover:outline-[#166272] 
+                               hover:text-[#166272] mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] 
+                               text-white px-10 transition-all duration-300`}
+                 >
+                   {cartLoading ? "Loading" : "Add to Bag"}
+                 </Button>                 
                   )}
                   {isOutOfStock && (
                     <Button
@@ -403,18 +405,27 @@ const SingleProduct = () => {
                     </Button>
                   )}
 
-                  {isProductInWishlist ? (
-                    <Button className="bg-black mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] text-white px-10 border-[1px] border-[#777777] ">
-                      Wishlist ♥
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={dispatchAddWishlist}
-                      className="bg-white mt-3 w-1/2 md:w-1/2 hover:text-white hover:border-[#777777] h-12 font-Inter text-[16px] text-primary px-10 border-[1px] border-primary "
-                    >
-                      Wishlist
-                    </Button>
-                  )}
+{isProductInWishlist ? (
+  <Button
+    className={`bg-white hover:bg-[#166272] hover:text-white 
+                hover:border-black text-black mt-3 w-1/2 md:w-1/2 
+                h-12 font-Inter text-[16px] px-10 border-[1px] 
+                border-[#777777] transition-all duration-300`}
+  >
+    Wishlist ♥
+  </Button>
+) : (
+  <Button
+    onClick={dispatchAddWishlist}
+    className={`bg-white hover:bg-[#166272] hover:text-white 
+                hover:border-[#777777] text-primary mt-3 w-1/2 
+                md:w-1/2 h-12 font-Inter text-[16px] px-10 
+                border-[1px] border-primary transition-all duration-300`}
+  >
+    Wishlist
+  </Button>
+)}
+
                 </div>
                 {/* Chart Size  */}
                 <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-[#fffff] mt-4">

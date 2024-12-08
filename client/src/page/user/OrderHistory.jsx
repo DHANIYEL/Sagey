@@ -71,9 +71,17 @@ const OrderHistory = () => {
                     return (
                       <tr key={index}>
                         <td className="px-5 py-2 font-semibold flex items-center">
-                          <p className="w-60 line-clamp-1">
-                            {item.products[0].productId.name}{" "}
+                          <p
+                            className={`line-clamp-1 mb-1 font-semibold ${
+                              !item.products[0]?.productId?.name
+                                ? "text-red-500"
+                                : ""
+                            }`}
+                          >
+                            {item.products[0]?.productId?.name ||
+                              "Deleted Product"}
                           </p>
+
                           <p className="text-gray-500 font-normal">
                             ({item.totalQuantity}) products
                           </p>

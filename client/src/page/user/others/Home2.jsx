@@ -37,7 +37,7 @@ export default function Home2() {
     {/* <ShopCategories/> */}
     {/* <CarouselTextSlider/> */}
     <WhatsAppFloatingButton/>
-    <div className="py-10 px-20 max-md:px-0">
+    <div className="py-10  max-md:px-0">
     <ImageSlider images={images} hideArrows={false}  />
     <div className="ml-4">
     <h1 className="font-bold text-xl">THRILLER DEALS</h1>
@@ -48,7 +48,7 @@ export default function Home2() {
       <NewArrivals />
       <MakeUrStyle
       heading="MAKE YOUR OWN DESIGN"
-      description="Unlock endless possibilities and showcase your unique flair with customizable designs tailored just for you. Whether expressing personal style or creating a one-of-a-kind gift, our platform offers a seamless design experience with a variety of options and high-quality materials. Your style, your rules – the possibilities are endless!"
+      description="Express your style with custom designs made just for you. Enjoy seamless personalization, premium quality, and endless possibilities to create your unique look or the perfect gift"
       btnName="Make Now"
       handleClick={handleClickFunctionWhats}
     />

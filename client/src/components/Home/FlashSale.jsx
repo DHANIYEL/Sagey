@@ -83,7 +83,8 @@ const FlashSale = () => {
   };
 
   return (
-    <div className="relative overflow-hidden py-10">
+    <div className="relative overflow-hidden py-10 px-4 sm:px-20">
+
       {/* Title */}
       <div className="mb-4 mx-2 font-bold text-2xl flex flex-col items-left">
         <h1 className=" text-lg sm:text-xl md:text-2xl font-normal sm:font-semibold md:font-bold ">FLASH SALES</h1>
@@ -111,7 +112,7 @@ const FlashSale = () => {
              />
              <div className="absolute inset-0 bg-black/20" />
              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center">
-               <h3 className="text-white text-xl sm:text-2xl font-bold tracking-wider">
+               <h3 className="text-white  sm:text-2xl  font-bold tracking-wider ">
                  {category.title}
                </h3>
              </div>

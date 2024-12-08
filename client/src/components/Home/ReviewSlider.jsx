@@ -92,7 +92,7 @@ function ReviewSlider() {
         <Button
           variant="outline"
           size="icon"
-          className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+          className="absolute -right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
           onClick={scrollNext}
         >
           <ChevronRight className="h-4 w-4" />

@@ -18,7 +18,7 @@ export default function ConfirmationModal({
         <Button variant="outline" onClick={onClose}>
           {cancelButtonText}
         </Button>
-        <Button onClick={onConfirm} className="hover:bg-[#166272] bg-[#166272]">
+        <Button onClick={onConfirm} className="bg-[#166272]  px-3 lg:px-12 py-3 rounded-sm hover:bg-white hover:outline hover:outline-[#166272] hover:text-[#166272] ">
           {confirmButtonText}
         </Button>
       </div>

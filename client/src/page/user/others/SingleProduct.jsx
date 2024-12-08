@@ -429,7 +429,7 @@ const SingleProduct = () => {
                 </div>
                 {/* Chart Size  */}
                 <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-[#fffff] mt-4">
-                  Select Size <span className="text-primary">{"Select Chart"}</span>
+                  <span className="text-primary">{"Select Chart"}</span>
                 </h1>
                 <div className="w-full flex justify-start pt-8">
                   <div className="flex items-center flex-col text-center">

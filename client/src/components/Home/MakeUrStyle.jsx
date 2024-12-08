@@ -21,7 +21,7 @@ const MakeUrStyle = ({ heading, description, btnName, handleClick }) => {
           {description}
         </p>
         <Button
-          className="bg-cyan-900/50 hover:bg-cyan-900/70 text-white px-8 py-2 rounded-md transition-colors"
+          className="bg-cyan-900/50 hover:bg-cyan-900/70 text-white px-8 py-2 rounded-sm transition-colors"
           onClick={handleClick} 
         >
           {btnName}

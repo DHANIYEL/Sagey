@@ -180,7 +180,7 @@ const Register = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-primary text-white py-2 rounded-md hover:bg-gray-900 transition"
+              className="w-full bg-primary text-white py-2 rounded-sm hover:bg-white hover:outline hover:outline-[#166272] hover:text-[#166272] transition"
               disabled={otpLoading}
             >
               {otpLoading ? "Loading..." : "Sign Up"}

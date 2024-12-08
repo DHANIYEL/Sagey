@@ -24,6 +24,7 @@ import Register from "./page/auth/Register";
 import ForgetPassword from "./page/auth/ForgetPassword";
 
 // User
+// import CarouselTextSlider from "./components/CarouselTextSlider";
 import Dashboard from "./page/Dashboard";
 import ProductDetails from "./page/user/ProductDetails";
 import Cart from "./page/user/Cart";
@@ -123,7 +124,7 @@ function App() {
               )
             }
           />
-
+          {/* <CarouselTextSlider/> */}
           <Route path="/about-us" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/collection" element={<Collectionsold />} />

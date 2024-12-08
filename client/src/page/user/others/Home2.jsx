@@ -3,6 +3,7 @@ import NewArrivals from "@/components/Home/NewArrivals";
 import OurProducts from "@/components/Home/OurProducts";
 import ReviewSlider from "@/components/Home/ReviewSlider";
 
+
 import HomeImg from "../../../assets/home.png";
 import Image2 from "../../../assets/home2.jpg";
 import Image3 from "../../../assets/home.png";
@@ -34,6 +35,7 @@ export default function Home2() {
   return (
     <>
     {/* <ShopCategories/> */}
+    {/* <CarouselTextSlider/> */}
     <WhatsAppFloatingButton/>
     <div className="py-10 px-20 max-md:px-0">
     <ImageSlider images={images} hideArrows={false}  />

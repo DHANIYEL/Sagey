@@ -8,6 +8,7 @@ import SageLogo from "../assets/sage-logo.png";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useSelector } from "react-redux";
+import CarouselTextSlider from "./CarouselTextSlider";
 
 const Navbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -131,6 +132,7 @@ const Navbar = () => {
 
   return (
     <header className="border-b">
+      <CarouselTextSlider/>
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo and Search Bar */}
@@ -269,7 +271,7 @@ const Navbar = () => {
       </div>
       {window.location.pathname === "/" && (
         <div className="w-full flex justify-center items-center relative">
-          <nav className="mt-4 hidden lg:block py-3  w-[100vw] bg-primary">
+          <nav className=" hidden lg:block py-3  w-[100vw] bg-primary">
             <ul className="flex gap-8 px-4 justify-center items-center">
               {categories.map((category, index) => (
                 <li

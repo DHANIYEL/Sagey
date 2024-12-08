@@ -150,7 +150,7 @@ const Cart = () => {
                 <h3 className="text-lg font-semibold">Cart Total</h3>
                 <TotalAndSubTotal />
                 <button
-                  className="btn-blue w-full text-white uppercase font-semibold text-sm"
+                  className="btn-primary w-full text-white uppercase font-semibold text-sm"
                   onClick={() => {
                     if (cart.length > 0) {
                       navigate("/checkout");
@@ -175,13 +175,13 @@ const Cart = () => {
                   />
                   <div className="flex justify-between">
                     <button
-                      className="btn-blue-border my-3"
+                      className="btn-primary border my-3 text-white"
                       onClick={dispatchApplyCoupon}
                     >
                       Apply Coupon
                     </button>
                     <button
-                      className="flex items-center gap-2 hover:text-blue-500 hover:underline"
+                      className="flex items-center gap-2 hover:text-primary hover:underline"
                       onClick={() => navigate("/dashboard/find-coupons")}
                     >
                       Find <BiSearchAlt />

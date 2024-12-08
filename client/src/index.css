@@ -49,7 +49,7 @@ check indexcss tst file 🤣😢🎶😎
   }
   
   .btn-primary {
-    @apply bg-[#166272] px-3 lg:px-12 py-3 rounded-lg hover:bg-blue-700;
+    @apply bg-[#166272] px-3 lg:px-12 py-3 rounded-sm hover:bg-white hover:outline hover:outline-[#166272] hover:text-[#166272];
   }
   .btn-blue {
     @apply bg-blue-600 px-3 lg:px-12 py-3 rounded-lg hover:bg-blue-700;
@@ -162,7 +162,7 @@ check indexcss tst file 🤣😢🎶😎
   /* Admin Page */
   
   .admin-button-fl {
-    @apply flex items-center gap-2 p-2 rounded-lg;
+    @apply flex items-center gap-2 p-2 px-4 rounded-lg;
   }
   
   .admin-status {

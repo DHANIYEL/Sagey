@@ -55,7 +55,7 @@ const OurProducts = () => {
       <div className="flex justify-center mt-8">
         <button
           onClick={() => navigate(`/collections`)}
-          className="flex bg-primary items-center text-white px-5 py-3 hover:text-primary hover:bg-white hover:outline cursor-pointer text-lg"
+          className="flex bg-primary hover:bg-white hover:border hover:border-bg-primary hover:text-primary text-white px-8 py-2 rounded-sm items-center"
         >
           View all
           <ChevronRight className="h-5 w-5 ml-1" />

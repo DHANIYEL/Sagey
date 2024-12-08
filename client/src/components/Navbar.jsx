@@ -273,12 +273,11 @@ const Navbar = () => {
         <div className="w-full flex justify-center items-center relative">
           <nav className=" hidden lg:block py-3  w-[100vw] bg-primary">
             <ul className="flex gap-8 px-4 justify-center items-center">
-              {categories.map((category, index) => (
+            {categories.map((category, index) => (
                 <li
                   key={category.title}
                   className="relative text-sm font-medium text-white hover:text-gray-300 cursor-pointer"
                   onMouseEnter={() => setActiveDropdown(index)}
-                  onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <span onClick={() => handleNavigation(category.title)}>
                     {category.title}
@@ -286,9 +285,10 @@ const Navbar = () => {
                   {category.subcategories.length > 0 && (
                     <div
                       className={cn(
-                        "absolute top-full left-0 bg-white text-gray-900 rounded-sm mt-2 shadow-lg w-56 z-50",
+                        "absolute top-full left-0 bg-white text-gray-900 rounded-md mt-2 shadow-lg w-56 z-50",
                         activeDropdown === index ? "block" : "hidden"
                       )}
+                      onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <div className="py-2">
                         {category.subcategories.map((sub, subIndex) => (

@@ -68,7 +68,7 @@ function ReviewSlider() {
   }, [emblaApi])
 
   return (
-    <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white py-12 px-4 sm:px-6 lg:px-8 ">
       <Header />
       <div className="relative mt-10 max-w-7xl mx-auto">
         <div className="overflow-hidden" ref={emblaRef}>
@@ -105,7 +105,7 @@ function ReviewSlider() {
 
 function Header() {
   return (
-    <div className="text-start ">
+    <div className="text-start px-3 sm:px-12 ">
      <h1 className="text-lg sm:text-xl md:text-2xl font-normal sm:font-semibold md:font-bold">
       Customer Reviews
       </h1>

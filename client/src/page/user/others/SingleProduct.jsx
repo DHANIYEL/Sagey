@@ -355,7 +355,7 @@ const SingleProduct = () => {
                           {values.map(({ value }, valueIndex) => (
                             <p
                               key={valueIndex}
-                              className={`py-2 my-2 px-4  cursor-pointer 
+                              className={`py-2 my-2 px-10  cursor-pointer 
                                     transition-colors duration-300 
                                     ${selectedAttributes[name] === value
                                   ? "bg-[#166272] text-white" // Selected state with primary color
@@ -429,7 +429,7 @@ const SingleProduct = () => {
                 </div>
                 {/* Chart Size  */}
                 <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-[#fffff] mt-4">
-                  <span className="text-primary">{"Select Chart"}</span>
+                  <span className="text-primary cursor-pointer">{"Size Chart"}</span>
                 </h1>
                 <div className="w-full flex justify-start pt-8">
                   <div className="flex items-center flex-col text-center">

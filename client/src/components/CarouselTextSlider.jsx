@@ -13,7 +13,7 @@ function CarouselTextSlider() {
   }, [texts.length]);
 
   return (
-    <div className="bg-[#166272] text-white py-2 overflow-hidden relative">
+    <div className="bg-primary text-white py-2 overflow-hidden relative">
       <div
         className="flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -21,7 +21,7 @@ function CarouselTextSlider() {
         {texts.map((text, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-full text-center font-medium text-lg"
+            className="flex-shrink-0 w-full text-center font-semibold text-md"
           >
             {text}
           </div>

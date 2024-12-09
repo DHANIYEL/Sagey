@@ -29,7 +29,7 @@ function ImageSlider({
   };
 
   return (
-    <div className="flex flex-col items-center py-10  ">
+    <div className="flex flex-col items-center ">
       <main>
         <section className="relative h-[400px] max-w-full overflow-hidden ">
           <div className="relative h-full w-full flex items-center justify-center ">
@@ -68,7 +68,7 @@ function ImageSlider({
                   className="h-full w-full flex items-center  justify-center flex-shrink-0"
                   style={{ flex: "0 0 100%" }} // Each image takes 100% of the container width
                 >
-                  <div className="h-full w-full md:w-5/6 overflow-hidden rounded-md mx-3 ">
+                  <div className="h-full w-full md:w-5/6 overflow-hidden rounded-none sm:rounded-md mx-0 sm:mx-3 ">
                     <img
                       src={image}
                       alt={`Slide ${index + 1}`}

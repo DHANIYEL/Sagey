@@ -145,7 +145,7 @@ const Address = ({ closeToggle }) => {
             </div>
             <InputType name="email" placeholder="" title="Email" />
             <InputType name="phoneNumber" placeholder="" title="Phone Number" />
-            <button type="submit" className="btn-blue text-white">
+            <button type="submit" className="btn-primary text-white">
               Save
             </button>
           </Form>

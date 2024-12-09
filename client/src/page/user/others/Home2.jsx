@@ -37,10 +37,10 @@ export default function Home2() {
     {/* <ShopCategories/> */}
     {/* <CarouselTextSlider/> */}
     <WhatsAppFloatingButton/>
-    <div className="py-10  max-md:py-0">
-    <ImageSlider images={images} hideArrows={false}  />
-    <div className="ml-4">
-    <h1 className="font-bold text-xl">THRILLER DEALS</h1>
+    <div className="py-10  max-md:py-0 ">
+    <ImageSlider images={images} hideArrows={false}  className="py-0 sm:py-10 h-screen" />
+    <div className="ml-4 px-0 sm:px-20 py-10 ">
+    <h1 className="font-bold text-xl ">THRILLER DEALS</h1>
     <div className="h-1 w-20 bg-primary"></div>
     </div>
     <ImageSlider images={offImages} hideArrows={true} hideThreeDot={true} slideInterval={3000} />

@@ -39,8 +39,8 @@ const OrderConfirmation = () => {
               </Link>
             </p>
           </div>
-          <h1 className="text-lg font-semibold my-2">Expected Delivery Date</h1>
-          <p>{date.format(new Date(orderData.deliveryDate), "MMM DD YYYY")}</p>
+          {/* <h1 className="text-lg font-semibold my-2">Expected Delivery Date</h1>
+          <p>{date.format(new Date(orderData.deliveryDate), "MMM DD YYYY")}</p> */}
         </div>
         <Link to="/" className="text-blue-500 hover:underline">
           Continue Shopping

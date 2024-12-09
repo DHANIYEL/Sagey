@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function Footer() {
   return (
     <footer className="bg-primary py-8">
@@ -9,23 +10,23 @@ function Footer() {
           <div>
             <h4 className="text-lg  font-extrabold mb-4">SHOP</h4>
             <ul className="space-y-2">
-              <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
+              <li  > 
+                <a href="/collections?search=top" className="hover:text-gray-400 transition-colors">
                   TOP
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
+                <a href="/collections?search=ethnic" className="hover:text-gray-400 transition-colors">
                   ETHIC WEAR
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
+                <a href="/collections?search=hijab" className="hover:text-gray-400 transition-colors">
                   HIJAB
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
+                <a href="/collections?search=cord" className="hover:text-gray-400 transition-colors">
                   CORD SETS
                 </a>
               </li>

@@ -283,7 +283,7 @@ const Checkout = () => {
             </div>
             <TotalAndSubTotal />
             <button
-              className="btn-blue w-full text-white uppercase font-semibold text-sm my-5"
+              className="btn-primary w-full text-white uppercase font-semibold text-sm my-5"
               onClick={placeOrder}
             >
               Place order

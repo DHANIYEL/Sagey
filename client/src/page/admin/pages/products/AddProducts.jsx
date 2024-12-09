@@ -39,7 +39,7 @@ const AddProducts = () => {
   const [status, setStatus] = useState("Published");
   const [attributes, setAttributes] = useState([]);
   const [price, setPrice] = useState("");
-  const [markup, setMarkup] = useState("");
+  // const [markup, setMarkup] = useState("");
   const [moreImageURL, setMoreImageURL] = useState("");
   const [offer, setOffer] = useState("");
 
@@ -73,7 +73,7 @@ const AddProducts = () => {
     formData.append("stockQuantity", newStockQuantity);
     formData.append("attributes", JSON.stringify(attributes));
     formData.append("price", price);
-    formData.append("markup", markup);
+    // formData.append("markup", markup);
     formData.append("category", category);
     formData.append("offer", offer);
     formData.append("status", status.toLowerCase());
@@ -285,14 +285,14 @@ const AddProducts = () => {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
-              <p className="admin-label">Markup</p>
+              {/* <p className="admin-label">Markup</p>
               <input
                 type="number"
                 placeholder="Type product markup here"
                 className="admin-input"
                 value={markup}
                 onChange={(e) => setMarkup(e.target.value)}
-              />
+              /> */}
               <p className="admin-label">Offer</p>
               <input
                 type="number"

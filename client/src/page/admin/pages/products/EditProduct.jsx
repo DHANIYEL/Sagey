@@ -49,7 +49,7 @@ const EditProduct = () => {
     status: "",
     attributes: [],
     price: "",
-    markup: "",
+    // markup: "",
     moreImageURL: [],
     offer: "",
   });
@@ -547,7 +547,7 @@ const EditProduct = () => {
                 value={fetchedData.price || ""}
                 onChange={handleInputChange}
               />
-              <p className="admin-label">Markup</p>
+              {/* <p className="admin-label">Markup</p>
               <input
                 type="number"
                 name="markup"
@@ -555,7 +555,7 @@ const EditProduct = () => {
                 className="admin-input"
                 value={fetchedData.markup || ""}
                 onChange={handleInputChange}
-              />
+              /> */}
               <p className="admin-label">Offer</p>
               <input
                 type="number"

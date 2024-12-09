@@ -179,7 +179,6 @@ const SingleProduct = () => {
     return null; // Return null if all attributes are selected
   };
 
-
   const addToCart = async () => {
     if (!user) {
       window.scrollTo({
@@ -263,7 +262,7 @@ const SingleProduct = () => {
     : [product.imageURL];
 
   const isOutOfStock = product.stockQuantity === 0;
-
+  console.log(product.stockQuantity)
   return (
     <div className="w-full flex flex-col justify-start items-center">
       <div className="container w-full flex my-6 mx-auto px-4 lg:px-auto">
@@ -273,13 +272,13 @@ const SingleProduct = () => {
           </span>
           <span
             className="hover:text-[#166272] ml-2 text-sm cursor-pointer"
-            onClick={() => navigate(`/collections?category=${product.category._id}`)}
+            onClick={() =>
+              navigate(`/collections?category=${product.category._id}`)
+            }
           >
-            {product.category  && product.category.name + "    "}
-          </span> 
-          <span>
-          {" -> "}
+            {product.category && product.category.name + "    "}
           </span>
+          <span>{" -> "}</span>
           <span className="hover:text-[#166272] ml-2 text-sm">
             {product.name}
           </span>
@@ -287,7 +286,6 @@ const SingleProduct = () => {
       </div>
       <div className="w-full  lg:px-20 justify-center">
         <div className="w-full my-2 flex flex-col gap-20 lg:flex-row">
-
           {/*Product Images*/}
           <div className="w-full  lg:w-1/2 lg:h-[650px] h-[400px] flex flex-col ">
             <ProductSlider
@@ -296,7 +294,6 @@ const SingleProduct = () => {
               imgUrl={`${URL}/img/${selectedImageIndex}`}
             />
             <br />
-
           </div>
 
           {/* Product Name */}
@@ -317,7 +314,10 @@ const SingleProduct = () => {
                 ₹{product.price}
               </h1>
               {product.offer && (
-                <><span className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#949494] ml-3 ">MRP</span>
+                <>
+                  <span className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#949494] ml-3 ">
+                    MRP
+                  </span>
                   <h1 className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#949494] ml-3 line-through">
                     ₹{parseInt(product.price / (1 - product.offer / 100))}
                   </h1>
@@ -338,8 +338,6 @@ const SingleProduct = () => {
               <div className="mt-3">
                 <h1>5.0 ⭐</h1>
               </div>
-
-
             </div>
 
             <div className="w-full px-">
@@ -357,10 +355,11 @@ const SingleProduct = () => {
                               key={valueIndex}
                               className={`py-2 my-2 px-10  cursor-pointer 
                                     transition-colors duration-300 
-                                    ${selectedAttributes[name] === value
-                                  ? "bg-[#166272] text-white" // Selected state with primary color
-                                  : "bg-gray-200 text-black hover:bg-[#166272] hover:text-white"
-                                } // Default and hover states
+                                    ${
+                                      selectedAttributes[name] === value
+                                        ? "bg-[#166272] text-white" // Selected state with primary color
+                                        : "bg-gray-200 text-black hover:bg-[#166272] hover:text-white"
+                                    } // Default and hover states
                                   `}
                               onClick={() => handleSelectAttribute(name, value)}
                             >
@@ -370,12 +369,16 @@ const SingleProduct = () => {
                             </p>
                           ))}
                         </div>
+                        {isOutOfStock && (
+                          <p className="text-red-500 font-semibold">
+                            Item Out Of Stock
+                          </p>
+                        )}
                       </div>
                     )
                   )}
                 <h1 className="mt-3 font-[500]">QUANTITY</h1>
                 <div className="flex items-center justify-left w-24 lg:w-[150px] lg:h-[50px] mt-2 border-gray-300 rounded-md lg:mt-4 ml-0 lg:ml-0">
-
                   <Quantity
                     count={count}
                     decrement={decrement}
@@ -385,53 +388,52 @@ const SingleProduct = () => {
 
                 <div className="flex justify-start space-x-2 w-full pt-3">
                   {!isOutOfStock && (
-                   <Button
-                   disabled={cartLoading}
-                   onClick={addToCart}
-                   className={`bg-[#166272] hover:bg-white hover:outline hover:outline-[#166272] 
+                    <Button
+                      disabled={cartLoading}
+                      onClick={addToCart}
+                      className={`bg-[#166272] hover:bg-white hover:outline hover:outline-[#166272] 
                                hover:text-[#166272] mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] 
                                text-white px-10 transition-all duration-300`}
-                 >
-                   {cartLoading ? "Loading" : "Add to Bag"}
-                 </Button>                 
+                    >
+                      {cartLoading ? "Loading" : "Add to Bag"}
+                    </Button>
                   )}
                   {isOutOfStock && (
                     <Button
                       disabled={cartLoading}
                       onClick={notifyManager}
-                      className="bg-[#b3cc42] mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] text-white px-10"
+                      className="bg-primary hover:bg-primary mt-3 w-1/2 md:w-1/2 h-12 font-Inter text-[16px] text-white px-10"
                     >
-                      {cartLoading ? "Loading" : "Notify Me"}
+                      {cartLoading ? "Loading" : "Out Of Stock"}
                     </Button>
                   )}
 
-{isProductInWishlist ? (
-  <Button
-    className={`bg-white hover:bg-[#166272] hover:text-white 
+                  {isProductInWishlist ? (
+                    <Button
+                      className={`bg-white hover:bg-[#166272] hover:text-white 
                 hover:border-black text-black mt-3 w-1/2 md:w-1/2 
                 h-12 font-Inter text-[16px] px-10 border-[1px] 
                 border-[#777777] transition-all duration-300`}
-  >
-    Wishlist ♥
-  </Button>
-) : (
-  <Button
-    onClick={dispatchAddWishlist}
-    className={`bg-white hover:bg-[#166272] hover:text-white 
+                    >
+                      Wishlist ♥
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={dispatchAddWishlist}
+                      className={`bg-white hover:bg-[#166272] hover:text-white 
                 hover:border-[#777777] text-primary mt-3 w-1/2 
                 md:w-1/2 h-12 font-Inter text-[16px] px-10 
                 border-[1px] border-primary transition-all duration-300`}
-  >
-    Wishlist
-  </Button>
-)}
-
+                    >
+                      Wishlist
+                    </Button>
+                  )}
                 </div>
                 {/* Chart Size  */}
                 <h1 className="text-[14px] lg:text-[16px] xl:text-[18px] font-light font-Inter text-[#fffff] mt-4">
                   <span className="text-primary cursor-pointer">{"Size Chart"}</span>
                 </h1>
-                <div className="w-full flex justify-start pt-8">
+                {/* <div className="w-full flex justify-start pt-8">
                   <div className="flex items-center flex-col text-center">
                     <div className="flex items-center justify-center h-12 w-12 mb-2">
                       <ReplacementPolicy className="h-full w-full" />
@@ -448,10 +450,10 @@ const SingleProduct = () => {
                       Fast Delivery
                     </h1>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
-            
+
             <div className="w-full mt-5">
               <div
                 className="flex items-center w-full h-[60px] pl-4 justify-between border-b-[#5F5F5F] border-b-[0.5px] cursor-pointer lg:mt-4"
@@ -461,8 +463,9 @@ const SingleProduct = () => {
                   Product Description
                 </h1>
                 <RiArrowDropDownLine
-                  className={`text-4xl font-[100] transition-transform duration-300 ${toggleStates.div1 ? "rotate-180" : "rotate-0"
-                    }`}
+                  className={`text-4xl font-[100] transition-transform duration-300 ${
+                    toggleStates.div1 ? "rotate-180" : "rotate-0"
+                  }`}
                 />
               </div>
               {toggleStates.div1 && (
@@ -477,17 +480,22 @@ const SingleProduct = () => {
                 onClick={() => handleClick("div2")}
               >
                 <h1 className="font-sans text-[16px] lg:text-[22px] font-light ">
-                How to Find Your Perfect Size
+                  How to Find Your Perfect Size
                 </h1>
                 <RiArrowDropDownLine
-                  className={`text-4xl font-[100] transition-transform duration-300 ${toggleStates.div2 ? "rotate-180" : "rotate-0"
-                    }`}
+                  className={`text-4xl font-[100] transition-transform duration-300 ${
+                    toggleStates.div2 ? "rotate-180" : "rotate-0"
+                  }`}
                 />
               </div>
               {toggleStates.div2 && (
                 <div className="p-4">
                   <p className="text-[14px] lg:text-[16px]">
-                  Please select your size based on your chest measurement for the best fit For example, if your bust measurement is 34 inches, we recommend selecting the SMALL-34 SIZE, our small size already includes some extra ease for a comfortable fit for Chest size 34.
+                    Please select your size based on your chest measurement for
+                    the best fit For example, if your bust measurement is 34
+                    inches, we recommend selecting the SMALL-34 SIZE, our small
+                    size already includes some extra ease for a comfortable fit
+                    for Chest size 34.
                   </p>
                   {/* <p className="text-[14px] lg:text-[16px]">
                     Material: {product.material ? product.material : "N/A"}
@@ -502,8 +510,9 @@ const SingleProduct = () => {
                   Shipping & Returns
                 </h1>
                 <RiArrowDropDownLine
-                  className={`text-4xl font-[100] transition-transform duration-300 ${toggleStates.div3 ? "rotate-180" : "rotate-0"
-                    }`}
+                  className={`text-4xl font-[100] transition-transform duration-300 ${
+                    toggleStates.div3 ? "rotate-180" : "rotate-0"
+                  }`}
                 />
               </div>
               {toggleStates.div3 && (

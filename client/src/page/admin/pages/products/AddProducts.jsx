@@ -280,7 +280,7 @@ const AddProducts = () => {
               <p className="admin-label">Amount</p>
               <input
                 type="number"
-                placeholder="Type product name here"
+                placeholder="Type product Price here"
                 className="admin-input"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}

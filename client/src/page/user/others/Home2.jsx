@@ -14,6 +14,7 @@ import MakeUrStyle from "@/components/Home/MakeUrStyle";
 import FlashSale from "@/components/Home/FlashSale";
 import LookBook from "@/components/Home/LookBook";
 import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
+import ShopCategories from "@/components/Others/ShopCatogories";
 // import ShopCategories from "@/components/Others/ShopCatogories";
 
 
@@ -36,6 +37,7 @@ export default function Home2() {
     <>
     {/* <ShopCategories/> */}
     {/* <CarouselTextSlider/> */}
+    <ShopCategories />
     <WhatsAppFloatingButton/>
     <div className="py-10  max-md:py-0 ">
     <ImageSlider images={images} hideArrows={false}  className="py-0 sm:py-10 h-screen" />

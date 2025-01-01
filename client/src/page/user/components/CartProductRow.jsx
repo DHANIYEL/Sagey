@@ -65,7 +65,7 @@ const CartProductRow = ({ item, isLast, toggleProductConfirm }) => {
         </div>
       </td>
       <td className="cart-table-row">
-        {item.product.price + item.product.markup}
+        {item.product.price }
       </td>
       <td className="cart-table-row w-36">
         {countLoading ? (
@@ -79,7 +79,7 @@ const CartProductRow = ({ item, isLast, toggleProductConfirm }) => {
         )}
       </td>
       <td className="cart-table-row">
-        {(item.product.price + item.product.markup) * item.quantity}
+        {(item.product.price ) * item.quantity}
       </td>
       <td>
         <div

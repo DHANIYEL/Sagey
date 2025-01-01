@@ -34,7 +34,7 @@ export const commonReduxRequest = async (
 
   try {
     const response = await apiInstance(requestConfig);
-
+    console.log(response)
     return response;
   } catch (error) {
     console.log(error);

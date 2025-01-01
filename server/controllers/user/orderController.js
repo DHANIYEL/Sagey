@@ -153,7 +153,7 @@ const createOrder = async (req, res) => {
 
     // Calculate the total sum and quantity
     cart.items.forEach((item) => {
-      sum = sum + (item.product.price + item.product.markup) * item.quantity;
+      sum = sum + (item.product.price ) * item.quantity;
       totalQuantity = totalQuantity + item.quantity;
     });
 
@@ -168,7 +168,7 @@ const createOrder = async (req, res) => {
     const products = cart.items.map((item) => ({
       productId: item.product._id,
       quantity: item.quantity,
-      totalPrice: item.product.price + item.product.markup,
+      totalPrice: item.product.price ,
       price: item.product.price,
       markup: item.product.markup || 0,
       attributes: item.attributes, // Include attributes here

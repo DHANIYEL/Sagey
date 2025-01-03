@@ -15,7 +15,7 @@ app.use(logger("dev"));
 
 const corsOptions = {
   // origin: ["https://sagey.in", "https://www.sagey.in"],
-   origin:  [ "http://localhost:5173","https://sagey.in", "https://www.sagey.in"],
+   origin: "http://localhost:5173",
   credentials: true, // Allow cookies
   optionsSuccessStatus: 200, // Response for preflight requests
 };

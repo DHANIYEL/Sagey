@@ -25,7 +25,6 @@ const AddressEdit = ({ closeToggle, address }) => {
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
-    companyName: Yup.string(),
     address: Yup.string().required("Required"),
     country: Yup.string().required("Required"),
     regionState: Yup.string().required("Required"),
@@ -68,12 +67,6 @@ const AddressEdit = ({ closeToggle, address }) => {
               name="lastName"
               placeholder="Your last name"
               title="Last Name"
-            />
-            <InputType
-              name="companyName"
-              placeholder="Your company name"
-              title="Company Name"
-              optional={true}
             />
           </div>
           <InputType name="address" placeholder="" title="Address" />

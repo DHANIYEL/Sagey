@@ -81,9 +81,9 @@ UserSchema.statics.signup = async function (
     throw Error("Email is not valid");
   }
 
-  if (validator.isStrongPassword(password)) {
-    throw Error("Password is not strong enough");
-  }
+  // if (validator.isStrongPassword(password)) {
+  //   throw Error("Password is not strong enough");
+  // }
 
   // Checking if the email is already registered.
   const exists = await this.findOne({ email });
@@ -150,9 +150,9 @@ UserSchema.statics.changePassword = async function (
     throw Error("Password doesn't match");
   }
 
-  if (!validator.isStrongPassword(password)) {
-    throw Error("Password is not strong enough");
-  }
+  // if (!validator.isStrongPassword(password)) {
+  //   throw Error("Password is not strong enough");
+  // }
   const exists = await this.findOne({ _id });
   if (!exists) {
     throw Error("Cannot find email");

@@ -14,8 +14,14 @@ app.use(express.json());
 app.use(logger("dev"));
 
 const corsOptions = {
-  // origin: ["https://sagey.in", "https://www.sagey.in"],
-   origin: "http://localhost:5173",
+  origin: (origin, callback) => {
+    const allowedOrigins = ["https://sagey.in", "https://www.sagey.in", "http://localhost:5173"];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the origin
+    } else {
+      callback(new Error("Not allowed by CORS")); // Reject the origin
+    }
+  },
   credentials: true, // Allow cookies
   optionsSuccessStatus: 200, // Response for preflight requests
 };

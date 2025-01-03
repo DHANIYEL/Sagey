@@ -145,9 +145,9 @@ const newPassword = async (req, res) => {
       throw Error("Invalid Email");
     }
 
-    if (!validator.isStrongPassword(password)) {
-      throw Error("Password is not Strong enough");
-    }
+    // if (!validator.isStrongPassword(password)) {
+    //   throw Error("Password is not Strong enough");
+    // }
 
     if (password !== passwordAgain) {
       throw Error("Passwords are not same");

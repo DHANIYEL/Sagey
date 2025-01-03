@@ -30,7 +30,7 @@ const Address = ({ closeToggle }) => {
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
-    companyName: Yup.string(),
+    companyName: Yup.string().required("Required"),
     address: Yup.string().required("Required"),
     country: Yup.string().required("Required"),
     regionState: Yup.string().required("Required"),
@@ -91,7 +91,6 @@ const Address = ({ closeToggle }) => {
                 name="companyName"
                 placeholder="Your company name"
                 title="Company Name"
-                optional={true}
               />
             </div>
             <InputType name="address" placeholder="" title="Address" />
@@ -112,7 +111,6 @@ const Address = ({ closeToggle }) => {
                 name="companyName"
                 placeholder="Your company name"
                 title="Company Name"
-                optional={true}
               />
             </div>
             <div className="lg:flex gap-5 justify-stretch">

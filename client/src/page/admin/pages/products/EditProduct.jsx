@@ -114,27 +114,27 @@ const EditProduct = () => {
   };
 
 
-  const handleDeleteProduct = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.delete(`${URL}/admin/product/${id}`, {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        toast.success("Product deleted successfully");
-        // Optionally, you can redirect or update the UI after the product is deleted
-        // e.g., navigate to another page or update the state
-      }
-      setTimeout(() => {
-        navigate(-1);
-      }, 500);
-    } catch (error) {
-      toast.error("Failed to delete product");
-    } finally {
-      setLoading(false);
-      setShowConfirm(false); // Hide the confirmation dialog after deletion attempt
-    }
-  };
+  // const handleDeleteProduct = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.delete(`${URL}/admin/product/${id}`, {
+  //       withCredentials: true,
+  //     });
+  //     if (response.status === 200) {
+  //       toast.success("Product deleted successfully");
+  //       // Optionally, you can redirect or update the UI after the product is deleted
+  //       // e.g., navigate to another page or update the state
+  //     }
+  //     setTimeout(() => {
+  //       navigate(-1);
+  //     }, 500);
+  //   } catch (error) {
+  //     toast.error("Failed to delete product");
+  //   } finally {
+  //     setLoading(false);
+  //     setShowConfirm(false); // Hide the confirmation dialog after deletion attempt
+  //   }
+  // };
 
   const handleSave = () => {
     const formData = new FormData();
@@ -243,7 +243,7 @@ const EditProduct = () => {
             />
           </div>
           <div className="flex gap-3">
-          <button
+          {/* <button
               className="admin-button-fl bg-red-500 text-white"
               onClick={() => setIsModalOpen(true)}
             >
@@ -258,7 +258,7 @@ const EditProduct = () => {
               descriptionText="Are you sure you want to delete this product? This action cannot be undone."
               confirmButtonText="Delete"
               cancelButtonText="Cancel"
-            />
+            /> */}
             <button
               className="admin-button-fl bg-gray-200 text-blue-700"
               onClick={() => navigate(-1)}

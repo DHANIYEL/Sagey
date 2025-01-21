@@ -133,7 +133,7 @@ const Navbar = () => {
   return (
     <header className="border-b">
       <CarouselTextSlider/>
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-4 mb-5">
         <div className="flex items-center justify-between gap-4">
           {/* Logo and Search Bar */}
           <div className="flex items-center gap-8 flex-1">
@@ -271,7 +271,7 @@ const Navbar = () => {
       </div>
       {window.location.pathname === "/" && (
         <div className="w-full flex justify-center items-center relative">
-          <nav className=" hidden lg:block py-3  w-[100vw] bg-primary">
+          <nav className=" hidden  py-3  w-[100vw] bg-primary">
             <ul className="flex gap-8 px-4 justify-center items-center">
             {categories.map((category, index) => (
                 <li

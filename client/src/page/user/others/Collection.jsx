@@ -299,10 +299,10 @@ const Collections = () => {
                   </button>
                   <span className="mx-4">{page}</span>
                   <button
-                    className={`px-4 py-2 border rounded ${
+                    className={`px-4 py-2 border border-[#156272] rounded ${
                       userProducts.length === 0
                         ? "text-gray-400 border-gray-400 cursor-not-allowed"
-                        : "text-blue-600 border-blue-600"
+                        : "text-[#156272] border-[#156272]"
                     }`}
                     onClick={() =>
                       userProducts.length > 0 && handleClick("page", page + 1)

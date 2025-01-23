@@ -276,9 +276,9 @@ const SingleProduct = () => {
               navigate(`/collections?category=${product.category._id}`)
             }
           >
-            {product.category && product.category.name + "    "}
+            {product.category && product.category.name + "   "}
           </span>
-          <span>{" -> "}</span>
+          <span>{" / "}</span>
           <span className="hover:text-[#166272] ml-2 text-sm">
             {product.name}
           </span>

@@ -353,7 +353,7 @@ const SingleProduct = () => {
                           {values.map(({ value }, valueIndex) => (
                             <p
                               key={valueIndex}
-                              className={`py-2 my-2 px-10 cursor-pointer 
+                              className={`py-2 my-2 px-10 text-center cursor-pointer 
                                     transition-colors duration-300 
                                     ${
                                       selectedAttributes[name] === value

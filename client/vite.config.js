@@ -11,4 +11,9 @@ export default defineConfig({
       "@redux": path.resolve(__dirname, "./src/redux"),
     },
   },
+  build: {
+    rollupOptions: {
+      external: ['browser-image-compression'],
+    },
+  },
 });

@@ -12,6 +12,8 @@ import { getCategories } from "../../../../redux/actions/admin/categoriesAction"
 import { URL } from "@common/api";
 import toast from "react-hot-toast";
 import LogoutConfirmation from "@/components/LogoutConfimationModal";
+import imageCompression from "browser-image-compression";
+
 
 
 const EditProduct = () => {
@@ -136,15 +138,16 @@ const EditProduct = () => {
   //   }
   // };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const formData = new FormData();
-
+  
+    // Iterate over fetchedData to check for changes and prepare formData
     for (const key in fetchedData) {
       if (duplicateFetchData[key] !== fetchedData[key]) {
         if (key === "attributes") {
           formData.append("attributes", JSON.stringify(fetchedData.attributes));
         } else if (key === "moreImageURL") {
-          // Append existing images first
+          // Append existing images
           fetchedData[key].forEach((item) => {
             formData.append("moreImageURL", item);
           });
@@ -153,20 +156,36 @@ const EditProduct = () => {
         }
       }
     }
-
-    // Add new images to formData
-    if (newMoreImage.length > 0) {
-      for (const file of newMoreImage) {
-        formData.append("moreImageURL", file); // Append new images
+  
+    // Compression settings for 500 KB
+    const compressionOptions = {
+      maxSizeMB: 0.5, // Maximum file size (500 KB)
+      maxWidthOrHeight: 800, // Resize the image if width/height exceeds 800px
+      useWebWorker: true, // Use web worker for better performance
+    };
+  
+    try {
+      // Compress and append new images
+      if (newMoreImage.length > 0) {
+        for (const file of newMoreImage) {
+          const compressedFile = await imageCompression(file, compressionOptions);
+          formData.append("moreImageURL", compressedFile);
+        }
       }
+  
+      // Compress and append the thumbnail image
+      if (newThumb) {
+        const compressedThumb = await imageCompression(newThumb, compressionOptions);
+        formData.append("imageURL", compressedThumb);
+      }
+  
+      // Dispatch the update product action
+      dispatch(updateProduct({ id: id, formData: formData }));
+      navigate(-1);
+    } catch (error) {
+      console.error("Image compression error:", error);
+      toast.error("Failed to compress images. Please try again.");
     }
-
-    if (newThumb) {
-      formData.append("imageURL", newThumb);
-    }
-
-    dispatch(updateProduct({ id: id, formData: formData }));
-    navigate(-1);
   };
 
   const [attributeName, setAttributeName] = useState("");

@@ -349,11 +349,11 @@ const SingleProduct = () => {
                         <p className="font-semibold text-white-500 text-sm mb-1">
                           {name.toUpperCase()}{" "}
                         </p>
-                        <div className="flex space-x-2">
+                        <div className="grid max-md:grid-cols-3 max-sm:grid-cols-2 grid-cols-4 gap-2">
                           {values.map(({ value }, valueIndex) => (
                             <p
                               key={valueIndex}
-                              className={`py-2 my-2 px-10  cursor-pointer 
+                              className={`py-2 my-2 px-10 cursor-pointer 
                                     transition-colors duration-300 
                                     ${
                                       selectedAttributes[name] === value

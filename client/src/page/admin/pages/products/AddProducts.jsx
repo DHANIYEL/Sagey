@@ -9,6 +9,8 @@ import ConfirmModal from "../../../../components/ConfirmModal";
 import BreadCrumbs from "../../Components/BreadCrumbs";
 import toast from "react-hot-toast";
 import { getCategories } from "../../../../redux/actions/admin/categoriesAction";
+import imageCompression from "browser-image-compression";
+
 
 const AddProducts = () => {
   const dispatch = useDispatch();
@@ -51,41 +53,55 @@ const AddProducts = () => {
     setMoreImageURL(files);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     var newStockQuantity = stockQuantity;
     if (stockQuantity <= 0) {
       newStockQuantity = 100;
-      // toast.error("Quantity Should be greater than 0");
-      // return;
     }
     if (price <= 0) {
       toast.error("Price Should be greater than 0");
       return;
     }
-    // if (markup <= 0) {
-    //   toast.error("Markup Should be greater than 0");
-    //   return;
-    // }
-
+  
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
     formData.append("stockQuantity", newStockQuantity);
     formData.append("attributes", JSON.stringify(attributes));
     formData.append("price", price);
-    // formData.append("markup", markup);
     formData.append("category", category);
     formData.append("offer", offer);
     formData.append("status", status.toLowerCase());
 
-    formData.append("imageURL", imageURL);
-
-    for (const file of moreImageURL) {
-      formData.append("moreImageURL", file);
+  
+    try {
+      // Compress the main image
+      const compressedImageURL = await imageCompression(imageURL, {
+        maxSizeMB: 0.5, // Maximum file size (1 MB)
+        maxWidthOrHeight: 800, // Maximum width or height
+        useWebWorker: true, // Use a web worker for better performance
+      });
+      formData.append("imageURL", compressedImageURL);
+  
+      // Compress additional images
+      for (const file of moreImageURL) {
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 0.5,
+          maxWidthOrHeight: 800,
+          useWebWorker: true,
+        });
+        formData.append("moreImageURL", compressedFile);
+      }
+      formData.forEach((key, value)=>{
+        console.log(key, value);
+      })
+  
+      dispatch(createProduct(formData));
+      navigate(-1);
+    } catch (error) {
+      console.error("Image compression error:", error);
+      toast.error("Failed to compress images. Please try again.");
     }
-
-    dispatch(createProduct(formData));
-    navigate(-1);
   };
 
   const [attributeName, setAttributeName] = useState("");

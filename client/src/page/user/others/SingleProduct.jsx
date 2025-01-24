@@ -70,6 +70,7 @@ const SingleProduct = () => {
         withCredentials: true,
       });
       if (data) {
+        console.log(data)
         setProduct(data.product);
         console.log("data.product", data.product);
         setLoading(false);
@@ -262,7 +263,6 @@ const SingleProduct = () => {
     : [product.imageURL];
 
   const isOutOfStock = product.stockQuantity === 0;
-  console.log(product.stockQuantity)
   return (
     <div className="w-full flex flex-col justify-start items-center">
       <div className="container w-full flex my-6 mx-auto px-4 lg:px-auto">
@@ -313,17 +313,17 @@ const SingleProduct = () => {
               <h1 className="text-[25px] xl:text-[30px] font-[500] font-Inter text-[#2C2C2C] ">
                 ₹{product.price}
               </h1>
-              {product.offer && (
+              {product.markup && (
                 <>
                   <span className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#949494] ml-3 ">
                     MRP
                   </span>
-                  <h1 className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#949494] ml-3 line-through">
-                    ₹{parseInt(product.price / (1 - product.offer / 100))}
+                  <h1 className="text-[25px]  xl:text-[30px] font-[400] font-Inter text-[#CC4254] ml-3 line-through">
+                    ₹{product.markup}
                   </h1>
-                  <div className="ml-3 px-2 w-auto h-auto md:ml-4 rounded-[2px] text-[#CC4254] text-[20px] font-[400] flex justify-center items-center">
-                    {product.offer}% OFF
-                  </div>
+                  {/* <div className="ml-3 px-2 w-auto h-auto md:ml-4 rounded-[2px] text-[#CC4254] text-[20px] font-[400] flex justify-center items-center">
+                    {product.markup}% OFF
+                  </div> */}
                 </>
               )}
             </div>

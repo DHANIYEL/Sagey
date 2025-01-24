@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom"
 
 const ProductCard2 = ({ product }) => {
   const navigate = useNavigate()
-  const originalPrice = product.offer
-    ? Math.round(product.price / (1 - product.offer / 100))
-    : product.price
+  const originalPrice = product.markup || 0 // Use product.markup if it exists, otherwise default to 0
+
   return (
     <div
       onClick={() => navigate(`/product/${product._id}`)}
@@ -26,13 +25,21 @@ const ProductCard2 = ({ product }) => {
           {product.description || "Contrary To Popular Belief, Lorem Ipsum Is Not Simply Random Text."}
         </p>
         <div className="flex items-center gap-2">
-          <span className="text-lg font-semibold line-through">
-            ₹{originalPrice.toLocaleString()}
-          </span>
-          <span className="text-sm text-gray-500">From</span>
-          <span className="text-lg font-semibold text-red-500">
-            ₹{product.price.toLocaleString()}
-          </span>
+          {originalPrice > 0 ? (
+            <>
+              <span className="text-lg font-semibold line-through">
+                ₹{originalPrice}
+              </span>
+              <span className="text-sm text-gray-500">From</span>
+              <span className="text-lg font-semibold text-red-500">
+                ₹{product.price.toLocaleString()}
+              </span>
+            </>
+          ) : (
+            <span className="text-lg font-semibold text-red-500">
+              ₹{product.price.toLocaleString()}
+            </span>
+          )}
         </div>
       </div>
     </div>
@@ -40,4 +47,3 @@ const ProductCard2 = ({ product }) => {
 }
 
 export default ProductCard2
-

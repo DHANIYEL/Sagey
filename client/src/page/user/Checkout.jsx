@@ -155,7 +155,7 @@ const Checkout = () => {
       key: key,
       amount: parseInt(finalTotal * 100),
       currency: "INR",
-      name: "Helah",
+      name: "Sagey",
       description: "Test Transaction",
       image: `${URL}/off/logo.png`,
       order_id: order.id,

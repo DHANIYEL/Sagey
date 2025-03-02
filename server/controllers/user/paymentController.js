@@ -20,6 +20,11 @@ const createRazerPayOrder = async (req, res) => {
     //   key_secret: "XC7OoPHDCgwWEBwneuvFiwGe",
     // });
 
+    // const instance = new RazorPay({
+    //   key_id: "rzp_live_SpncJo5LMNeedb",
+    //   key_secret: "XC7OoPHDCgwWEBwneuvFiwGe",
+    // });
+
     const options = {
       amount: amount,
       currency: "INR",

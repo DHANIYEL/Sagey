@@ -56,27 +56,27 @@ function Footer() {
             <h4 className="text-lg font-extrabold mb-4">SUPPORT</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/contact-us" className="hover:text-gray-400 transition-colors">
+                <a href="https://merchant.razorpay.com/policy/PRQK3TlSD5UcOp/contact_us" className="hover:text-gray-400 transition-colors">
                   CONTACT US
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
-                   PRODUCT AND SHIPPING POLICY
+                <a href="https://merchant.razorpay.com/policy/PRQK3TlSD5UcOp/shipping" className="hover:text-gray-400 transition-colors">
+                  SHIPPING POLICY
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
+                <a href="https://merchant.razorpay.com/policy/PRQK3TlSD5UcOp/refund" className="hover:text-gray-400 transition-colors">
                   REFUND AND CANCELLATION
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
-                  POLICY
+                <a href="https://merchant.razorpay.com/policy/PRQK3TlSD5UcOp/privacy" className="hover:text-gray-400 transition-colors">
+                PRIVACY POLICY
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-gray-400 transition-colors">
+                <a href="https://merchant.razorpay.com/policy/PRQK3TlSD5UcOp/terms" className="hover:text-gray-400 transition-colors">
                   TERMS AND CONDITIONS
                 </a>
               </li>

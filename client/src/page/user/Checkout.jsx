@@ -156,8 +156,8 @@ const Checkout = () => {
       amount: parseInt(finalTotal * 100),
       currency: "INR",
       name: "Sagey",
-      description: "Test Transaction",
-      image: `${URL}/off/logo.png`,
+      // description: "Test Transaction",
+      // image: `${URL}/off/logo.png`,
       order_id: order.id,
       handler: function (response) {
         saveOrder(response);
